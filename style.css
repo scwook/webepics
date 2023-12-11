@@ -55,8 +55,11 @@
         fill: #e94174;
     }
 
-    #widgetContainer {
+    .widgetContainer{
       width: 100px;
       height:100px;
       background-color: #979797;
+      border-width: 0px;
+      border-color: white;
+      border-style: dashed;
     }

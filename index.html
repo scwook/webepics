@@ -5,15 +5,15 @@
 <body>
     <div id="container">
         <label class="custom-radio-button__container">
-            <input type="radio" name="radio" value="first" checked>
-            <span class="custom-radio-button designer">
+            <input type="radio" name="radio" value="first" onclick="widgetSelect(this)" checked>
+            <span class="custom-radio-button">
                 <svg class="svg-designer" width="60" height="60">
                     <rect width="50" height="50" />
                 </svg>
             </span>
         </label>
         <label class="custom-radio-button__container">
-            <input type="radio" name="radio" value="second">
+            <input type="radio" name="radio" value="second" onclick="widgetSelect(this)">
             <span class="custom-radio-button">
                 <svg class="svg-developer" width="60" height="60">
                     <rect width="50" height="50" />
@@ -21,18 +21,79 @@
             </span>
         </label>
 
-        <div id="widgetContainer" onmouseenter="widgetContainerMouseEnter(this)"
+        <button type="button" onclick="selectMode()">EDIT</button>
+
+        <div class="widgetContainer"></div>
+        <div class="widgetContainer"></div>
+        <div class="widgetContainer"></div>
+        <div class="widgetContainer"></div>
+
+        <!-- <div class="widgetContainer" onmouseenter="widgetContainerMouseEnter(this)"
             onmouseleave="widgetContainerMouseLeave(this)" onclick="widgetContainerOnClick(this)">
-
-        </div>
+        </div> -->
     </div>
-
 </body>
 
 <script>
-    function widgetContainerMouseEnter(id) {
-        console.log(id);
+    var editMode = false;
+    var monitoring = [false, false, true, false];
+    var editIndex = [];
 
+    function selectMode() {
+        if (editMode) {
+            exitEditMode();
+            editMode = false;
+            console.log("exit mode")
+        }
+        else {
+            enterEditMode();
+            editMode = true;
+            console.log("edit mode");
+        }
+    }
+
+    function enterEditMode() {
+        let idx = -1;
+        while (true) {
+            idx = monitoring.indexOf(false, idx + 1);
+            if (idx == -1) break;
+
+            editIndex[editIndex.length] = idx;
+        }
+
+        var widgetConatiner = document.getElementsByClassName("widgetContainer");
+        for (let x in editIndex) {
+            widgetConatiner[editIndex[x]].addEventListener("click", function () { widgetContainerOnClick(this) });
+            widgetConatiner[editIndex[x]].addEventListener("mouseenter", function () { widgetContainerMouseEnter(this) });
+            widgetConatiner[editIndex[x]].addEventListener("mouseleave", function () { widgetContainerMouseLeave(this) });
+        }
+    }
+
+    function exitEditMode() {
+        var widgetConatiner = document.getElementsByClassName("widgetContainer");
+        for (let i = 0; i < widgetConatiner.length; i++) {
+            widgetConatiner[i].replaceWith(widgetConatiner[i].cloneNode(true));
+        }
+    }
+
+    // function createClickEvent() {
+    //     var widgetConatiner1 = document.getElementById("widgetContainer1");
+    //     widgetContainerOnClick(widgetConatiner1);
+    // }
+
+    // function createMouseEnterEvent() {
+
+    // }
+
+    // function createMouseLeaveEvent() {
+
+    // }
+
+    function widgetSelect(id) {
+        console.log("selected");
+    }
+
+    function widgetContainerMouseEnter(id) {
         var widgetContainer = document.getElementById("container");
         var selectedWidget = widgetContainer.querySelector("input[type=radio]:checked").value;
 
@@ -43,7 +104,6 @@
             case "second":
                 id.style.backgroundColor = "green";
                 break;
-
         }
     }
 
@@ -51,8 +111,13 @@
         id.style.backgroundColor = "gray";
     }
 
+    var svgSample = '<svg width="100" height="100"><circle cx="50" cy="50" r="40" stroke="green" stroke-width="4" fill="yellow" /></svg>'
     function widgetContainerOnClick(id) {
         console.log("click");
+        id.innerHTML = svgSample;
+
+        id.removeEventListener("click", widgetContainerOnClick);
+
     }
 </script>
 
