@@ -1,148 +1,195 @@
 <!DOCTYPE html>
-<html>
-<link rel="stylesheet" type="text/css" href="style.css">
+<html lang="en">
+<link rel="stylesheet" type="text/css" href="index.css">
 
 <body>
-    <div id="container">
-        <label class="custom-radio-button__container">
-            <input type="radio" name="radio" value="first" onclick="widgetSelect(this)" checked>
-            <span class="custom-radio-button">
-                <svg class="svg-designer" width="60" height="60">
-                    <rect width="50" height="50" />
-                </svg>
-            </span>
-        </label>
-        <label class="custom-radio-button__container">
-            <input type="radio" name="radio" value="second" onclick="widgetSelect(this)">
-            <span class="custom-radio-button">
-                <svg class="svg-developer" width="60" height="60">
-                    <rect width="50" height="50" />
-                </svg>
-            </span>
-        </label>
+    <div style="margin:auto; position: relative; width:1920px; height:80px;">
+        <div id="time-stamp"><span id="timestamp-date"></span><span id="timestamp-time"></span></div>
+        <div id="raon-box">
+            <svg>
+                <circle class="raonLogo" cx="7.7854" cy="7.7854" r="7.7854" />
+                <path class="raonLogo"
+                    d="M275.5951,237.9206a14.4381,14.4381,0,1,0,14.2967,14.4365A14.3676,14.3676,0,0,0,275.5951,237.9206Zm0,23.2125a8.78,8.78,0,1,1,8.4931-8.776A8.6381,8.6381,0,0,1,275.5951,261.1331Z"
+                    transform="translate(-183.5864 -232.9662)" />
+                <rect class="raonLogo" x="56.9286" y="22.2218" width="14.5315" height="4.8127" />
+                <path class="raonLogo"
+                    d="M248.2542,246.69l-1.1207,2.8376-7.4978,16.9841h-6.2232l12.2847-26.9313a2.8321,2.8321,0,0,1,5.1564,0l12.2848,26.9313h-6.223l-7.498-16.9841-1.1208-2.8376Z"
+                    transform="translate(-183.5864 -232.9662)" />
+                <path class="raonLogo"
+                    d="M298.3774,239.0425a2.8313,2.8313,0,0,0-5.0884,1.7091v25.76h5.6621V252.357l-.0282-4.2446h.0282l3.0654,4.2446,10.2483,13.3162a2.831,2.831,0,0,0,5.0882-1.7089v-25.76h-5.6621V252.357l.0282,4.2465h-.0282l-3.0654-4.2465Z"
+                    transform="translate(-183.5864 -232.9662)" />
+                <path class="raonLogo"
+                    d="M222.4547,252.1667l5.0127,5.4524,7.65,8.8929h-7.5081l-11.1726-13.7666a1.2554,1.2554,0,0,1-.293-.8124,1.2734,1.2734,0,0,1,1.2739-1.2731h7.6439a3.68,3.68,0,1,0,0-7.36H191.3717a2.5479,2.5479,0,0,1,0-5.0957h34.2555a8.8478,8.8478,0,0,1,8.9178,8.7761,8.6837,8.6837,0,0,1-2.8308,6.4122,8.7967,8.7967,0,0,1-6.2992,2.15"
+                    transform="translate(-183.5864 -232.9662)" />
+            </svg>
+        </div>
+        <div id="accelerator-control">CS</div>
+        <button type="button" onclick="modeChange()">Mode</button>
+        <button id="createButton" type="button" onclick="createNewMonitor()">New</button>
+    </div>
 
-        <button type="button" onclick="selectMode()">EDIT</button>
-        <button id="createButton" type="button" onclick="createNewMonitoring()">ADD</button>
-        <!-- <button id="removeButton" type="button" onclick="removeMonitoring()">Remove</button> -->
 
-        <div id="monitoringContainer"></div>
+    <div class="body-box">
+        <button class="slide-button" onclick="changePage(-1)">&#10094;</button>
 
-        <!-- <div class="widgetContainer" onmouseenter="widgetContainerMouseEnter(this)"
-            onmouseleave="widgetContainerMouseLeave(this)" onclick="widgetContainerOnClick(this)">
-        </div> -->
+        <div class="monitoring-body">
+            <div id="monitoringContainer" class="monitoring-container">
+                <!-- <div class="monitoring-item type1"></div> -->
+
+            </div>
+            <!-- Page 1 -->
+            <!-- <div class="slide-page" style="display: block;">
+
+            </div> -->
+            <!-- Page 2 -->
+            <!-- <div class="slide-page" style="display: none;">
+
+            </div> -->
+        </div>
+
+        <button class="slide-button" onclick="changePage(1)">&#10095;</button>
+
     </div>
 </body>
 
 <script>
-    var editMode = false;
+    var isEditMode = false;
 
-    function selectMode() {
-        if (editMode) {
-            exitEditMode();
-            editMode = false;
+    window.onload = function () {
+
+        // Page 1 
+
+        // Page 2
+
+
+    }
+
+    function modeChange() {
+        if (isEditMode) {
+            monitoringMode();
+            isEditMode = false;
             console.log("monitoring mode")
         }
         else {
-            enterEditMode();
-            editMode = true;
+            editMode();
+            isEditMode = true;
             console.log("edit mode");
         }
     }
 
-    function enterEditMode() {
+    function editMode() {
 
-        var widgetConatiner = document.getElementsByClassName("widgetContainer");
-        for (let i = 0; i < widgetConatiner.length; i++) {
-            if (widgetConatiner[i].childElementCount == 1) {
-                widgetConatiner[i].addEventListener("click", function () { widgetContainerOnClick(this) });
-                widgetConatiner[i].addEventListener("mouseenter", function () { widgetContainerMouseEnter(this) });
-                widgetConatiner[i].addEventListener("mouseleave", function () { widgetContainerMouseLeave(this) });
-                widgetConatiner[i].style.borderWidth = "2px";
+        var monitoringItemClass = document.getElementsByClassName("monitoring-item");
+        for (let i = 0; i < monitoringItemClass.length; i++) {
+            if (monitoringItemClass[i].childElementCount == 1) {
+                monitoringItemClass[i].addEventListener("click", function () { itemOnClick(this) });
+                monitoringItemClass[i].addEventListener("mouseenter", function () { itemMouseEnter(this) });
+                monitoringItemClass[i].addEventListener("mouseleave", function () { itemMouseLeave(this) });
+                monitoringItemClass[i].style.borderWidth = "2px";
             }
         }
 
         document.getElementById("createButton").style.visibility = "visible";
-        var removeButtonClass = document.getElementsByClassName("removeButton");
+        var removeButtonClass = document.getElementsByClassName("deleteButton");
         for (let i = 0; i < removeButtonClass.length; i++) {
             removeButtonClass[i].style.visibility = "visible";
         }
     }
 
-    function exitEditMode() {
+    function monitoringMode() {
         document.getElementById("createButton").style.visibility = "hidden";
 
-        var removeButtonClass = document.getElementsByClassName("removeButton");
+        var removeButtonClass = document.getElementsByClassName("deleteButton");
         for (let i = 0; i < removeButtonClass.length; i++) {
             removeButtonClass[i].style.visibility = "hidden";
         }
 
-        var widgetConatiner = document.getElementsByClassName("widgetContainer");
-        for (let i = 0; i < widgetConatiner.length; i++) {
-            widgetConatiner[i].replaceWith(widgetConatiner[i].cloneNode(true));
-            widgetConatiner[i].style.borderWidth = "0px";
+        var monitoringItemClass = document.getElementsByClassName("monitoring-item");
+        for (let i = 0; i < monitoringItemClass.length; i++) {
+            monitoringItemClass[i].replaceWith(monitoringItemClass[i].cloneNode(true));
+            monitoringItemClass[i].style.borderWidth = "0px";
         }
     }
 
-    function widgetSelect(id) {
-        console.log("selected");
-    }
-
-    function widgetContainerMouseEnter(id) {
-        var widgetContainer = document.getElementById("container");
-        var selectedWidget = widgetContainer.querySelector("input[type=radio]:checked").value;
-
-        switch (selectedWidget) {
-            case "first":
-                id.style.backgroundColor = "red";
-                break;
-            case "second":
-                id.style.backgroundColor = "green";
-                break;
-        }
-    }
-
-    function widgetContainerMouseLeave(id) {
-        id.style.backgroundColor = "gray";
-    }
-
-    var svgSample = '<svg width="50" height="50"><circle cx="50" cy="50" r="40" stroke="green" stroke-width="4" fill="yellow" /></svg>'
-    function widgetContainerOnClick(id) {
-        console.log("click");
-        id.innerHTML = svgSample;
-
-        // id.removeEventListener("click", widgetContainerOnClick);
-
-    }
-
-    function createNewMonitoring() {
-        const removeButton = document.createElement("button");
-        removeButton.classList.add('removeButton');
-        removeButton.innerText = document.getElementsByClassName("widgetContainer").length;
-        removeButton.addEventListener("click", function () { removeMonitoring(childNode) });
+    function createNewMonitor() {
+        const deleteButton = document.createElement("button");
+        deleteButton.classList.add('deleteButton');
+        deleteButton.innerText = document.getElementsByClassName("monitoring-item").length;
+        deleteButton.addEventListener("click", function () { deleteMonitoring(childNode) });
 
         const childNode = document.createElement("div");
-        childNode.classList.add('widgetContainer');
-        childNode.addEventListener("click", function () { widgetContainerOnClick(this) });
-        childNode.addEventListener("mouseenter", function () { widgetContainerMouseEnter(this) });
-        childNode.addEventListener("mouseleave", function () { widgetContainerMouseLeave(this) });
+        childNode.classList.add('monitoring-item');
+        childNode.classList.add('type1');
+        childNode.addEventListener("click", function () { itemOnClick(this) });
+        childNode.addEventListener("mouseenter", function () { itemMouseEnter(this) });
+        childNode.addEventListener("mouseleave", function () { itemMouseLeave(this) });
         childNode.style.borderWidth = "2px";
-        childNode.style.margin = "10px";
-        childNode.appendChild(removeButton);
+        // childNode.style.margin = "10px";
+        childNode.appendChild(deleteButton);
 
-        var parentNode = document.getElementById("monitoringContainer");
-        parentNode.appendChild(childNode);
+        var parentNodeID = document.getElementById("monitoringContainer");
+        parentNodeID.appendChild(childNode);
     }
 
-    function removeMonitoring(id) {
+
+    var svgSample = '<svg width="50" height="50"><circle cx="50" cy="50" r="40" stroke="green" stroke-width="4" fill="yellow" /></svg>'
+    function itemOnClick(id) {
+        const titleNode = document.createElement("div");
+        titleNode.classList.add('monitoring-title');
+        titleNode.innerText = "TEST";
+
+        id.appendChild(titleNode);
+        
+        // console.log("click");
+        // id.innerHTML = svgSample;
+        // id.removeEventListener("click", widgetContainerOnClick);
+
+
+
+    }
+
+    function itemMouseEnter(id) {
+        id.style.backgroundColor = "rgba(26,26,26,0.8)";
+
+        // var widgetContainer = document.getElementById("container");
+        // var selectedWidget = widgetContainer.querySelector("input[type=radio]:checked").value;
+
+        // switch (selectedWidget) {
+        //     case "first":
+        //         id.style.backgroundColor = "red";
+        //         break;
+        //     case "second":
+        //         id.style.backgroundColor = "green";
+        //         break;
+        //     default:
+        //         id.style.backgroundColor = "#e94174";
+
+        // }
+    }
+
+    function itemMouseLeave(id) {
+        id.style.backgroundColor = "rgba(26,26,26,0.3)";
+    }
+
+    function deleteMonitoring(id) {
         var parentNode = document.getElementById("monitoringContainer");
         if (parentNode.hasChildNodes()) {
             parentNode.removeChild(id);
-            console.log(parentNode.children);
         }
 
         // const childNode = parentNode.querySelector("div");
         // parentNode.removeChild(childNode[0]);
     }
+
+    document.addEventListener('visibilitychange', function () {
+        if (document.hidden) {
+            documentHidden = true;
+            console.log('hide');
+        } else {
+            documentHidden = false;
+            console.log('view');
+        }
+    });
 </script>
 
 </html>

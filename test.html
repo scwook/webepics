@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet" type="text/css" href="style.css">
+
+<body>
+    <div id="container">
+        <label class="custom-radio-button__container">
+            <input type="radio" name="radio" value="first" onclick="widgetSelect(this)" checked>
+            <span class="custom-radio-button">
+                <svg class="svg-designer" width="60" height="60">
+                    <rect width="50" height="50" />
+                </svg>
+            </span>
+        </label>
+        <label class="custom-radio-button__container">
+            <input type="radio" name="radio" value="second" onclick="widgetSelect(this)">
+            <span class="custom-radio-button">
+                <svg class="svg-developer" width="60" height="60">
+                    <rect width="50" height="50" />
+                </svg>
+            </span>
+        </label>
+
+        <button type="button" onclick="selectMode()">EDIT</button>
+        <button id="createButton" type="button" onclick="createNewMonitoring()">ADD</button>
+
+        <div id="monitoringContainer"></div>
+    </div>
+</body>
+
+<script>
+    var editMode = false;
+
+    function selectMode() {
+        if (editMode) {
+            exitEditMode();
+            editMode = false;
+            console.log("monitoring mode")
+        }
+        else {
+            enterEditMode();
+            editMode = true;
+            console.log("edit mode");
+        }
+    }
+
+    function enterEditMode() {
+
+        var widgetConatiner = document.getElementsByClassName("widgetContainer");
+        for (let i = 0; i < widgetConatiner.length; i++) {
+            if (widgetConatiner[i].childElementCount == 1) {
+                widgetConatiner[i].addEventListener("click", function () { widgetContainerOnClick(this) });
+                widgetConatiner[i].addEventListener("mouseenter", function () { widgetContainerMouseEnter(this) });
+                widgetConatiner[i].addEventListener("mouseleave", function () { widgetContainerMouseLeave(this) });
+                widgetConatiner[i].style.borderWidth = "2px";
+            }
+        }
+
+        document.getElementById("createButton").style.visibility = "visible";
+        var removeButtonClass = document.getElementsByClassName("removeButton");
+        for (let i = 0; i < removeButtonClass.length; i++) {
+            removeButtonClass[i].style.visibility = "visible";
+        }
+    }
+
+    function exitEditMode() {
+        document.getElementById("createButton").style.visibility = "hidden";
+
+        var removeButtonClass = document.getElementsByClassName("removeButton");
+        for (let i = 0; i < removeButtonClass.length; i++) {
+            removeButtonClass[i].style.visibility = "hidden";
+        }
+
+        var widgetConatiner = document.getElementsByClassName("widgetContainer");
+        for (let i = 0; i < widgetConatiner.length; i++) {
+            widgetConatiner[i].replaceWith(widgetConatiner[i].cloneNode(true));
+            widgetConatiner[i].style.borderWidth = "0px";
+        }
+    }
+
+    function widgetSelect(id) {
+        console.log("selected");
+    }
+
+    function widgetContainerMouseEnter(id) {
+        var widgetContainer = document.getElementById("container");
+        var selectedWidget = widgetContainer.querySelector("input[type=radio]:checked").value;
+
+        switch (selectedWidget) {
+            case "first":
+                id.style.backgroundColor = "red";
+                break;
+            case "second":
+                id.style.backgroundColor = "green";
+                break;
+        }
+    }
+
+    function widgetContainerMouseLeave(id) {
+        id.style.backgroundColor = "gray";
+    }
+
+    var svgSample = '<svg width="50" height="50"><circle cx="50" cy="50" r="40" stroke="green" stroke-width="4" fill="yellow" /></svg>'
+    function widgetContainerOnClick(id) {
+        console.log("click");
+        id.innerHTML = svgSample;
+
+        // id.removeEventListener("click", widgetContainerOnClick);
+
+    }
+
+    function createNewMonitoring() {
+        const removeButton = document.createElement("button");
+        removeButton.classList.add('removeButton');
+        removeButton.innerText = document.getElementsByClassName("widgetContainer").length;
+        removeButton.addEventListener("click", function () { removeMonitoring(childNode) });
+
+        const childNode = document.createElement("div");
+        childNode.classList.add('widgetContainer');
+        childNode.addEventListener("click", function () { widgetContainerOnClick(this) });
+        childNode.addEventListener("mouseenter", function () { widgetContainerMouseEnter(this) });
+        childNode.addEventListener("mouseleave", function () { widgetContainerMouseLeave(this) });
+        childNode.style.borderWidth = "2px";
+        childNode.style.margin = "10px";
+        childNode.appendChild(removeButton);
+
+        var parentNode = document.getElementById("monitoringContainer");
+        parentNode.appendChild(childNode);
+    }
+
+    function removeMonitoring(id) {
+        var parentNode = document.getElementById("monitoringContainer");
+        if (parentNode.hasChildNodes()) {
+            parentNode.removeChild(id);
+            console.log(parentNode.children);
+        }
+
+        // const childNode = parentNode.querySelector("div");
+        // parentNode.removeChild(childNode[0]);
+    }
+</script>
+
+</html>

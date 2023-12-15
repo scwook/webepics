@@ -1,0 +1,177 @@
+:root {
+    --background-image-top: 0px;
+}
+
+@font-face {
+    font-family: "Roboto-Thin";
+    src: url(fonts/Roboto-Thin.ttf);
+}
+
+@font-face {
+    font-family: "Roboto-Light";
+    src: url(fonts/Roboto-Light.ttf);
+}
+
+body {
+    margin: 0px;
+    background-color: black;
+    background-image: url('images/background5.png');
+    background-repeat: no-repeat;
+    background-position: center var(--background-image-top);
+    font-family: "Roboto-Thin";
+    overflow: hidden;
+}
+
+#time-stamp {
+    position: absolute;
+    width: 500px;
+    height:40px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -70%);
+    text-align: center;
+}
+
+#raon-box {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    width: 133px;
+    z-index: 100;
+}
+
+.raonLogo {
+    fill: #fff;
+}
+
+#accelerator-control {
+    position: absolute;
+    color: white;
+    width: 150px;
+    left: 160px;
+    top: 40px;
+    font-family: "Roboto-Light";
+    letter-spacing: 2px;
+    z-index: 100;
+}
+
+.body-box {
+    width: 1920px;
+    height: 980px;
+    margin: auto;
+    /* border-style: dotted; */
+    /* border-color: red; */
+}
+
+.slide-button {
+    width: 40px;
+    height: 980px;
+    font-size: 32px;
+    margin: 0px;
+    color: white;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    float: left;
+    /* border-style: dotted; */
+    /* border-color: red; */
+}
+
+.monitoring-body {
+    width: 1840px;
+    height: 980px;
+    float: left;
+    /* border-style: dotted; */
+    /* border-color: greenyellow; */
+}
+
+.monitoring-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    width: 1800px;
+    height: 960px;
+    margin: 20px;
+
+    /* border-width: 2px;
+    border-color: red;
+    border-style: dashed; */
+}
+
+.monitoring-item {
+    position: relative;
+    border-width: 0px;
+    border-color: white;
+    border-style: dashed;
+}
+
+.type1 {
+    width:260px;
+    height:260px;
+    margin:18px;
+    background-color: rgba(26,26,26,0.3);    
+}
+
+.slide-page {
+    width: 1840px;
+    height: 980px;
+    /* border-style: dotted; */
+    /* border-color: blue; */
+}
+
+#createButton {
+    visibility: hidden;
+}
+
+.deleteButton {
+    position: absolute;
+    left: 220px;
+    top: 10px;
+    width: 40px;
+    height: 40px;
+    font-size: 32px;
+    color: white;
+    background-color: transparent;
+    border: none;
+    outline: none;
+}
+
+.monitoring-title {
+    position: absolute;
+    width: 100%;
+    height: 40px;
+    color: white;
+    font-size: 30px;
+    text-align: center;
+}
+
+@keyframes animatefadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes animateleft {
+    from {
+        left: -300px;
+        opacity: 0
+    }
+    to {
+        left: 0;
+        opacity: 1
+    }
+}
+
+@keyframes animateright {
+    from {
+        right: -300px;
+        opacity: 0
+    }
+    to {
+        right: 0;
+        opacity: 1
+    }
+}
