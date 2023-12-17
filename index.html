@@ -54,6 +54,7 @@
 
 <script>
     var isEditMode = false;
+    var svgSample = '<svg width="50" height="50"><circle cx="50" cy="50" r="40" stroke="green" stroke-width="4" fill="yellow" /></svg>';
 
     window.onload = function () {
 
@@ -132,20 +133,24 @@
     }
 
 
-    var svgSample = '<svg width="50" height="50"><circle cx="50" cy="50" r="40" stroke="green" stroke-width="4" fill="yellow" /></svg>'
     function itemOnClick(id) {
+        id.innerHTML = "";
         const titleNode = document.createElement("div");
         titleNode.classList.add('monitoring-title');
-        titleNode.innerText = "TEST";
+        titleNode.innerText = "Title Text";
+
+        const valueNode = document.createElement("div");
+        valueNode.classList.add('monitoring-value');
+        valueNode.innerText = "Process Value";
+
+        // const valueNode = document.createElement('div');
+        // const textWidget = '<div style="width: 100%; height: 220px; background-color:red; font-size: 60px; text-align: center; line-height: 220px;">Value</div>';
 
         id.appendChild(titleNode);
-        
+        id.appendChild(valueNode);
         // console.log("click");
         // id.innerHTML = svgSample;
         // id.removeEventListener("click", widgetContainerOnClick);
-
-
-
     }
 
     function itemMouseEnter(id) {
