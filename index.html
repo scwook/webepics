@@ -28,7 +28,6 @@
         <button id="createButton" type="button" onclick="createNewMonitor()">New</button>
     </div>
 
-
     <div class="body-box">
         <button class="slide-button" onclick="changePage(-1)">&#10094;</button>
 
@@ -54,7 +53,6 @@
 
 <script>
     var isEditMode = false;
-    var svgSample = '<svg width="50" height="50"><circle cx="50" cy="50" r="40" stroke="green" stroke-width="4" fill="yellow" /></svg>';
 
     window.onload = function () {
 
@@ -79,78 +77,120 @@
     }
 
     function editMode() {
+        var childContainerClass = document.getElementsByClassName("child-container");
+        console.log(childContainerClass.length);
+        for (let i = 0; i < childContainerClass.length; i++) {
+            childContainerClass[i].addEventListener("click", function () { itemOnClick(this) });
+            childContainerClass[i].addEventListener("mouseenter", function () { itemMouseEnter(this) });
+            childContainerClass[i].addEventListener("mouseleave", function () { itemMouseLeave(this) });
+            childContainerClass[i].style.borderWidth = "2px";
 
-        var monitoringItemClass = document.getElementsByClassName("monitoring-item");
-        for (let i = 0; i < monitoringItemClass.length; i++) {
-            if (monitoringItemClass[i].childElementCount == 1) {
-                monitoringItemClass[i].addEventListener("click", function () { itemOnClick(this) });
-                monitoringItemClass[i].addEventListener("mouseenter", function () { itemMouseEnter(this) });
-                monitoringItemClass[i].addEventListener("mouseleave", function () { itemMouseLeave(this) });
-                monitoringItemClass[i].style.borderWidth = "2px";
-            }
+            childContainerClass[i].childNodes[0].addEventListener("click", function () { deleteMonitoring(this.parentNode) });
+        }
+
+        const subChildContainer2 = document.getElementsByClassName("subChild-container2");
+        for (let i = 0; i < subChildContainer2.length; i++) {
+            subChildContainer2[i].style.visibility = "visible";
         }
 
         document.getElementById("createButton").style.visibility = "visible";
-        var removeButtonClass = document.getElementsByClassName("deleteButton");
-        for (let i = 0; i < removeButtonClass.length; i++) {
-            removeButtonClass[i].style.visibility = "visible";
-        }
+
     }
 
     function monitoringMode() {
+        const childContainerClass = document.getElementsByClassName("child-container");
+        for (let i = 0; i < childContainerClass.length; i++) {
+            childContainerClass[i].replaceWith(childContainerClass[i].cloneNode(true));
+            childContainerClass[i].style.borderWidth = "0px";
+        }
+
+        const subChildContainer2 = document.getElementsByClassName("subChild-container2");
+        for (let i = 0; i < subChildContainer2.length; i++) {
+            subChildContainer2[i].style.visibility = "hidden";
+        }
+
         document.getElementById("createButton").style.visibility = "hidden";
 
-        var removeButtonClass = document.getElementsByClassName("deleteButton");
-        for (let i = 0; i < removeButtonClass.length; i++) {
-            removeButtonClass[i].style.visibility = "hidden";
-        }
+        // var deleteButtonClass = document.getElementsByClassName("deleteButton");
+        // for (let i = 0; i < deleteButtonClass.length; i++) {
+        //     deleteButtonClass[i].style.visibility = "hidden";
+        // }
 
-        var monitoringItemClass = document.getElementsByClassName("monitoring-item");
-        for (let i = 0; i < monitoringItemClass.length; i++) {
-            monitoringItemClass[i].replaceWith(monitoringItemClass[i].cloneNode(true));
-            monitoringItemClass[i].style.borderWidth = "0px";
-        }
+
     }
 
     function createNewMonitor() {
+        var parentContainerID = document.getElementById("monitoringContainer"); // Flex Body
+        const childContainer = document.createElement("div"); // Flex Item
+
+        childContainer.classList.add("type1");
+        childContainer.classList.add("child-container");
+        childContainer.addEventListener("click", function () { itemOnClick(this) });
+        childContainer.addEventListener("mouseenter", function () { itemMouseEnter(this) });
+        childContainer.addEventListener("mouseleave", function () { itemMouseLeave(this) });
+        childContainer.style.borderWidth = "2px";
+
+
+        // subChild Container1 elements
+        const subChildContainer1 = document.createElement("div");
+        subChildContainer1.classList.add("subChild-container1");
+
+        // subChild Container2 elements
+        const subChildContainer2 = document.createElement("div");
+        subChildContainer2.classList.add("subChild-container2");
+
         const deleteButton = document.createElement("button");
         deleteButton.classList.add('deleteButton');
-        deleteButton.innerText = document.getElementsByClassName("monitoring-item").length;
-        deleteButton.addEventListener("click", function () { deleteMonitoring(childNode) });
+        deleteButton.innerText = document.getElementsByClassName("child-container").length;
+        deleteButton.addEventListener("click", function () { deleteMonitoring(childContainer) });
 
-        const childNode = document.createElement("div");
-        childNode.classList.add('monitoring-item');
-        childNode.classList.add('type1');
-        childNode.addEventListener("click", function () { itemOnClick(this) });
-        childNode.addEventListener("mouseenter", function () { itemMouseEnter(this) });
-        childNode.addEventListener("mouseleave", function () { itemMouseLeave(this) });
-        childNode.style.borderWidth = "2px";
-        // childNode.style.margin = "10px";
-        childNode.appendChild(deleteButton);
+        subChildContainer2.appendChild(deleteButton);
 
-        var parentNodeID = document.getElementById("monitoringContainer");
-        parentNodeID.appendChild(childNode);
+        // 
+        childContainer.appendChild(subChildContainer2);
+        childContainer.appendChild(subChildContainer1);
+
+        parentContainerID.appendChild(childContainer);
+        // parentNodeID.appendChild(deleteButton);
     }
 
 
     function itemOnClick(id) {
-        id.innerHTML = "";
+        const childContainer = id.childNodes[1];
+        if (childContainer.hasChildNodes()) {
+            console.log("has child node");
+            return;
+        }
+
         const titleNode = document.createElement("div");
         titleNode.classList.add('monitoring-title');
         titleNode.innerText = "Title Text";
 
+        // Text Update Widget        
+        // const valueNode = document.createElement("div");
+        // valueNode.classList.add('monitoring-value');
+        // valueNode.innerText = "Process Value";
+
+        // childContainer.appendChild(titleNode);
+        // childContainer.appendChild(valueNode);
+
+        // Doughnut Chart Widget
         const valueNode = document.createElement("div");
-        valueNode.classList.add('monitoring-value');
-        valueNode.innerText = "Process Value";
+        valueNode.classList.add("doughnut-chart-value");
+        valueNode.innerText = "Value";
 
-        // const valueNode = document.createElement('div');
-        // const textWidget = '<div style="width: 100%; height: 220px; background-color:red; font-size: 60px; text-align: center; line-height: 220px;">Value</div>';
+        const doughnutChartSVG = '<svg width="220" height="220" style="fill:none"><circle class="doughnutBackground" cx="80" cy="80" r="80" /><circle cx="80" cy="80" r="80" style="background-color:red;" /></svg>'
+        const doughnutChartNode = document.createElement("div");
+        doughnutChartNode.classList.add("doughnut-chart-container");
+        doughnutChartNode.innerHTML = doughnutChartSVG;
 
-        id.appendChild(titleNode);
-        id.appendChild(valueNode);
-        // console.log("click");
-        // id.innerHTML = svgSample;
-        // id.removeEventListener("click", widgetContainerOnClick);
+        childContainer.appendChild(titleNode);
+        childContainer.appendChild(doughnutChartNode);
+        childContainer.appendChild(valueNode);
+
+
+        console.log("onclick");
+
     }
 
     function itemMouseEnter(id) {
@@ -176,11 +216,14 @@
         id.style.backgroundColor = "rgba(26,26,26,0.3)";
     }
 
-    function deleteMonitoring(id) {
+    function deleteMonitoring(id) {    
         var parentNode = document.getElementById("monitoringContainer");
         if (parentNode.hasChildNodes()) {
             parentNode.removeChild(id);
+            console.log("delete");
         }
+
+        event.stopPropagation();
 
         // const childNode = parentNode.querySelector("div");
         // parentNode.removeChild(childNode[0]);

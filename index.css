@@ -98,18 +98,30 @@ body {
     border-style: dashed; */
 }
 
-.monitoring-item {
-    position: relative;
-    border-width: 0px;
-    border-color: white;
-    border-style: dashed;
-}
-
 .type1 {
+    position: relative;
     width:260px;
     height:260px;
     margin:18px;
+    border-width: 0px;
+    border-color: white;
+    border-style: dashed;
+    z-index: 200;
     background-color: rgba(26,26,26,0.3);    
+}
+
+.subChild-container1 {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    /* background-color: blue; */
+}
+
+.subChild-container2 {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    /* background-color: brown; */
 }
 
 .slide-page {
@@ -125,7 +137,7 @@ body {
 
 .deleteButton {
     position: absolute;
-    left: 220px;
+    right: 10px;
     top: 10px;
     width: 40px;
     height: 40px;
@@ -135,6 +147,7 @@ body {
     border: none;
     outline: none;
     z-index: 100;
+    background-color: brown;
 }
 
 .monitoring-title {
@@ -157,6 +170,33 @@ body {
     overflow: hidden;
     text-overflow: clip; 
 }
+
+.doughnut-chart-value {
+    position: absolute;
+    width: 100%;
+    top: 120px;
+    color: white;
+    font-size: 30px;
+    text-align: center;
+}
+
+.doughnut-chart-container {
+    position: relative;
+    top: 40px;
+    width: 220px;
+    height: 220px;
+    transform: rotate(-90deg);
+    margin: auto;
+    background-color:brown;
+}
+
+.doughnutBackground {
+    stroke-dashoffset: 0;
+    stroke: rgba(0, 84, 188, 0.3);
+    transform: translate(7px, 7px);
+    stroke-width: 14;
+}
+
 
 @keyframes animatefadeIn {
     from {

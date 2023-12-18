@@ -1,11 +1,47 @@
 <!DOCTYPE html>
 <html>
+
 <body>
     <div id="box" style="width:260px; height:260px; background-color: #0000ff4d; position: relative;">
-        <div id="sub-box" style="width: 100%; height:40px; background-color: brown; line-height: 48px; font-size: 24px; text-align: center;">Title Text</div>
-        <button id="button" type="button" style="width: 40px; height:40px; top: 0px; position:absolute; z-index: 100;">BTN</button>
+        <div id="sub-box"
+            style="width: 100%; height:40px; background-color: brown; line-height: 48px; font-size: 24px; text-align: center;">
+            Title Text</div>
+        <button id="button" type="button"
+            style="width: 40px; height:40px; top: 0px; position:absolute; z-index: 100;">BTN</button>
 
         <div style="width: 100%; height: 220px; font-size: 60px; text-align: center; line-height: 160px;">Value</div>
     </div>
+
+
+    <div style="display: flex; width: 600px; height: 600px;">
+        <div id="container" style="position: relative; background-color: blueviolet; width: 260px; height: 260px; margin: 10px">
+            <div style="background-color: chartreuse; position: absolute; width:100%; height:100%;">
+                <button id="btn" style="position: absolute; right:10px; top:10px; width: 40px; height: 40px;">BTN</button>
+            </div>
+
+            <div style="width: 100%; height:20px; background-color: cadetblue; position: absolute;">
+                <div style="position:relative; width:100%; height:40px; color:white; font-size: 24px; text-align: center; line-height: 48px; background-color:deeppink;">Title</div>
+                <div style="position:absolute; width:100%; top:120px; color: black; font-size: 30px; text-align: center; z-index: 100;">Value</div>
+                <div style="width:174px; height:174px; position: relative; background-color: #00ace6; margin:auto; top:20px; ">
+                    <svg width="174" height="174" style="fill:none">
+                        <circle cx="80" cy="80" r="80"
+                            style="stroke-dashoffset:0; stroke:rgba(0,84,188,0.3); transform:translate(7px, 7px); stroke-width: 14" />
+                        <circle cx="80" cy="80" r="80"
+                            style="stroke: #00ace6; stroke-width: 14; stroke-linecap: round; stroke-dasharray: 503; stroke-dashoffset: 503; transform:translate(7px,7px)" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
+
+<script>
+    document.getElementById('container').addEventListener("click", function () { console.log('container click') });
+    document.getElementById('btn').addEventListener('click', function (event) {
+        console.log('button click');
+        event.stopPropagation();
+
+    });
+</script>
+
 </html>
