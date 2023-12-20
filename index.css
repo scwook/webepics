@@ -176,16 +176,6 @@ body {
     text-overflow: clip; 
 }
 
-/* .doughnut-chart-value {
-    position: absolute;
-    width: 100%;
-    top: 125px;
-    color: white;
-    font-size: 30px;
-    text-align: center;
-    z-index: 100;
-} */
-
 .widget-container {
     position: relative;
     top: 20px;
@@ -257,7 +247,7 @@ body {
 .wdigetItemContainer {
     width: 80px;
     height: 80px;
-    /* background-color: #e94174; */
+    background-color: #e94174;
 }
 
 .wdigetItemContainer input{
@@ -265,12 +255,12 @@ body {
     /* opacity: 0; */
 }
 
-.wdigetItemContainer input:checked ~ .widgetSelectButton {
-    background-color: #fff;
+.wdigetItemContainer input:checked+.widgetSelectButton .widget {
+    fill: #fff;
 }
 
-.wdigetItemContainer:hover input ~ .widgetSelectButton {
-    background-color: #e94174;
+.wdigetItemContainer:hover input+.widgetSelectButton .widget {
+    stroke: blue;
 }
 
 .widgetSelectButton {
@@ -287,7 +277,7 @@ body {
     /* border: 2px solid #979797; */
     /* border-radius: 4px; */
     /* background-color: #fff; */
-    /* cursor: pointer; */
+    cursor: pointer;
 }
 
 /* .svg-designer {
@@ -314,3 +304,27 @@ body {
 .wdigetItemContainer input[type="radio"]:checked+.custom-radio-button .svg-developer {
     fill: #e94174;
 } */
+
+#widget-properties-container {
+    display: none;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    /* align-items: center;
+    justify-content: center; */
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    /* background-color: #e94174; */
+}
+
+#widget-properties-form {
+    position: relative;
+    margin: auto;
+    width: 300px;
+    height: 450px;
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+}

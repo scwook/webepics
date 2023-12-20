@@ -27,19 +27,19 @@
         <div id="accelerator-control">CS</div>
         <div id="widget-menu">
             <label class="wdigetItemContainer">
-                <input type="radio" name="widget" value="type1-1" checked>
-                <span class="widgetSelectButton">ABC
-                    <!-- <svg class="svg-designer" width="80" height="80">
-                        <rect width="80" height="80" />
-                    </svg> -->
+                <input type="radio" name="widget" value="type1-1" onclick="widgetSelect(this)">
+                <span class="widgetSelectButton">
+                    <svg width="60" height="60">
+                        <rect class="widget" width="60" height="60" fill="green" />
+                    </svg>
                 </span>
             </label>
             <label class="wdigetItemContainer">
-                <input type="radio" name="widget" value="type1-2">
+                <input type="radio" name="widget" value="type1-2" onclick="widgetSelect(this)">
                 <span class="widgetSelectButton">
-                    <!-- <svg class="svg-designer" width="80" height="80">
-                        <rect width="80" height="80" />
-                    </svg> -->
+                    <svg width="80" height="80">
+                        <rect class="widget" width="80" height="80" />
+                    </svg>
                 </span>
             </label>
 
@@ -67,8 +67,10 @@
         </div>
 
         <button class="slide-button" onclick="changePage(1)">&#10095;</button>
-
     </div>
+
+    <div id="widget-properties-container"></div>
+
 </body>
 
 <script>
@@ -182,38 +184,61 @@
             return;
         }
 
+        const propertiesFormNode = document.createElement("form");
+        propertiesFormNode.setAttribute("id", "widget-properties-form");
+
+        const propertiesContainer = document.getElementById("widget-properties-container");
+        propertiesContainer.appendChild(propertiesFormNode);
+
+        propertiesContainer.style.display = "flex";
+
+        console.log(propertiesContainer);
+
         const titleNode = document.createElement("div");
         titleNode.classList.add('widget-title');
         titleNode.innerText = "Title Text";
 
-        // Text Update Widget        
-        // const valueNode = document.createElement("div");
-        // valueNode.classList.add('widget-value');
-        // valueNode.style.setProperty("--fontSize", "60px");
-        // valueNode.style.top = 80 + "px";
-        // valueNode.innerText = "Process Value";
+        let widgetMenu = document.getElementById("widget-menu");
+        let selectedWidget = widgetMenu.querySelector("input[type=radio]:checked").value;
 
-        // childContainer.appendChild(titleNode);
-        // childContainer.appendChild(valueNode);
+        switch (selectedWidget) {
+            case "type1-1":
+                // Text Update Widget        
+                var valueNode = document.createElement("div");
+                valueNode.classList.add('widget-value');
+                valueNode.style.setProperty("--fontSize", "60px");
+                valueNode.style.top = 80 + "px";
+                valueNode.innerText = "Process Value";
 
-        // Type1-1 Widget : Line Doughnut
-        const valueNode = document.createElement("div");
-        valueNode.classList.add("widget-value");
-        valueNode.style.setProperty("--fontSize", "30px");
-        valueNode.style.top = 125 + "px";
-        valueNode.innerText = "Value";
+                childContainer.appendChild(titleNode);
+                childContainer.appendChild(valueNode);
+                break;
 
-        const widgetHTML = doughnutChartSVG;
-        const doughnutChartNode = document.createElement("div");
-        doughnutChartNode.classList.add("widget-container");
-        doughnutChartNode.innerHTML = widgetHTML;
+            case "type1-2":
+                // Type1-1 Widget : Line Doughnut
+                var valueNode = document.createElement("div");
+                valueNode.classList.add("widget-value");
+                valueNode.style.setProperty("--fontSize", "30px");
+                valueNode.style.top = 125 + "px";
+                valueNode.innerText = "Value";
 
-        childContainer.appendChild(titleNode);
-        childContainer.appendChild(doughnutChartNode);
-        childContainer.appendChild(valueNode);
+                const widgetHTML = doughnutChartSVG;
+                const doughnutChartNode = document.createElement("div");
+                doughnutChartNode.classList.add("widget-container");
+                doughnutChartNode.innerHTML = widgetHTML;
 
-        const test1 = document.getElementById("test1");
-        doughnutChartAnimation('test1', 50);
+                childContainer.appendChild(titleNode);
+                childContainer.appendChild(doughnutChartNode);
+                childContainer.appendChild(valueNode);
+
+                const test1 = document.getElementById("test1");
+                doughnutChartAnimation('test1', 50);
+
+                break;
+            
+            default:
+
+        }
 
         console.log("onclick");
     }
@@ -252,6 +277,27 @@
 
         // const childNode = parentNode.querySelector("div");
         // parentNode.removeChild(childNode[0]);
+    }
+
+    function widgetSelect(id) {
+        // let widgetMenu = document.getElementById("widget-menu");
+        // let selectedWidget = widgetMenu.querySelector("input[type=radio]:checked");
+
+        // console.log(selectedWidget);
+        // let parentNode = selectedWidget.parentNode;
+        // let widget = parentNode.querySelector(".aaa");
+
+        // widget.setAttribute("fill", "blue");
+
+        console.log("selected");
+        // switch (selectedWidget) {
+        //     case "first":
+        //         id.style.backgroundColor = "red";
+        //         break;
+        //     case "second":
+        //         id.style.backgroundColor = "green";
+        //         break
+        // }
     }
 
     document.addEventListener('visibilitychange', function () {
