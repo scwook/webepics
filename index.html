@@ -69,7 +69,9 @@
         <button class="slide-button" onclick="changePage(1)">&#10095;</button>
     </div>
 
-    <div id="widget-properties-container"></div>
+    <div id="widget-properties-container">
+        <form id="widget-properties-form" enctype=multipart/form-data name="widgetProperties"></form>
+    </div>
 
 </body>
 
@@ -100,7 +102,6 @@
 
     function editMode() {
         var childContainerClass = document.getElementsByClassName("child-container");
-        console.log(childContainerClass.length);
         for (let i = 0; i < childContainerClass.length; i++) {
             childContainerClass[i].addEventListener("click", function () { itemOnClick(this) });
             childContainerClass[i].addEventListener("mouseenter", function () { itemMouseEnter(this) });
@@ -116,13 +117,17 @@
         }
 
         document.getElementById("createButton").style.visibility = "visible";
-
     }
 
     function monitoringMode() {
         const childContainerClass = document.getElementsByClassName("child-container");
+        getEventListeners(childContainerClass[0]);
         for (let i = 0; i < childContainerClass.length; i++) {
-            childContainerClass[i].replaceWith(childContainerClass[i].cloneNode(true));
+            // childContainerClass[i].replaceWith(childContainerClass[i].cloneNode(true));
+            // childContainerClass[i].removeEventListener("click", getEventListeners(childContainerClass[i].click.listener));
+            // childContainerClass[i].removeEventListener("mouseenter", childContainerClass[i].mouseenter.listener);
+            // childContainerClass[i].removeEventListener("mouseleave", childContainerClass[i].mouseleave.listener);
+
             childContainerClass[i].style.borderWidth = "0px";
         }
 
@@ -184,58 +189,27 @@
             return;
         }
 
-        const propertiesFormNode = document.createElement("form");
-        propertiesFormNode.setAttribute("id", "widget-properties-form");
-
-        const propertiesContainer = document.getElementById("widget-properties-container");
-        propertiesContainer.appendChild(propertiesFormNode);
-
-        propertiesContainer.style.display = "flex";
-
-        console.log(propertiesContainer);
-
-        const titleNode = document.createElement("div");
-        titleNode.classList.add('widget-title');
-        titleNode.innerText = "Title Text";
-
         let widgetMenu = document.getElementById("widget-menu");
-        let selectedWidget = widgetMenu.querySelector("input[type=radio]:checked").value;
+        let selectedWidget = widgetMenu.querySelector("input[type=radio]:checked");
+        if (!selectedWidget) {
+            console.log("widget not selected");
+            return;
+        }
 
-        switch (selectedWidget) {
+        let widgetType = selectedWidget.value;
+        switch (widgetType) {
             case "type1-1":
-                // Text Update Widget        
-                var valueNode = document.createElement("div");
-                valueNode.classList.add('widget-value');
-                valueNode.style.setProperty("--fontSize", "60px");
-                valueNode.style.top = 80 + "px";
-                valueNode.innerText = "Process Value";
-
-                childContainer.appendChild(titleNode);
-                childContainer.appendChild(valueNode);
+                widgetPropertiesType1(id, widgetType);
                 break;
 
-            case "type1-2":
-                // Type1-1 Widget : Line Doughnut
-                var valueNode = document.createElement("div");
-                valueNode.classList.add("widget-value");
-                valueNode.style.setProperty("--fontSize", "30px");
-                valueNode.style.top = 125 + "px";
-                valueNode.innerText = "Value";
+            case "type2-1":
 
-                const widgetHTML = doughnutChartSVG;
-                const doughnutChartNode = document.createElement("div");
-                doughnutChartNode.classList.add("widget-container");
-                doughnutChartNode.innerHTML = widgetHTML;
 
-                childContainer.appendChild(titleNode);
-                childContainer.appendChild(doughnutChartNode);
-                childContainer.appendChild(valueNode);
-
-                const test1 = document.getElementById("test1");
-                doughnutChartAnimation('test1', 50);
+                // const test1 = document.getElementById("test1");
+                // doughnutChartAnimation('test1', 50);
 
                 break;
-            
+
             default:
 
         }
@@ -299,6 +273,7 @@
         //         break
         // }
     }
+
 
     document.addEventListener('visibilitychange', function () {
         if (document.hidden) {
