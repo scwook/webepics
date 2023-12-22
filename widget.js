@@ -91,10 +91,21 @@ function widgetPropertiesType1(containerID, widgetType) {
     const propertiesFormNode = document.getElementById("widget-properties-form");
     propertiesFormNode.innerHTML = "";
 
+    // Title Field
+    const propertiesBox1 = document.createElement("div");
+    propertiesBox1.classList.add("widgetPropertiesBox");
+
     const titleLabelElement = document.createElement("label");
     titleLabelElement.innerText = "Title";
     const titleInputElement = document.createElement("input");
     titleInputElement.setAttribute("id", propertiesFormTitleInputID);
+
+    propertiesBox1.appendChild(titleLabelElement);
+    propertiesBox1.appendChild(titleInputElement);
+    
+    // Process Variable Name Field
+    const propertiesBox2 = document.createElement("div");
+    propertiesBox2.classList.add("widgetPropertiesBox");
 
     const pvNameLabelElement = document.createElement("label");
     pvNameLabelElement.innerText = "PV Name";
@@ -102,16 +113,26 @@ function widgetPropertiesType1(containerID, widgetType) {
     const pvNameInputElement = document.createElement("input");
     pvNameInputElement.setAttribute("id", propertiesFormPvNameInputID);
 
+    propertiesBox2.appendChild(pvNameLabelElement);
+    propertiesBox2.appendChild(pvNameInputElement);
+
+    // Create Button
+    const propertiesCreateBox = document.createElement("div");
+    propertiesCreateBox.classList.add("widgetPropertiesBox");
+
     const createButtonElement = document.createElement("button");
     createButtonElement.setAttribute("type", "button");
+    createButtonElement.setAttribute("id", "widget-properties-create-button");
     createButtonElement.innerText = "Create";
     createButtonElement.addEventListener("click", function () { createWidget(containerID, widgetType) });
 
-    propertiesFormNode.appendChild(titleLabelElement);
-    propertiesFormNode.appendChild(titleInputElement);
-    propertiesFormNode.appendChild(pvNameLabelElement);
-    propertiesFormNode.appendChild(pvNameInputElement);
-    propertiesFormNode.appendChild(createButtonElement);
+    propertiesCreateBox.appendChild(createButtonElement);
+    // 
+    propertiesFormNode.appendChild(propertiesBox1);
+    propertiesFormNode.appendChild(propertiesBox2);
+    // propertiesFormNode.appendChild(pvNameLabelElement);
+    // propertiesFormNode.appendChild(pvNameInputElement);
+    propertiesFormNode.appendChild(propertiesCreateBox);
 
     const propertiesContainer = document.getElementById("widget-properties-container");
     // propertiesContainer.appendChild(propertiesFormNode);
