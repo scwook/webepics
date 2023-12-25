@@ -7,15 +7,15 @@ const doughnutChartSVG =
 const isSimulation = true;
 
 const widgetTitleNodeClass = "widgetTitle";
-const widgetValueNodeClass = "widgetValue"; 
+const widgetValueNodeClass = "widgetValue";
 const propertiesFormTitleInputID = "propertiesTitleInput";
 const propertiesFormPvNameInputID = "propertiesPvNameInput";
 
-// Widget TypeText Update Widget
-function widgetType1_1(containerID, widgetData) {
+// Widget Type1-1 : Text Value
+function widgetType1_1(containerID, widgetInfo) {
     const titleNode = document.createElement("div");
     titleNode.classList.add(widgetTitleNodeClass);
-    titleNode.innerText = widgetData.title;
+    titleNode.innerText = widgetInfo.title;
 
     const valueNode = document.createElement("div");
     valueNode.classList.add(widgetValueNodeClass);
@@ -26,12 +26,12 @@ function widgetType1_1(containerID, widgetData) {
     const childContainer = containerID.childNodes[1];
     childContainer.appendChild(titleNode);
     childContainer.appendChild(valueNode);
-    console.log(widgetData);
+
     return true;
 }
 
 // Widget Type2-1  : Line Doughnut
-function widgetType2_1(containerID, widgetData) {
+function widgetType2_1(containerID, widgetInfo, widgetInfo) {
     var valueNode = document.createElement("div");
     valueNode.classList.add(widgetValueNodeClass);
     valueNode.style.setProperty("--fontSize", "30px");
@@ -50,21 +50,12 @@ function widgetType2_1(containerID, widgetData) {
 
 }
 
-function createWidget(containerID, widgetType) {
-    // let formData = new FormData(document.getElementById("widget-properties-form"));
-    let title = document.getElementById(propertiesFormTitleInputID).value;
-    let pvName = document.getElementById(propertiesFormPvNameInputID).value;
-
-    let widgetData = {
-        "title" : title,
-        "pvname" : pvName
-    }
-
+function createWidget(containerID, widgetType, widgetInfo) {    
     switch (widgetType) {
         case "type1-1":
-            let status = widgetType1_1(containerID, widgetData);
-            if(status) {
-                startMonitoringType1(containerID, widgetData);
+            let status = widgetType1_1(containerID, widgetInfo);
+            if (status) {
+                startMonitoringType1(containerID, widgetInfo);
             }
             else {
                 alert("Widget Create Error");
@@ -77,10 +68,6 @@ function createWidget(containerID, widgetType) {
 
         default:
     }
-
-    const propertiesContainer = document.getElementById("widget-properties-container");
-    propertiesContainer.style.display = "none";
-
 }
 
 function widgetPropertiesType1(containerID, widgetType) {
@@ -102,7 +89,7 @@ function widgetPropertiesType1(containerID, widgetType) {
 
     propertiesBox1.appendChild(titleLabelElement);
     propertiesBox1.appendChild(titleInputElement);
-    
+
     // Process Variable Name Field
     const propertiesBox2 = document.createElement("div");
     propertiesBox2.classList.add("widgetPropertiesBox");
@@ -124,7 +111,20 @@ function widgetPropertiesType1(containerID, widgetType) {
     createButtonElement.setAttribute("type", "button");
     createButtonElement.setAttribute("id", "widget-properties-create-button");
     createButtonElement.innerText = "Create";
-    createButtonElement.addEventListener("click", function () { createWidget(containerID, widgetType) });
+    createButtonElement.addEventListener("click", function () {
+        let title = document.getElementById(propertiesFormTitleInputID).value;
+        let pvName = document.getElementById(propertiesFormPvNameInputID).value;
+
+        let widgetInfo = {
+            "title": title,
+            "pvname": pvName
+        }
+
+        createWidget(containerID, widgetType, widgetInfo);
+
+        const propertiesContainer = document.getElementById("widget-properties-container");
+        propertiesContainer.style.display = "none";
+    });
 
     propertiesCreateBox.appendChild(createButtonElement);
     // 
@@ -166,9 +166,9 @@ function widgetPropertiesType2() {
 function startMonitoringType1(id, data) {
     // const valueNodeID = id.querySelector("." + widgetValueNodeClass);
 
-    if(isSimulation) {
+    if (isSimulation) {
         setInterval(function () {
-            let value =  (Math.random() * 10).toFixed(1);
+            let value = (Math.random() * 10).toFixed(1);
             const valueNodeID = id.querySelector("." + widgetValueNodeClass);
             valueNodeID.innerText = value;
         }, 1000);

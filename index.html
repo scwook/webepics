@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <link rel="stylesheet" type="text/css" href="index.css">
+<link rel="stylesheet" type="text/css" href="widget.css">
 <script src="widget.js"></script>
 
 <body>
@@ -46,13 +47,15 @@
         </div>
         <button type="button" onclick="modeChange()">Mode</button>
         <button id="createButton" type="button" onclick="createNewMonitor()">New</button>
+        <button id="loadButton" type="button" onclick="readDataFromFile()">Load</button>
+        <button id="saveButton" type="button" onclick="saveMonitoringList()">Save</button>
     </div>
 
     <div class="body-box">
         <button class="slide-button" onclick="changePage(-1)">&#10094;</button>
 
-        <div class="monitoring-body">
-            <div id="monitoringContainer" class="monitoring-container">
+        <div class="monitoringBody">
+            <div id="monitoring-container" class="monitoringContainer">
                 <!-- <div class="monitoring-item type1"></div> -->
 
             </div>
@@ -76,7 +79,19 @@
 </body>
 
 <script>
-    var isEditMode = false;
+    let isEditMode = false;
+    let monitoringInfo = [
+        {
+            "type": "type1-1",
+            "title": "title name",
+            "pvname": "pvname"
+        },
+        {
+            "type": "type1-1",
+            "title": "title name",
+            "pvname": "pvname"
+        },
+    ]
 
     window.onload = function () {
 
@@ -142,8 +157,6 @@
         // for (let i = 0; i < deleteButtonClass.length; i++) {
         //     deleteButtonClass[i].style.visibility = "hidden";
         // }
-
-
     }
 
     function mouseOnClick() {
@@ -159,7 +172,7 @@
     }
 
     function createNewMonitor() {
-        var parentContainerID = document.getElementById("monitoringContainer"); // Flex Body
+        var parentContainerID = document.getElementById("monitoring-container"); // Flex Body
         const childContainer = document.createElement("div"); // Flex Item
 
         childContainer.classList.add("type1");
@@ -168,7 +181,6 @@
         childContainer.addEventListener("mouseenter", mouseEnter);
         childContainer.addEventListener("mouseleave", mouseLeave);
         childContainer.style.borderWidth = "2px";
-
 
         // subChild Container1 elements
         const subChildContainer1 = document.createElement("div");
@@ -190,6 +202,8 @@
         childContainer.appendChild(subChildContainer1);
 
         parentContainerID.appendChild(childContainer);
+
+        return childContainer;
         // parentNodeID.appendChild(deleteButton);
     }
 
@@ -253,7 +267,7 @@
     }
 
     function deleteMonitoring(id) {
-        var parentNode = document.getElementById("monitoringContainer");
+        var parentNode = document.getElementById("monitoring-container");
         if (parentNode.hasChildNodes()) {
             parentNode.removeChild(id);
             console.log("delete");
@@ -286,6 +300,72 @@
         // }
     }
 
+    function loadMonitoringList(data) {
+        var containerID = document.getElementById("monitoring-container");
+        containerID.innerHTML = "";
+
+        let numberOfMonitoring = data.length;
+
+        for (let i = 0; i < numberOfMonitoring; i++) {
+            let childContainerID = createNewMonitor();
+            let widgetType = data[i].type;
+            createWidget(childContainerID, widgetType, data[i]);
+
+            // widgetType1_1(childContainerID, monitoringInfo[i]);
+            // startMonitoringType1(childContainerID, monitoringInfo[i]);
+        }
+    }
+
+    function saveMonitoringList() {
+        let saveData = monitoringInfo;
+        saveDataToFile(saveData);
+    }
+
+    function readDataFromFile() {
+        const input = document.createElement("input");
+        input.type = "file";
+        input.accept = ".wep";
+        input.onchange = function () {
+            // console.log(input.files[0]);
+
+            var reader = new FileReader();
+            reader.onload = function () {
+                let data = JSON.parse(reader.result);
+                loadMonitoringList(data);
+                monitoringInfo = data;
+
+            };
+            reader.readAsText(input.files[0], "UTF-8");
+        };
+
+        input.click();
+    }
+
+    function saveDataToFile(data) {
+        // const saveObj = { "a": 3 }; // tmp
+
+        // file setting
+        const text = JSON.stringify(data);
+        const name = "webepics.wep";
+        const type = "text/plain";
+
+        // create file
+        const a = document.createElement("a");
+        const file = new Blob([text], { type: type });
+        a.href = URL.createObjectURL(file);
+        a.download = name;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+
+        // var el = document.createElement('a');
+        // el.setAttribute('href', 'data:text/html;charset=utf-8,' + encodeURIComponent(text));
+        // el.setAttribute('download', name);
+        // // el.style.display = 'none';
+        // document.body.appendChild(el);
+        // el.click();
+        // document.body.removeChild(el);
+    }
 
     document.addEventListener('visibilitychange', function () {
         if (document.hidden) {

@@ -1,0 +1,119 @@
+.widgetTitle {
+    position: relative;
+    width: 100%;
+    height: 40px;
+    color: white;
+    font-size: 24px;
+    text-align: center;
+    line-height: 48px;
+}
+
+.widgetValue {
+    position: absolute;
+    width: 100%;
+    /* height: 220px; */
+    color: white;
+    font-size: var(--fontSize);
+    text-align: center;
+    /* line-height: 240px; */
+    /* top: 125px; */
+    overflow: hidden;
+    text-overflow: clip; 
+}
+
+.widget-container {
+    position: relative;
+    top: 20px;
+    width: 174px;
+    height: 174px;
+    transform: rotate(-90deg);
+    margin: auto;
+    /* background-color:brown; */
+}
+
+.type1-1-widget-background {
+    stroke-dashoffset: 0;
+    stroke: rgba(0, 84, 188, 0.3);
+    transform: translate(7px, 7px);
+    stroke-width: 14;
+}
+
+.type1-1-widget-foreground {
+    stroke: #fff;
+    stroke-width: 14;
+    stroke-linecap: round;
+    stroke-dasharray: 585;
+    stroke-dashoffset: 585;
+    transform: translate(7px, 7px);
+    /* animation-timing-function: ease-out; */
+    animation-fill-mode: forwards;
+}
+
+
+#widget-properties-container {
+    display: none;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    /* align-items: center;
+    justify-content: center; */
+    z-index: 300;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    /* background-color: #e94174; */
+}
+
+#widget-properties-form {
+    position: relative;
+    margin: auto;
+    width: 300px;
+    height: 450px;
+    border-radius: 0px;
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+
+.widgetPropertiesBox {
+    display: flex;
+    width: 100%;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+}
+
+.widgetPropertiesBox > label {
+    display: flex;
+    width: 40%;
+    height: 40px;
+    /* font-size: 18px; */
+    justify-content: left;
+    align-items: center;
+    font-family: "Roboto-Light";
+
+}
+
+.widgetPropertiesBox > input {
+    width: 60%;
+    height: 10px;
+    padding: 10px 10px;
+    font-family: "Roboto-Light";
+
+    /* font-size: 14px; */
+}
+
+#widget-properties-create-button {
+    position: absolute;
+    width: 90%;
+    height: 40px;
+    color: white;
+    /* padding: 14px 20px; */
+    /* margin: 8px 0; */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #04AA6D;
+    bottom: 10px;
+    font-family: "Roboto-Light";
+    font-size: 16px;
+}
