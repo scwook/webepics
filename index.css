@@ -55,9 +55,6 @@ body {
     z-index: 100;
 }
 
-
-
-
 .body-box {
     width: 1920px;
     height: 980px;
@@ -66,7 +63,7 @@ body {
     /* border-color: red; */
 }
 
-.slide-button {
+.slideButton {
     width: 40px;
     height: 980px;
     font-size: 32px;
@@ -101,7 +98,7 @@ body {
     border-style: dashed; */
 }
 
-.type1 {
+.size1by1 {
     position: relative;
     width:260px;
     height:260px;
@@ -113,14 +110,27 @@ body {
     background-color: rgba(26,26,26,0.3);    
 }
 
-.subChild-container1 {
+.size2by1 {
+    position: relative;
+    width:560px;
+    height:260px;
+    margin:18px;
+    border-width: 0px;
+    border-color: white;
+    border-style: dashed;
+    z-index: 200;
+    background-color: rgba(26,26,26,0.3);    
+}
+
+
+.subChildContainer1 {
     position: absolute;
     width: 100%;
     height: 100%;
     /* background-color: blue; */
 }
 
-.subChild-container2 {
+.subChildContainer2 {
     position: absolute;
     width: 100%;
     height: 100%;

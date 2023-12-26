@@ -21,15 +21,15 @@
     text-overflow: clip; 
 }
 
-.widget-container {
+/* .widget-container {
     position: relative;
     top: 20px;
     width: 174px;
     height: 174px;
     transform: rotate(-90deg);
     margin: auto;
-    /* background-color:brown; */
-}
+    background-color:brown;
+} */
 
 .type1-1-widget-background {
     stroke-dashoffset: 0;
