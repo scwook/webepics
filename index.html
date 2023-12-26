@@ -65,6 +65,8 @@
 
         <button id="loadButton" type="button" onclick="readDataFromFile()">Load</button>
         <button id="saveButton" type="button" onclick="saveMonitoringList()">Save</button>
+        <button id="deleteAll" type="button" onclick="deleteAllContainer()">Delete</button>
+
     </div>
 
     <div class="body-box">
@@ -312,6 +314,18 @@
         console.log(monitoringInfo);
     }
 
+    function deleteAllMonitoring() {
+        const childContainerClass = document.getElementsByClassName("childContainer");
+        const containerLength = childContainerClass.length;
+
+        console.log("child length", childContainerClass.length);
+
+        for(let i = 0; i < containerLength; i++) {
+            var newChildContainerClass = document.getElementsByClassName("childContainer");
+            newChildContainerClass[0].childNodes[0].querySelector("button").click();
+        }
+    }
+
     function deleteMonitoring(id, chartObj) {
         const parentNode = document.getElementById("monitoring-container");
         const childContainerClass = document.getElementsByClassName("childContainer")
@@ -350,8 +364,9 @@
     }
 
     function loadMonitoringList(data) {
-        var containerID = document.getElementById("monitoring-container");
-        containerID.innerHTML = "";
+        // var containerID = document.getElementById("monitoring-container");
+        // containerID.innerHTML = "";
+        deleteAllMonitoring();
 
         let numberOfMonitoring = data.length;
 
