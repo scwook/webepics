@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <h2>JavaScript Map Objects</h2>
+    <p>Using Map.set():</p>
+
+    <p id="demo"></p>
+
+    <script>
+        const data = [
+            {
+                "form": {
+                    "size": ""
+                },
+                "widget": {
+                    "title": "",
+                    "pvname": ""
+                }
+            },
+            {
+                "form": {
+                    "size": ""
+                },
+                "widget": {
+                    "title": "",
+                    "pvname": ""
+                }
+            }
+            ,
+            {
+                "form": {
+                    "size": ""
+                },
+                "widget": {
+                    "title": "",
+                    "pvname": ""
+                }
+            }
+
+
+        ]
+
+
+
+        const fruits = new Map();
+        const scwook = new Map();
+        const form = new Map();
+
+        form.set("size", "111");
+        // Set Map Values
+        fruits.set("apples", form);
+        fruits.set("bananas", 300);
+        fruits.set("oranges", 200);
+
+        scwook.set("sss", 619);
+
+        data[0] = fruits;
+
+        console.log(data);
+
+        fruits.set("scwook", 1234);
+        data[1] = scwook;
+
+        console.log(data[0].get("apples"));
+    </script>
+
+</body>
+
+</html>

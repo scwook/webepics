@@ -69,11 +69,11 @@
 
     </div>
 
-    <div class="body-box">
+    <div id="body-box">
         <button class="slideButton" onclick="changePage(-1)">&#10094;</button>
 
-        <div class="monitoringBody">
-            <div id="monitoring-container" class="monitoringContainer">
+        <div id="monitoring-body">
+            <div class="monitoringContainer">
                 <!-- <div class="monitoring-item type1"></div> -->
 
             </div>
@@ -98,15 +98,14 @@
 
 <script>
     let isEditMode = false;
-    let monitoringInfo = [];
+    let monitoringDataArray = new Array();
 
     window.onload = function () {
-
+        let aa = document.getElementsByClassName("monitoringContainer")[0];
+        console.log(getComputedStyle(aa).display);
         // Page 1 
 
         // Page 2
-
-
     }
 
     function modeChange() {
@@ -169,7 +168,14 @@
     }
 
     function createNewMonitor(formSize) {
-        var parentContainerID = document.getElementById("monitoring-container"); // Flex Body
+        let index = getMonitoringContainerIndex();
+        console.log(index);
+        if(!index) {
+            alert("Can not found container");
+            return;
+        }
+        
+        const parentContainer = document.getElementsByClassName("monitoringContainer"); // Flex Body
         const childContainer = document.createElement("div"); // Flex Item
 
         childContainer.classList.add(formSize);
@@ -199,13 +205,31 @@
         childContainer.appendChild(subChildContainer2);
         childContainer.appendChild(subChildContainer1);
 
-        parentContainerID.appendChild(childContainer);
+        parentContainer[index].appendChild(childContainer);
 
         // add monitoring info to init value : null
-        updateMonitoringInfo(childContainer, null);
+        const formInfo = {
+            "size": formSize
+        }
+        updateMonitoringInfo(childContainer, "form", formInfo);
 
         return childContainer;
         // parentNodeID.appendChild(deleteButton);
+    }
+
+    function getMonitoringContainerIndex() {
+        const monitoringContainer = document.getElementsByClassName("monitoringContainer");
+
+        let index = null;
+        for(let i = 0; i < monitoringContainer.length; i++) {
+            let displayState = monitoringContainer[i].style.display;
+            if(displayState == "flex") {
+                index = i;
+                break;
+            }
+        }
+
+        return index;
     }
 
     function mouseOnClick() {
@@ -238,7 +262,6 @@
         switch (widgetType) {
             case "type1-1":
                 widgetPropertiesType1(id, widgetType);
-                console.log(monitoringInfo);
                 break;
 
             case "type2-1":
@@ -247,7 +270,6 @@
             case "type3-1":
                 widgetPropertiesType3(id, widgetType);
                 break;
-
 
                 // const test1 = document.getElementById("test1");
                 // doughnutChartAnimation('test1', 50);
@@ -263,55 +285,46 @@
 
     function itemMouseEnter(id) {
         id.style.backgroundColor = "rgba(26,26,26,0.8)";
-
-        // var widgetContainer = document.getElementById("container");
-        // var selectedWidget = widgetContainer.querySelector("input[type=radio]:checked").value;
-
-        // switch (selectedWidget) {
-        //     case "first":
-        //         id.style.backgroundColor = "red";
-        //         break;
-        //     case "second":
-        //         id.style.backgroundColor = "green";
-        //         break;
-        //     default:
-        //         id.style.backgroundColor = "#e94174";
-
-        // }
     }
 
     function itemMouseLeave(id) {
         id.style.backgroundColor = "rgba(26,26,26,0.3)";
     }
 
-    // function deleteMonitoring(id) {
-    //     var parentNode = document.getElementById("monitoring-container");
-    //     var canvasNode = id.querySelector("canvas");
-    //     if (canvasNode) {
-    //         console.log(canvasNode.hasChildNodes());
-    //     }
+    function updateMonitoringInfo(id, key, value) {
+        let index = getChildNodeIndex(id);
 
-    //     if (parentNode.hasChildNodes()) {
-    //         parentNode.removeChild(id);
-    //         console.log("delete");
-    //     }
-
-    //     event.stopPropagation();
-    // }
-
-    function updateMonitoringInfo(id, data) {
-        const childContainerClass = document.getElementsByClassName("childContainer")
-        let previousElement = id.previousElementSibling;
-        for (let i = 0; i < childContainerClass.length; i++) {
-            if (!previousElement) {
-                monitoringInfo.splice(i, 1, data);
-                break;
-            }
-
-            previousElement = previousElement.previousElementSibling;
+        if (index == -1) {
+            alert("Can not found node index");
+            return;
         }
 
-        console.log(monitoringInfo);
+        monitoringInfo = monitoringDataArray[index];
+
+        // In case of very first monitoring, create init monitoring structure
+        if (!monitoringInfo) {
+            monitoringInfo = {
+                "form": null,
+                "widget": null
+            }
+        }
+
+        monitoringInfo[key] = value;
+        monitoringDataArray[index] = monitoringInfo;
+
+        console.log(monitoringDataArray);
+
+        // monitoringInfo.splice(index, 1, data);
+        // const childContainerClass = document.getElementsByClassName("childContainer")
+        // let previousElement = id.previousElementSibling;
+        // for (let i = 0; i < childContainerClass.length; i++) {
+        //     if (!previousElement) {
+        //         monitoringInfo.splice(i, 1, data);
+        //         break;
+        //     }
+
+        //     previousElement = previousElement.previousElementSibling;
+        // }
     }
 
     function deleteAllMonitoring() {
@@ -320,14 +333,14 @@
 
         console.log("child length", childContainerClass.length);
 
-        for(let i = 0; i < containerLength; i++) {
+        for (let i = 0; i < containerLength; i++) {
             var newChildContainerClass = document.getElementsByClassName("childContainer");
             newChildContainerClass[0].childNodes[0].querySelector("button").click();
         }
     }
 
     function deleteMonitoring(id, chartObj) {
-        const parentNode = document.getElementById("monitoring-container");
+        const parentNode = document.getElementsByClassName("monitoringContainer");
         const childContainerClass = document.getElementsByClassName("childContainer")
 
         // In case of chart widget, it must be deleted before deleting conainter
@@ -337,8 +350,8 @@
         }
 
         // delete monitoring container
-        if (parentNode.hasChildNodes()) {
-            parentNode.removeChild(id);
+        if (parentNode[0].hasChildNodes()) {
+            parentNode[0].removeChild(id);
 
             console.log("delete container");
         }
@@ -347,14 +360,12 @@
         let previousElement = id.previousElementSibling;
         for (let i = 0; i < childContainerClass.length; i++) {
             if (!previousElement) {
-                monitoringInfo.splice(i, 1);
+                monitoringDataArray.splice(i, 1);
                 break;
             }
 
             previousElement = previousElement.previousElementSibling;
         }
-
-        console.log("info", monitoringInfo);
 
         event.stopPropagation();
     }
@@ -364,21 +375,25 @@
     }
 
     function loadMonitoringList(data) {
-        // var containerID = document.getElementById("monitoring-container");
-        // containerID.innerHTML = "";
         deleteAllMonitoring();
 
         let numberOfMonitoring = data.length;
 
         for (let i = 0; i < numberOfMonitoring; i++) {
-            let childContainerID = createNewMonitor();
-            let widgetType = data[i].type;
-            createWidget(childContainerID, widgetType, data[i]);
+            let childContainerID = createNewMonitor(data[i].form.size);
+
+            if (data[i].widget) {
+                let widgetType = data[i].widget.type;
+                createWidget(childContainerID, widgetType, data[i].widget);
+            }
         }
+
+        isEditMode = true;
+        modeChange();
     }
 
     function saveMonitoringList() {
-        let saveData = monitoringInfo;
+        let saveData = monitoringDataArray;
         saveDataToFile(saveData);
     }
 
@@ -393,8 +408,7 @@
             reader.onload = function () {
                 let data = JSON.parse(reader.result);
                 loadMonitoringList(data);
-                monitoringInfo = data;
-
+                monitoringDataArray = data;
             };
             reader.readAsText(input.files[0], "UTF-8");
         };

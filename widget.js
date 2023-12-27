@@ -85,11 +85,11 @@ function widgetType3_1(containerID, widgetInfo, widgetInfo) {
             }
         }
     };
-    
+
     const myChart = new Chart(canvasNode, chartConfig);
 
-    containerID.childNodes[0].getElementsByClassName("deleteButton")[0].onclick = 
-    function () { deleteMonitoring(containerID, myChart) };
+    containerID.childNodes[0].getElementsByClassName("deleteButton")[0].onclick =
+        function () { deleteMonitoring(containerID, myChart) };
 }
 
 function createWidget(containerID, widgetType, widgetInfo) {
@@ -97,7 +97,7 @@ function createWidget(containerID, widgetType, widgetInfo) {
         case "type1-1":
             var status = widgetType1_1(containerID, widgetInfo);
             if (status) {
-                updateMonitoringInfo(containerID, widgetInfo);
+                updateMonitoringInfo(containerID, "widget", widgetInfo);
                 startMonitoringType1(containerID, widgetInfo);
             }
             else {
@@ -165,6 +165,7 @@ function widgetPropertiesType1(containerID, widgetType) {
         let pvName = document.getElementById(propertiesFormPvNameInputID).value;
 
         let widgetInfo = {
+            "type" : widgetType,
             "title": title,
             "pvname": pvName
         }
@@ -281,6 +282,23 @@ function widgetPropertiesType3(containerID, widgetType) {
     // propertiesContainer.appendChild(propertiesFormNode);
 
     propertiesContainer.style.display = "flex";
+}
+
+function getChildNodeIndex(id) {
+    const childContainerClass = document.getElementsByClassName("childContainer");
+    let index = -1;
+
+    let previousElement = id.previousElementSibling;
+    for (let i = 0; i < childContainerClass.length; i++) {
+        if (!previousElement) {
+            index = i;
+            break;
+        }
+
+        previousElement = previousElement.previousElementSibling;
+    }
+
+    return index;
 }
 
 function chartRefresh(chart) {

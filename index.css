@@ -55,7 +55,7 @@ body {
     z-index: 100;
 }
 
-.body-box {
+#body-box {
     width: 1920px;
     height: 980px;
     margin: auto;
@@ -77,7 +77,7 @@ body {
     /* border-color: red; */
 }
 
-.monitoringBody {
+#monitoring-body {
     width: 1840px;
     height: 980px;
     float: left;
