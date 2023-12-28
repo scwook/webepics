@@ -65,7 +65,7 @@
 
         <button id="loadButton" type="button" onclick="readDataFromFile()">Load</button>
         <button id="saveButton" type="button" onclick="saveMonitoringList()">Save</button>
-        <button id="deleteAll" type="button" onclick="deleteAllContainer()">Delete</button>
+        <button id="deleteAll" type="button" onclick="deleteAllMonitoring()">Delete</button>
 
     </div>
 
@@ -74,6 +74,11 @@
 
         <div id="monitoring-body">
             <div class="monitoringContainer">
+                <!-- <div class="monitoring-item type1"></div> -->
+
+            </div>
+
+            <div id="aaa" class="monitoringContainer" style="display: none;">
                 <!-- <div class="monitoring-item type1"></div> -->
 
             </div>
@@ -98,11 +103,14 @@
 
 <script>
     let isEditMode = false;
-    let monitoringDataArray = new Array();
+    const monitoringPageArray = new Array();
+    const monitoringInfoStructure = {
+        "form" : null,
+        "widget" : null
+    };
 
     window.onload = function () {
-        let aa = document.getElementsByClassName("monitoringContainer")[0];
-        console.log(getComputedStyle(aa).display);
+
         // Page 1 
 
         // Page 2
@@ -168,13 +176,12 @@
     }
 
     function createNewMonitor(formSize) {
-        let index = getMonitoringContainerIndex();
-        console.log(index);
-        if(!index) {
+        let index = getMonitoringPageIndex();
+        if (index == -1) {
             alert("Can not found container");
             return;
         }
-        
+
         const parentContainer = document.getElementsByClassName("monitoringContainer"); // Flex Body
         const childContainer = document.createElement("div"); // Flex Item
 
@@ -211,24 +218,23 @@
         const formInfo = {
             "size": formSize
         }
-        updateMonitoringInfo(childContainer, "form", formInfo);
+        updateMonitoringData(childContainer, "form", formInfo);
 
         return childContainer;
         // parentNodeID.appendChild(deleteButton);
     }
 
-    function getMonitoringContainerIndex() {
+    function getMonitoringPageIndex() {
         const monitoringContainer = document.getElementsByClassName("monitoringContainer");
 
-        let index = null;
-        for(let i = 0; i < monitoringContainer.length; i++) {
-            let displayState = monitoringContainer[i].style.display;
-            if(displayState == "flex") {
+        let index = -1;
+        for (let i = 0; i < monitoringContainer.length; i++) {
+            let displayState = getComputedStyle(monitoringContainer[i]).display;
+            if (displayState == "flex") {
                 index = i;
                 break;
             }
         }
-
         return index;
     }
 
@@ -291,40 +297,35 @@
         id.style.backgroundColor = "rgba(26,26,26,0.3)";
     }
 
-    function updateMonitoringInfo(id, key, value) {
-        let index = getChildNodeIndex(id);
+    function updateMonitoringData(id, key, value) {
+        let pageIndex = getMonitoringPageIndex();
+        let childIndex = getChildNodeIndex(id);
 
-        if (index == -1) {
+        if (pageIndex == -1) {
+            alert("Can not found page index");
+            return;
+        }
+
+        if (childIndex == -1) {
             alert("Can not found node index");
             return;
         }
 
-        monitoringInfo = monitoringDataArray[index];
-
-        // In case of very first monitoring, create init monitoring structure
-        if (!monitoringInfo) {
-            monitoringInfo = {
-                "form": null,
-                "widget": null
-            }
+        // if page data doesn't exist, create new page data 
+        if (!monitoringPageArray[pageIndex]) {
+            let monitoringDataArray = new Array();
+            monitoringPageArray.push(monitoringDataArray);
+        }
+        
+        monitoringInfo = monitoringPageArray[pageIndex][childIndex];
+        // if monitoring data doesn't exist, create new monitoring data structure
+        if(!monitoringInfo) {
+            monitoringInfo = { ... monitoringInfoStructure};
         }
 
         monitoringInfo[key] = value;
-        monitoringDataArray[index] = monitoringInfo;
-
-        console.log(monitoringDataArray);
-
-        // monitoringInfo.splice(index, 1, data);
-        // const childContainerClass = document.getElementsByClassName("childContainer")
-        // let previousElement = id.previousElementSibling;
-        // for (let i = 0; i < childContainerClass.length; i++) {
-        //     if (!previousElement) {
-        //         monitoringInfo.splice(i, 1, data);
-        //         break;
-        //     }
-
-        //     previousElement = previousElement.previousElementSibling;
-        // }
+        // monitoringDataArray[childIndex] = monitoringInfo;
+        monitoringPageArray[pageIndex][childIndex] = monitoringInfo;
     }
 
     function deleteAllMonitoring() {
@@ -333,6 +334,7 @@
 
         console.log("child length", childContainerClass.length);
 
+        // just call delete button event. result of this, all monitoring data will clear.
         for (let i = 0; i < containerLength; i++) {
             var newChildContainerClass = document.getElementsByClassName("childContainer");
             newChildContainerClass[0].childNodes[0].querySelector("button").click();
@@ -340,8 +342,7 @@
     }
 
     function deleteMonitoring(id, chartObj) {
-        const parentNode = document.getElementsByClassName("monitoringContainer");
-        const childContainerClass = document.getElementsByClassName("childContainer")
+        const parentNode = id.parentNode;
 
         // In case of chart widget, it must be deleted before deleting conainter
         if (chartObj) {
@@ -350,22 +351,20 @@
         }
 
         // delete monitoring container
-        if (parentNode[0].hasChildNodes()) {
-            parentNode[0].removeChild(id);
+        if (parentNode.hasChildNodes()) {
+            parentNode.removeChild(id);
 
             console.log("delete container");
         }
 
         // delete monitoring info data
-        let previousElement = id.previousElementSibling;
-        for (let i = 0; i < childContainerClass.length; i++) {
-            if (!previousElement) {
-                monitoringDataArray.splice(i, 1);
-                break;
-            }
+        let pageIndex = getMonitoringPageIndex();
+        let childNodeIndex = getChildNodeIndex(id);
 
-            previousElement = previousElement.previousElementSibling;
-        }
+        let monitoringDataArray = JSON.parse(JSON.stringify(monitoringPageArray[pageIndex]));
+        
+        monitoringDataArray.splice(childNodeIndex, 1);
+        monitoringPageArray[pageIndex] = monitoringDataArray;
 
         event.stopPropagation();
     }
@@ -393,7 +392,7 @@
     }
 
     function saveMonitoringList() {
-        let saveData = monitoringDataArray;
+        let saveData = monitoringPageArray;
         saveDataToFile(saveData);
     }
 
@@ -408,7 +407,7 @@
             reader.onload = function () {
                 let data = JSON.parse(reader.result);
                 loadMonitoringList(data);
-                monitoringDataArray = data;
+                monitoringPageArray = data;
             };
             reader.readAsText(input.files[0], "UTF-8");
         };
@@ -451,6 +450,40 @@
             console.log('view');
         }
     });
+
+    var slideIndex = 1;
+    function changePage(count) {
+
+        slideIndex += count;
+        n = slideIndex;
+
+        var i;
+        var x = document.getElementsByClassName("monitoringContainer");
+
+        if (n > x.length) {
+            slideIndex = 1
+        }
+        if (n < 1) {
+            slideIndex = x.length
+        }
+
+        for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";
+        }
+
+        if (count < 0) {
+            x[slideIndex - 1].style.position = "relative";
+            x[slideIndex - 1].style.animation = "animateleft 0.4s";
+            x[slideIndex - 1].style.display = "flex";
+        }
+        else {
+            x[slideIndex - 1].style.position = "relative";
+            x[slideIndex - 1].style.animation = "animateright 0.4s";
+            x[slideIndex - 1].style.display = "flex";
+        }
+
+    }
+
 
     const chartMaxLength = Math.ceil(160 * Math.PI);
     function doughnutChartAnimation(chartID, chartValue) {

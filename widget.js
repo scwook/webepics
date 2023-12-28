@@ -97,7 +97,7 @@ function createWidget(containerID, widgetType, widgetInfo) {
         case "type1-1":
             var status = widgetType1_1(containerID, widgetInfo);
             if (status) {
-                updateMonitoringInfo(containerID, "widget", widgetInfo);
+                updateMonitoringData(containerID, "widget", widgetInfo);
                 startMonitoringType1(containerID, widgetInfo);
             }
             else {
