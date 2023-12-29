@@ -19,7 +19,16 @@ body {
     background-repeat: no-repeat;
     background-position: center var(--background-image-top);
     font-family: "Roboto-Thin";
-    overflow: hidden;
+}
+
+#header-container {
+    margin:auto; 
+    position: relative; 
+    width:1920px; 
+    height:80px;
+    /* border-width: 1px;
+    border-color: #e94174;
+    border-style: dashed; */
 }
 
 #time-stamp {
@@ -57,32 +66,51 @@ body {
 
 #body-box {
     width: 1920px;
-    height: 980px;
+    height: 960px;
     margin: auto;
     /* border-style: dotted; */
     /* border-color: red; */
 }
 
+#page-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 1920px;
+    height: 40px;
+    margin: auto;
+    /* border-width: 1px;
+    border-color: #e94174;
+    border-style: dashed; */
+}
+
+.pageDot {
+    width: 15px;
+    height: 15px;
+    margin: 5px;
+    background-color: rgba(2, 65, 97, 1);
+    border-radius: 50%;
+}
+
 .slideButton {
     width: 40px;
-    height: 980px;
+    height: 960px;
     font-size: 32px;
     margin: 0px;
-    color: white;
+    color: rgba(2, 65, 97);
     background-color: transparent;
     border: none;
     outline: none;
     float: left;
-    /* border-style: dotted; */
-    /* border-color: red; */
+    /* background-color: #e94174; */
 }
 
 #monitoring-body {
     width: 1840px;
-    height: 980px;
+    height: 960px;
     float: left;
-    /* border-style: dotted; */
-    /* border-color: greenyellow; */
+    /* border-style: dotted;
+    border-color: greenyellow; */
 }
 
 .monitoringContainer {
@@ -90,11 +118,12 @@ body {
     flex-wrap: wrap;
     align-content: flex-start;
     width: 1800px;
-    height: 960px;
-    margin: 20px;
-
-    /* border-width: 2px;
-    border-color: red;
+    height: 940px;
+    margin-left: 20px;
+    margin-top: 20px;
+    /* background-color: #e94174; */
+    /* border-width: 1px;
+    border-color: #e94174;
     border-style: dashed; */
 }
 
@@ -139,7 +168,7 @@ body {
 
 .slide-page {
     width: 1840px;
-    height: 980px;
+    height: 960px;
     /* border-style: dotted; */
     /* border-color: blue; */
 }

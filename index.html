@@ -11,7 +11,7 @@
 <script src="script/chartjs-plugin-streaming.min.js"></script>
 
 <body>
-    <div style="margin:auto; position: relative; width:1920px; height:80px;">
+    <div id="header-container">
         <div id="time-stamp"><span id="timestamp-date"></span><span id="timestamp-time"></span></div>
         <div id="raon-box">
             <svg>
@@ -66,37 +66,29 @@
         <button id="loadButton" type="button" onclick="readDataFromFile()">Load</button>
         <button id="saveButton" type="button" onclick="saveMonitoringList()">Save</button>
         <button id="deleteAll" type="button" onclick="deleteAllMonitoring()">Delete</button>
+        <button id="newPage" type="button" onclick="createNewPage()">Page</button>
 
     </div>
 
     <div id="body-box">
-        <button class="slideButton" onclick="changePage(-1)">&#10094;</button>
+        <button id="left-page-button" class="slideButton" onclick="changePage(-1)">&#10094;</button>
 
         <div id="monitoring-body">
             <div class="monitoringContainer">
                 <!-- <div class="monitoring-item type1"></div> -->
 
             </div>
-
-            <div id="aaa" class="monitoringContainer" style="display: none;">
-                <!-- <div class="monitoring-item type1"></div> -->
-
-            </div>
-            <!-- Page 1 -->
-            <!-- <div class="slide-page" style="display: block;">
-
-            </div> -->
-            <!-- Page 2 -->
-            <!-- <div class="slide-page" style="display: none;">
-
-            </div> -->
         </div>
 
-        <button class="slideButton" onclick="changePage(1)">&#10095;</button>
+        <button id="right-page-button" class="slideButton" onclick="changePage(1)">&#10095;</button>
     </div>
 
     <div id="widget-properties-container">
         <form id="widget-properties-form" enctype=multipart/form-data name="widgetProperties"></form>
+    </div>
+
+    <div id="page-box">
+        <div class="pageDot"></div>
     </div>
 
 </body>
@@ -105,8 +97,8 @@
     let isEditMode = false;
     const monitoringPageArray = new Array();
     const monitoringInfoStructure = {
-        "form" : null,
-        "widget" : null
+        "form": null,
+        "widget": null
     };
 
     window.onload = function () {
@@ -173,6 +165,22 @@
         // for (let i = 0; i < deleteButtonClass.length; i++) {
         //     deleteButtonClass[i].style.visibility = "hidden";
         // }
+    }
+
+    function createNewPage() {
+        const monitoringBodyNode = document.getElementById("monitoring-body");
+        const monitoringContainer = document.createElement("div");
+        monitoringContainer.classList.add("monitoringContainer");
+
+        monitoringBodyNode.appendChild(monitoringContainer);
+        
+        const pageBoxNode = document.getElementById("page-box");
+        const pageDot = document.createElement("div");
+        pageDot.classList.add("pageDot");
+
+        pageBoxNode.appendChild(pageDot);
+
+        document.getElementById("right-page-button").onclick();
     }
 
     function createNewMonitor(formSize) {
@@ -316,11 +324,11 @@
             let monitoringDataArray = new Array();
             monitoringPageArray.push(monitoringDataArray);
         }
-        
+
         monitoringInfo = monitoringPageArray[pageIndex][childIndex];
         // if monitoring data doesn't exist, create new monitoring data structure
-        if(!monitoringInfo) {
-            monitoringInfo = { ... monitoringInfoStructure};
+        if (!monitoringInfo) {
+            monitoringInfo = { ...monitoringInfoStructure };
         }
 
         monitoringInfo[key] = value;
@@ -362,7 +370,7 @@
         let childNodeIndex = getChildNodeIndex(id);
 
         let monitoringDataArray = JSON.parse(JSON.stringify(monitoringPageArray[pageIndex]));
-        
+
         monitoringDataArray.splice(childNodeIndex, 1);
         monitoringPageArray[pageIndex] = monitoringDataArray;
 
@@ -451,35 +459,39 @@
         }
     });
 
-    var slideIndex = 1;
-    function changePage(count) {
+    var pageIndex = 1;
+    function changePage(dir) {
 
-        slideIndex += count;
-        n = slideIndex;
+        pageIndex += dir;
+        let n = pageIndex;
 
-        var i;
-        var x = document.getElementsByClassName("monitoringContainer");
+        let x = document.getElementsByClassName("monitoringContainer");
+        let dot = document.getElementsByClassName("pageDot");
 
         if (n > x.length) {
-            slideIndex = 1
+            pageIndex = 1
         }
         if (n < 1) {
-            slideIndex = x.length
+            pageIndex = x.length
         }
 
-        for (i = 0; i < x.length; i++) {
+        for (let i = 0; i < x.length; i++) {
             x[i].style.display = "none";
+            dot[i].style.backgroundColor = "rgba(2, 65, 97, 0.5)";
         }
 
-        if (count < 0) {
-            x[slideIndex - 1].style.position = "relative";
-            x[slideIndex - 1].style.animation = "animateleft 0.4s";
-            x[slideIndex - 1].style.display = "flex";
+        if (dir < 0) {
+            x[pageIndex - 1].style.position = "relative";
+            x[pageIndex - 1].style.animation = "animateleft 0.4s";
+            x[pageIndex - 1].style.display = "flex";
+            dot[pageIndex - 1].style.backgroundColor = "rgba(2, 65, 97, 1)";
         }
         else {
-            x[slideIndex - 1].style.position = "relative";
-            x[slideIndex - 1].style.animation = "animateright 0.4s";
-            x[slideIndex - 1].style.display = "flex";
+            x[pageIndex - 1].style.position = "relative";
+            x[pageIndex - 1].style.animation = "animateright 0.4s";
+            x[pageIndex - 1].style.display = "flex";
+            dot[pageIndex - 1].style.backgroundColor = "rgba(2, 65, 97, 1)";
+
         }
 
     }
