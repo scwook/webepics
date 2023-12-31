@@ -21,24 +21,24 @@
     text-overflow: clip; 
 }
 
-/* .widget-container {
+.widgetContainer {
     position: relative;
     top: 20px;
     width: 174px;
     height: 174px;
     transform: rotate(-90deg);
     margin: auto;
-    background-color:brown;
-} */
+    /* background-color:brown; */
+}
 
-.type1-1-widget-background {
+.type2-1-widget-background {
     stroke-dashoffset: 0;
     stroke: rgba(0, 84, 188, 0.3);
     transform: translate(7px, 7px);
     stroke-width: 14;
 }
 
-.type1-1-widget-foreground {
+.type2-1-widget-foreground {
     stroke: #fff;
     stroke-width: 14;
     stroke-linecap: round;

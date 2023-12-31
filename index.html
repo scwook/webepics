@@ -60,13 +60,17 @@
 
         </div>
         <button type="button" onclick="modeChange()">Mode</button>
-        <button id="createButton" type="button" onclick="createNewMonitor('size1by1')">New</button>
-        <button id="createButton2" type="button" onclick="createNewMonitor('size2by1')">New2</button>
+        <button id="createButton" type="button" onclick="newMonitor('size1by1')">New</button>
+        <button id="createButton2" type="button" onclick="newMonitor('size2by1')">New2</button>
 
         <button id="loadButton" type="button" onclick="readDataFromFile()">Load</button>
         <button id="saveButton" type="button" onclick="saveMonitoringList()">Save</button>
-        <button id="deleteAll" type="button" onclick="deleteAllMonitoring()">Delete</button>
+        <!-- <button id="deleteAll" type="button" onclick="deleteAllMonitoring()">Delete</button> -->
         <button id="newPage" type="button" onclick="createNewPage()">Page</button>
+        <button id="DelPage" type="button" onclick="deletePage()">Del Page</button>
+        <button id="DelAllPage" type="button" onclick="deleteAllPage()">Del All Page</button>
+
+
 
     </div>
 
@@ -74,10 +78,10 @@
         <button id="left-page-button" class="slideButton" onclick="changePage(-1)">&#10094;</button>
 
         <div id="monitoring-body">
-            <div class="monitoringContainer">
-                <!-- <div class="monitoring-item type1"></div> -->
+            <!-- <div class="monitoringContainer"> -->
+            <!-- <div class="monitoring-item type1"></div> -->
 
-            </div>
+            <!-- </div> -->
         </div>
 
         <button id="right-page-button" class="slideButton" onclick="changePage(1)">&#10095;</button>
@@ -88,7 +92,7 @@
     </div>
 
     <div id="page-box">
-        <div class="pageDot"></div>
+        <!-- <div class="pageDot"></div> -->
     </div>
 
 </body>
@@ -102,10 +106,14 @@
     };
 
     window.onload = function () {
+        createNewPage();
+    }
 
-        // Page 1 
+    function newMonitor(formSize) {
+        let pageIndex = getMonitoringPageIndex();
+        const monitoringContainer = document.getElementsByClassName("monitoringContainer")[pageIndex];
 
-        // Page 2
+        createNewMonitor(monitoringContainer, formSize);
     }
 
     function modeChange() {
@@ -173,17 +181,55 @@
         monitoringContainer.classList.add("monitoringContainer");
 
         monitoringBodyNode.appendChild(monitoringContainer);
-        
+
         const pageBoxNode = document.getElementById("page-box");
         const pageDot = document.createElement("div");
         pageDot.classList.add("pageDot");
 
         pageBoxNode.appendChild(pageDot);
 
+        let monitoringDataArray = new Array();
+        monitoringPageArray.push(monitoringDataArray);
+
+        document.getElementById("right-page-button").onclick();
+
+        return monitoringContainer;
+    }
+
+    function deletePage() {
+        const monitoringContainer = document.getElementsByClassName("monitoringContainer");
+
+        if (!monitoringContainer.length) {
+            alert("There is no page");
+            return;
+        }
+        // console.log(monitoringContainer.length)
+        // if (monitoringContainer.length == 1) {
+        //     deleteAllMonitoring(monitoringContainer[0]);
+        //     return;
+        // }
+
+        let pageIndex = getMonitoringPageIndex();
+        const pageNode = monitoringContainer[pageIndex];
+        const pageDotNode = document.getElementsByClassName("pageDot")[pageIndex];
+
+        deleteAllMonitoring(pageNode);
+
+        pageNode.remove();
+        pageDotNode.remove();
+
         document.getElementById("right-page-button").onclick();
     }
 
-    function createNewMonitor(formSize) {
+    function deleteAllPage() {
+        const monitoringContainer = document.getElementsByClassName("monitoringContainer");
+
+        for (let i = 0; i < monitoringContainer.length; i++) {
+            deletePage();
+        }
+    }
+
+    function createNewMonitor(pageid, formSize) {
         let index = getMonitoringPageIndex();
         if (index == -1) {
             alert("Can not found container");
@@ -232,120 +278,17 @@
         // parentNodeID.appendChild(deleteButton);
     }
 
-    function getMonitoringPageIndex() {
-        const monitoringContainer = document.getElementsByClassName("monitoringContainer");
+    function deleteAllMonitoring(id) {
+        const childContainer = id.querySelectorAll(".childContainer");
 
-        let index = -1;
-        for (let i = 0; i < monitoringContainer.length; i++) {
-            let displayState = getComputedStyle(monitoringContainer[i]).display;
-            if (displayState == "flex") {
-                index = i;
-                break;
-            }
-        }
-        return index;
-    }
-
-    function mouseOnClick() {
-        itemOnClick(this);
-    }
-
-    function mouseEnter() {
-        itemMouseEnter(this);
-    }
-
-    function mouseLeave() {
-        itemMouseLeave(this);
-    }
-
-    function itemOnClick(id) {
-        const childContainer = id.childNodes[1];
-        if (childContainer.hasChildNodes()) {
-            console.log("has child node");
-            return;
-        }
-
-        let widgetMenu = document.getElementById("widget-menu");
-        let selectedWidget = widgetMenu.querySelector("input[type=radio]:checked");
-        if (!selectedWidget) {
-            console.log("widget not selected");
-            return;
-        }
-
-        let widgetType = selectedWidget.value;
-        switch (widgetType) {
-            case "type1-1":
-                widgetPropertiesType1(id, widgetType);
-                break;
-
-            case "type2-1":
-                break;
-
-            case "type3-1":
-                widgetPropertiesType3(id, widgetType);
-                break;
-
-                // const test1 = document.getElementById("test1");
-                // doughnutChartAnimation('test1', 50);
-
-                break;
-
-            default:
-
-        }
-
-        console.log("onclick");
-    }
-
-    function itemMouseEnter(id) {
-        id.style.backgroundColor = "rgba(26,26,26,0.8)";
-    }
-
-    function itemMouseLeave(id) {
-        id.style.backgroundColor = "rgba(26,26,26,0.3)";
-    }
-
-    function updateMonitoringData(id, key, value) {
-        let pageIndex = getMonitoringPageIndex();
-        let childIndex = getChildNodeIndex(id);
-
-        if (pageIndex == -1) {
-            alert("Can not found page index");
-            return;
-        }
-
-        if (childIndex == -1) {
-            alert("Can not found node index");
-            return;
-        }
-
-        // if page data doesn't exist, create new page data 
-        if (!monitoringPageArray[pageIndex]) {
-            let monitoringDataArray = new Array();
-            monitoringPageArray.push(monitoringDataArray);
-        }
-
-        monitoringInfo = monitoringPageArray[pageIndex][childIndex];
-        // if monitoring data doesn't exist, create new monitoring data structure
-        if (!monitoringInfo) {
-            monitoringInfo = { ...monitoringInfoStructure };
-        }
-
-        monitoringInfo[key] = value;
-        // monitoringDataArray[childIndex] = monitoringInfo;
-        monitoringPageArray[pageIndex][childIndex] = monitoringInfo;
-    }
-
-    function deleteAllMonitoring() {
-        const childContainerClass = document.getElementsByClassName("childContainer");
-        const containerLength = childContainerClass.length;
-
-        console.log("child length", childContainerClass.length);
+        // const childContainer = document.getElementsByClassName("childContainer");
+        const containerLength = childContainer.length;
 
         // just call delete button event. result of this, all monitoring data will clear.
         for (let i = 0; i < containerLength; i++) {
-            var newChildContainerClass = document.getElementsByClassName("childContainer");
-            newChildContainerClass[0].childNodes[0].querySelector("button").click();
+            let newChildContainer = id.querySelector(".childContainer");
+            // let newChildContainerClass = document.getElementsByClassName("childContainer");
+            newChildContainer.childNodes[0].querySelector("button").click();
         }
     }
 
@@ -377,21 +320,107 @@
         event.stopPropagation();
     }
 
-    function widgetSelect(id) {
-        console.log("selected");
+    function updateMonitoringData(id, key, value) {
+        let pageIndex = getMonitoringPageIndex();
+        if (pageIndex == -1) {
+            alert("Can not found page index");
+            return;
+        }
+
+        let childIndex = getChildNodeIndex(id);
+        if (childIndex == -1) {
+            alert("Can not found node index");
+            return;
+        }
+
+        // if page data doesn't exist, create new page data 
+        if (!monitoringPageArray[pageIndex]) {
+            let monitoringDataArray = new Array();
+            monitoringPageArray.push(monitoringDataArray);
+        }
+
+        monitoringInfo = monitoringPageArray[pageIndex][childIndex];
+        // if monitoring data doesn't exist, create new monitoring data structure
+        if (!monitoringInfo) {
+            monitoringInfo = { ...monitoringInfoStructure };
+        }
+
+        monitoringInfo[key] = value;
+        // monitoringDataArray[childIndex] = monitoringInfo;
+        monitoringPageArray[pageIndex][childIndex] = monitoringInfo;
+
+        console.log(monitoringPageArray);
+    }
+
+    function cleartMonitoringData() {
+        for (let i = 0; i < monitoringPageArray.length; i++) {
+            monitoringPageArray.pop();
+        }
+    }
+
+    function getMonitoringPageIndex() {
+        const monitoringContainer = document.getElementsByClassName("monitoringContainer");
+
+        let index = -1;
+        for (let i = 0; i < monitoringContainer.length; i++) {
+            let displayState = getComputedStyle(monitoringContainer[i]).display;
+            if (displayState == "flex") {
+                index = i;
+                break;
+            }
+        }
+        return index;
+    }
+
+    function itemOnClick(id) {
+        const childContainer = id.childNodes[1];
+        if (childContainer.hasChildNodes()) {
+            console.log("has child node");
+            return;
+        }
+
+        let widgetMenu = document.getElementById("widget-menu");
+        let selectedWidget = widgetMenu.querySelector("input[type=radio]:checked");
+        if (!selectedWidget) {
+            console.log("widget not selected");
+            return;
+        }
+
+        let widgetType = selectedWidget.value;
+        switch (widgetType) {
+            case "type1-1":
+                widgetPropertiesType1(id, widgetType);
+                break;
+            case "type2-1":
+                widgetPropertiesType2(id, widgetType);
+                break;
+            case "type3-1":
+                widgetPropertiesType3(id, widgetType);
+                break;
+
+            default:
+
+        }
+
+        console.log("onclick");
     }
 
     function loadMonitoringList(data) {
-        deleteAllMonitoring();
+        // deleteAllMonitoring();
+        deleteAllPage();
 
-        let numberOfMonitoring = data.length;
+        for (let i = 0; i < data.length; i++) {
+            let monitoringData = data[i];
+            let monitoringContainer = createNewPage();
 
-        for (let i = 0; i < numberOfMonitoring; i++) {
-            let childContainerID = createNewMonitor(data[i].form.size);
+            for (let j = 0; j < monitoringData.length; j++) {
 
-            if (data[i].widget) {
-                let widgetType = data[i].widget.type;
-                createWidget(childContainerID, widgetType, data[i].widget);
+                let childContainerID = createNewMonitor(monitoringContainer, monitoringData[j].form.size);
+
+                if (monitoringData[j].widget) {
+                    let widgetType = monitoringData[j].widget.type;
+                    createWidget(childContainerID, widgetType, monitoringData[j].widget);
+                }
             }
         }
 
@@ -415,7 +444,10 @@
             reader.onload = function () {
                 let data = JSON.parse(reader.result);
                 loadMonitoringList(data);
-                monitoringPageArray = data;
+                cleartMonitoringData();
+                for (let i = 0; i < data.length; i++) {
+                    monitoringPageArray.push(data[i]);
+                }
             };
             reader.readAsText(input.files[0], "UTF-8");
         };
@@ -449,6 +481,32 @@
         // document.body.removeChild(el);
     }
 
+    function mouseOnClick() {
+        itemOnClick(this);
+    }
+
+    function mouseEnter() {
+        itemMouseEnter(this);
+    }
+
+    function mouseLeave() {
+        itemMouseLeave(this);
+    }
+
+
+    function itemMouseEnter(id) {
+        id.style.backgroundColor = "rgba(26,26,26,0.8)";
+    }
+
+    function itemMouseLeave(id) {
+        id.style.backgroundColor = "rgba(26,26,26,0.3)";
+    }
+
+    function widgetSelect(id) {
+        console.log("selected");
+    }
+
+
     document.addEventListener('visibilitychange', function () {
         if (document.hidden) {
             documentHidden = true;
@@ -467,6 +525,10 @@
 
         let x = document.getElementsByClassName("monitoringContainer");
         let dot = document.getElementsByClassName("pageDot");
+
+        if(!x.length) {
+            return;
+        }
 
         if (n > x.length) {
             pageIndex = 1
@@ -495,74 +557,6 @@
         }
 
     }
-
-
-    const chartMaxLength = Math.ceil(160 * Math.PI);
-    function doughnutChartAnimation(chartID, chartValue) {
-
-        let maxValue = 100;
-        // let randomValue = Math.random() * maxValue;
-        let value = chartValue;
-        let valueToOffset = Math.floor(chartMaxLength - chartMaxLength / maxValue * value);
-
-        let fgID = document.getElementById(chartID);
-        let currentDashOffset = parseInt(fgID.style.strokeDashoffset);
-
-        let sign = valueToOffset - currentDashOffset;
-
-        let dir = 0;
-        if (sign > 0) {
-            dir = -1; // anitclockwise, increase offset value
-        } else if (sign < 0) {
-            dir = 1; // clockwise, decrease offset value
-        }
-
-        if (dir == 0) {
-            return;
-        }
-
-        let duration = 2000;
-        let interval = 10;
-        let count = 0;
-        let maxCount = Math.floor(duration / interval);
-        let x1 = 0.0;
-        let x2 = 1.0;
-        let dx = Math.abs(x1 - x2) / maxCount;
-        let x = 0.0;
-        let y = 0;
-        let y1 = (dir == 1) ? valueToOffset : currentDashOffset;
-        let y2 = (dir == 1) ? currentDashOffset : valueToOffset;
-        let a = Math.abs(currentDashOffset - valueToOffset);
-        let b = y1;
-
-        let id = setInterval(function () {
-
-            switch (dir) {
-                case 1:
-                    y = a * Math.pow(2, -10 * x) + y1;
-                    break;
-
-                case -1:
-                    y = a * (1 - Math.pow(2, -10 * x)) + y1;
-
-                    break;
-
-                default:
-                    count = maxCount; // 
-            }
-
-            fgID.style.strokeDashoffset = Math.floor(y);
-
-            x += dx;
-            count += 1;
-
-            if (count == maxCount) {
-                clearInterval(id);
-            }
-
-        }, interval);
-    }
-
 </script>
 
 </html>
