@@ -229,6 +229,18 @@
         }
     }
 
+    function getFormSize(formSize) {
+        switch (formSize) {
+            case "size1by1":
+                return  {"width" : 260, "height" : 260};
+                break;
+
+            case "size2by1":
+                return  {"width" : 560, "height" : 260};
+                break;
+        }
+    }
+
     function createNewMonitor(pageid, formSize) {
         let index = getMonitoringPageIndex();
         if (index == -1) {
@@ -237,6 +249,25 @@
         }
 
         const parentContainer = document.getElementsByClassName("monitoringContainer"); // Flex Body
+        const preChildContainer = parentContainer[index].getElementsByClassName("childContainer");
+        const lastChildContainer = preChildContainer[preChildContainer.length - 1];
+
+        if (lastChildContainer) {
+            const newFormSize = getFormSize(formSize);
+            const containerTopOffset = lastChildContainer.offsetTop;
+            const containerLeftOffset = lastChildContainer.offsetLeft;
+
+            const containerGap = 20;
+
+            const newFormTopOffset = containerTopOffset + newFormSize.height + containerGap;
+            const newFormRightOffset = containerLeftOffset + newFormSize.width + containerGap;
+
+            if (newFormTopOffset >= 618 && newFormRightOffset >= 1782) {
+                alert("No more create monitoring in this page");
+                return;
+            }
+        }
+
         const childContainer = document.createElement("div"); // Flex Item
 
         childContainer.classList.add(formSize);
@@ -295,7 +326,7 @@
     function deleteMonitoring(id, chartObj) {
         const parentNode = id.parentNode;
 
-        // In case of chart widget, it must be deleted before deleting conainter
+        // In case of chart widget, it must be deleted before deleting container
         if (chartObj) {
             chartObj.destroy();
             console.log("delete chart");
@@ -349,7 +380,7 @@
         // monitoringDataArray[childIndex] = monitoringInfo;
         monitoringPageArray[pageIndex][childIndex] = monitoringInfo;
 
-        console.log(monitoringPageArray);
+        // console.log(monitoringPageArray);
     }
 
     function cleartMonitoringData() {
@@ -526,7 +557,7 @@
         let x = document.getElementsByClassName("monitoringContainer");
         let dot = document.getElementsByClassName("pageDot");
 
-        if(!x.length) {
+        if (!x.length) {
             return;
         }
 
