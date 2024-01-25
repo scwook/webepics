@@ -251,17 +251,20 @@
         const parentContainer = document.getElementsByClassName("monitoringContainer"); // Flex Body
         const preChildContainer = parentContainer[index].getElementsByClassName("childContainer");
         const lastChildContainer = preChildContainer[preChildContainer.length - 1];
-
+        
         if (lastChildContainer) {
             const newFormSize = getFormSize(formSize);
             const containerTopOffset = lastChildContainer.offsetTop;
-            const containerLeftOffset = lastChildContainer.offsetLeft;
+            const containerRightOffset = lastChildContainer.offsetLeft + lastChildContainer.offsetWidth;
 
+            console.log(containerTopOffset, containerRightOffset);
+            
             const containerGap = 20;
 
             const newFormTopOffset = containerTopOffset + newFormSize.height + containerGap;
-            const newFormRightOffset = containerLeftOffset + newFormSize.width + containerGap;
+            const newFormRightOffset = containerRightOffset + newFormSize.width + containerGap;
 
+            // console.log(newFormTopOffset, newFormRightOffset);
             if (newFormTopOffset >= 618 && newFormRightOffset >= 1782) {
                 alert("No more create monitoring in this page");
                 return;
