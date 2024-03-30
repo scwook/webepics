@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<style>
+    div {
+        float: left;
+        margin: 20px;
+    }
+</style>
+
+<body>
+
+</body>
+<script>
+    window.onload = function () {
+        displayValue();
+    }
+
+    function displayValue() {
+        let number = 100;
+        for (let i = 1; i <= number; i++) {
+            let divId = 'value' + i;
+            let pvname = 'scwook:ai' + i;
+
+            const div = document.createElement('div');
+            div.id = divId;
+            document.body.appendChild(div);
+
+            getPvData(divId, pvname);
+        }
+    }
+    // getPvData('value1','scwook:ai1');
+    // getPvData('value2','scwook:ai2');
+    // getPvData('value3','scwook:ai3');
+    // getPvData('value4','scwook:ai1');
+    // getPvData('value5','scwook:ai2');
+    // getPvData('value6','scwook:ai3');
+    // getPvData('value7','scwook:ai1');
+    // getPvData('value8','scwook:ai2');
+    // getPvData('value9','scwook:ai3');
+    // getPvData('value10','scwook:ai1');
+    // getPvData('value11','scwook:ai2');
+    // getPvData('value12','scwook:ai3');
+    // getPvData('value13','scwook:ai1');
+    // getPvData('value14','scwook:ai2');
+    // getPvData('value15','scwook:ai3');
+    // getPvData('value16','scwook:ai1');
+    // getPvData('value17','scwook:ai2');
+    // getPvData('value18','scwook:ai3');
+    // getPvData('value19','scwook:ai2');
+    // getPvData('value20','scwook:ai3');
+
+    function getPvData(id, pvname) {
+
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4) {
+                if (this.status == 200) {
+                    var jsonValue = JSON.parse(this.responseText);
+                    if (jsonValue.Connection == 'True') {
+                        document.getElementById(id).innerText = jsonValue.value;
+                    }
+                    else {
+                        document.getElementById(id).innerText = "Disconnected";
+                    }
+
+                    setTimeout(getPvData, 1000, id, pvname);
+                    // recordData = jsonValue;
+                }
+
+                else {
+                    // alert('Status Error : ' + this.status);
+                    document.getElementById(id).innerText = "No Response";
+                    setTimeout(getPvData, 1000, id, pvname);
+                    console.log(this.readyState);
+                    // setTimeout(getPvData, 1000, id, pvname);
+                }
+            }
+
+
+        };
+
+        var serverAddr = 'http://192.168.0.99:8080';
+        var requestData = serverAddr + '/?name=' + pvname;
+        xhttp.open("GET", requestData, true);
+        xhttp.send();
+    }
+</script>
+
+</html>
