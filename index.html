@@ -249,22 +249,22 @@
         const preChildContainer = parentContainer[index].getElementsByClassName("childContainer");
         const lastChildContainer = preChildContainer[preChildContainer.length - 1];
         
-        if (lastChildContainer) {
-            const newFormSize = getFormSize(formSize);
-            const containerTopOffset = lastChildContainer.offsetTop;
-            const containerRightOffset = lastChildContainer.offsetLeft + lastChildContainer.offsetWidth;
+        // if (lastChildContainer) {
+        //     const newFormSize = getFormSize(formSize);
+        //     const containerTopOffset = lastChildContainer.offsetTop;
+        //     const containerRightOffset = lastChildContainer.offsetLeft + lastChildContainer.offsetWidth;
             
-            const containerGap = 20;
+        //     const containerGap = 20;
 
-            const newFormTopOffset = containerTopOffset + newFormSize.height + containerGap;
-            const newFormRightOffset = containerRightOffset + newFormSize.width + containerGap;
+        //     const newFormTopOffset = containerTopOffset + newFormSize.height + containerGap;
+        //     const newFormRightOffset = containerRightOffset + newFormSize.width + containerGap;
 
-            // console.log(newFormTopOffset, newFormRightOffset);
-            if (newFormTopOffset >= 618 && newFormRightOffset >= 1782) {
-                alert("No more create monitoring in this page");
-                return;
-            }
-        }
+        //     // console.log(newFormTopOffset, newFormRightOffset);
+        //     if (newFormTopOffset >= 618 && newFormRightOffset >= 1782) {
+        //         alert("No more create monitoring in this page");
+        //         return;
+        //     }
+        // }
 
         const childContainer = document.createElement("div"); // Flex Item
 
