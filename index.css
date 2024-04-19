@@ -11,10 +11,14 @@
     font-family: "Roboto-Light";
     src: url(fonts/Roboto-Light.ttf);
 }
+html,
+body {
+    height: 100%;
+}
 
 body {
     margin: 0px;
-    background-color: black;
+    background-color: darkblue;
     /* background-image: url('images/background5.png'); */
     /* background-repeat: no-repeat; */
     /* background-position: center var(--background-image-top); */
@@ -22,16 +26,18 @@ body {
 }
 
 #header-container {
+    display: flex;
     margin:auto; 
     position: relative; 
     width:100%; 
-    height:80px;
+    height:10%;
     /* border-width: 1px;
     border-color: #e94174;
     border-style: dashed; */
+    background-color: cornflowerblue;
 }
 
-#time-stamp {
+/* #time-stamp {
     position: absolute;
     width: 500px;
     height:40px;
@@ -39,21 +45,21 @@ body {
     left: 50%;
     transform: translate(-50%, -70%);
     text-align: center;
-}
+} */
 
-#raon-box {
+/* #raon-box {
     position: absolute;
     left: 20px;
     top: 20px;
     width: 133px;
     z-index: 100;
-}
+} */
 
-.raonLogo {
+/* .raonLogo {
     fill: #fff;
-}
+} */
 
-#accelerator-control {
+/* #accelerator-control {
     position: absolute;
     color: white;
     width: 150px;
@@ -62,22 +68,60 @@ body {
     font-family: "Roboto-Light";
     letter-spacing: 2px;
     z-index: 100;
+} */
+
+
+#widget-menu {
+    display: flex;
+    position: absolute;
+    right: 5%;
+    width: 50%;
+    height: 100%;
+    background-color:darkgoldenrod;
 }
+
+.wdigetItemContainer {
+    width: 80px;
+    height: 100%;
+    background-color: #e94174;
+}
+
+.wdigetItemContainer input{
+    display: none;
+    /* opacity: 0; */
+}
+
+.wdigetItemContainer input:checked+.widgetSelectButton .widget {
+    fill: #fff;
+}
+
+.wdigetItemContainer:hover input+.widgetSelectButton .widget {
+    stroke: blue;
+}
+
+.widgetSelectButton {
+    display: block;
+    width: 80px;
+    height: 100%;
+    cursor: pointer;
+}
+
 
 #body-box {
     display: flex;
     width: 100%;
-    height: 960px;
+    height: 90%;
     margin: auto;
-    border-style: dotted;
-    border-color: red;
+    /* border-style: dotted; */
+    /* border-color: red; */
+    background-color: #e94174;
 }
 
 #page-box {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 1920px;
+    width: 100%;
     height: 40px;
     margin: auto;
     /* border-width: 1px;
@@ -110,7 +154,7 @@ body {
 #monitoring-body {
     float: left;
     width: 100%;
-    height: 960px;
+    height: 100%;
     border-style: dotted;
     border-color: greenyellow;
 }
@@ -120,7 +164,7 @@ body {
     flex-wrap: wrap;
     align-content: flex-start;
     width: 100%;
-    height: 940px;
+    height: 100%;
     margin-left: 20px;
     margin-top: 20px;
     /* background-color: #e94174; */
@@ -170,12 +214,10 @@ body {
     /* background-color: brown; */
 }
 
-.slide-page {
+/* .slide-page {
     width: 1840px;
     height: 960px;
-    /* border-style: dotted; */
-    /* border-color: blue; */
-}
+} */
 
 #createButton {
     visibility: hidden;
@@ -228,37 +270,35 @@ body {
     }
 }
 
-#widget-menu {
-    display: flex;
-    position: absolute;
-    left: 500px;
-    width: 400px;
-    height: 80px;
-    background-color:darkgoldenrod;
-}
-
-.wdigetItemContainer {
-    width: 80px;
-    height: 80px;
-    background-color: #e94174;
-}
-
-.wdigetItemContainer input{
-    display: none;
-    /* opacity: 0; */
-}
-
-.wdigetItemContainer input:checked+.widgetSelectButton .widget {
-    fill: #fff;
-}
-
-.wdigetItemContainer:hover input+.widgetSelectButton .widget {
-    stroke: blue;
-}
-
-.widgetSelectButton {
-    display: block;
-    width: 80px;
-    height: 80px;
-    cursor: pointer;
-}
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    #body-box {
+        background: red;
+    }
+    .slideButton {
+        display: none;
+    }
+    #page-box {
+        display: none;
+    }
+  }
+  
+  /* Small devices (portrait tablets and large phones, 600px and up) */
+  @media only screen and (min-width: 600px) {
+    #body-box  {background: green;}
+  }
+  
+  /* Medium devices (landscape tablets, 768px and up) */
+  @media only screen and (min-width: 768px) {
+    #body-box  {background: blue;}
+  } 
+  
+  /* Large devices (laptops/desktops, 992px and up) */
+  @media only screen and (min-width: 992px) {
+    #body-box  {background: orange;}
+  } 
+  
+  /* Extra large devices (large laptops and desktops, 1200px and up) */
+  @media only screen and (min-width: 1200px) {
+    #body-box  {background: pink;}
+  }
