@@ -59,7 +59,7 @@
                 </span>
             </label>
         </div> -->
-        <!-- <button type="button" onclick="modeChange()">Mode</button>
+        <button type="button" onclick="modeChange()">Mode</button>
         <button id="createButton" type="button" onclick="newMonitor('size1by1')">New</button>
         <button id="createButton2" type="button" onclick="newMonitor('size2by1')">New2</button>
 
@@ -67,13 +67,13 @@
         <button id="saveButton" type="button" onclick="saveMonitoringList()">Save</button>
         <button id="newPage" type="button" onclick="createNewPage()">Page</button>
         <button id="DelPage" type="button" onclick="deletePage()">Del Page</button>
-        <button id="DelAllPage" type="button" onclick="deleteAllPage()">Del All Page</button> -->
+        <button id="DelAllPage" type="button" onclick="deleteAllPage()">Del All Page</button>
     </div>
 
     <div id="body-box">
         <button id="left-page-button" class="slideButton" onclick="changePage(-1)">&#10094;</button>
 
-        <div id="monitoring-body">
+        <div id="monitoring-body" ontouchstart="touchStart(event)" ontouchend="touchEnd(event)">
             <!-- <div class="monitoringContainer"> -->
             <!-- <div class="monitoring-item type1"></div> -->
 
@@ -100,6 +100,47 @@
         "form": null,
         "widget": null
     };
+
+    var bx = 0.0;
+    var dx = 0.0;
+
+    function touchStart(event) {
+        var x = event.touches[0].clientX;
+        // var y = event.touches[0].clientY;
+        dx = x - bx;
+
+        document.getElementById("monitoring-body").innerHTML = x + ", " + dx;
+
+        // if (bx < -5.0) {
+        //     changePage(-1);
+        // }
+
+        // if (bx > 5.0) {
+        //     changePage(1);
+        // }
+
+        // bx = x;
+
+    }
+
+    function touchEnd(event) {
+        var xx = event.touches[0].clientX;
+        // var y = event.touches[0].clientY;
+        dx = xx - bx;
+
+        document.getElementById("monitoring-body").innerHTML = xx + ", " + dx;
+
+    //     if (bx < -5.0) {
+    //         changePage(-1);
+    //     }
+
+    //     if (bx > 5.0) {
+    //         changePage(1);
+    //     }
+
+    //     bx = x;
+
+    }
 
     window.onload = function () {
         // createNewPage();
@@ -228,11 +269,11 @@
     function getFormSize(formSize) {
         switch (formSize) {
             case "size1by1":
-                return  {"width" : 260, "height" : 260};
+                return { "width": 260, "height": 260 };
                 break;
 
             case "size2by1":
-                return  {"width" : 560, "height" : 260};
+                return { "width": 560, "height": 260 };
                 break;
         }
     }
@@ -247,12 +288,12 @@
         const parentContainer = document.getElementsByClassName("monitoringContainer"); // Flex Body
         const preChildContainer = parentContainer[index].getElementsByClassName("childContainer");
         const lastChildContainer = preChildContainer[preChildContainer.length - 1];
-        
+
         // if (lastChildContainer) {
         //     const newFormSize = getFormSize(formSize);
         //     const containerTopOffset = lastChildContainer.offsetTop;
         //     const containerRightOffset = lastChildContainer.offsetLeft + lastChildContainer.offsetWidth;
-            
+
         //     const containerGap = 20;
 
         //     const newFormTopOffset = containerTopOffset + newFormSize.height + containerGap;
