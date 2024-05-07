@@ -66,14 +66,14 @@
         <button id="loadButton" type="button" onclick="readDataFromFile()">Load</button>
         <button id="saveButton" type="button" onclick="saveMonitoringList()">Save</button>
         <button id="newPage" type="button" onclick="createNewPage()">Page</button>
-        <button id="DelPage" type="button" onclick="deletePage()">Del Page</button>
-        <button id="DelAllPage" type="button" onclick="deleteAllPage()">Del All Page</button>
+        <!-- <button id="DelPage" type="button" onclick="deletePage()">Del Page</button> -->
+        <!-- <button id="DelAllPage" type="button" onclick="deleteAllPage()">Del All Page</button> -->
     </div>
 
     <div id="body-box">
         <button id="left-page-button" class="slideButton" onclick="changePage(-1)">&#10094;</button>
 
-        <div id="monitoring-body" ontouchstart="touchStart(event)" ontouchend="touchEnd(event)">
+        <div id="monitoring-body" ontouchstart="touchStart(event)" ontouchmove="touchMove(event)" ontouchend="touchEnd()">
             <!-- <div class="monitoringContainer"> -->
             <!-- <div class="monitoring-item type1"></div> -->
 
@@ -101,45 +101,33 @@
         "widget": null
     };
 
-    var bx = 0.0;
+    var startX = 0.0;
+    var endX = 0.0;
     var dx = 0.0;
 
     function touchStart(event) {
-        var x = event.touches[0].clientX;
+        startX = event.touches[0].clientX;
         // var y = event.touches[0].clientY;
-        dx = x - bx;
 
-        document.getElementById("monitoring-body").innerHTML = x + ", " + dx;
-
-        // if (bx < -5.0) {
-        //     changePage(-1);
-        // }
-
-        // if (bx > 5.0) {
-        //     changePage(1);
-        // }
-
-        // bx = x;
-
+        // document.getElementById("monitoring-body").innerHTML = x + ", " + dx;
     }
 
-    function touchEnd(event) {
-        var xx = event.touches[0].clientX;
-        // var y = event.touches[0].clientY;
-        dx = xx - bx;
+    function touchMove(event) {
+        endX = event.touches[0].clientX;
+    }
 
-        document.getElementById("monitoring-body").innerHTML = xx + ", " + dx;
+    function touchEnd() {
+        dx = startX - endX;
 
-    //     if (bx < -5.0) {
-    //         changePage(-1);
-    //     }
+        // document.getElementById("monitoring-body").innerHTML = dx;
 
-    //     if (bx > 5.0) {
-    //         changePage(1);
-    //     }
+        if (dx < -120.0) {
+            changePage(-1);
+        }
 
-    //     bx = x;
-
+        if (dx > 120.0) {
+            changePage(1);
+        }
     }
 
     window.onload = function () {
