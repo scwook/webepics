@@ -313,7 +313,13 @@
 
         const deleteButton = document.createElement("button");
         deleteButton.classList.add('deleteButton');
-        deleteButton.innerText = document.getElementsByClassName("childContainer").length;
+
+        const deleteButtonText = document.createElement("div");
+        deleteButtonText.classList.add('deleteButtonText');
+
+        deleteButton.appendChild(deleteButtonText);
+        // deleteButton.innerText = document.getElementsByClassName("childContainer").length;
+
         // deleteButton.addEventListener("click", function () { deleteMonitoring(childContainer, null) });
         deleteButton.onclick = function () { deleteMonitoring(childContainer, null) };
 

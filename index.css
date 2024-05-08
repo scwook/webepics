@@ -12,12 +12,14 @@
     src: url(fonts/Roboto-Light.ttf);
 }
 
+* {
+    box-sizing: border-box;
+}
+
 html,
 body {
     height: 100%;
     margin: 0px;
-    box-sizing: border-box;
-
 }
 
 body {
@@ -193,6 +195,8 @@ body {
     /* border-width: 0px; */
     /* border-color: white; */
     /* border-style: dashed; */
+    border-radius: 8px;
+    box-shadow: 7px 7px 5px;
     z-index: 200;
     background-color: #212121;
 }
@@ -207,6 +211,8 @@ body {
     /* border-width: 0px; */
     /* border-color: white; */
     /* border-style: dashed; */
+    border-radius: 8px;
+    box-shadow: 7px 7px 5px;
     z-index: 200;
     background-color: #212121;
 }
@@ -237,19 +243,23 @@ body {
 
 .deleteButton {
     position: absolute;
-    right: 10px;
-    top: 10px;
-    width: 40px;
-    height: 40px;
-    font-size: 32px;
-    color: white;
-    background-color: transparent;
+    right: -15px;
+    top: -15px;
+    width: 30px;
+    height: 30px;
+    /* background-color: transparent; */
     border: none;
-    outline: none;
+    /* outline: none; */
+    border-radius: 50%;
     z-index: 100;
-    background-color: brown;
+    background-color: #e60012;
 }
 
+.deleteButtonText {
+    width: 80%;
+    height: 10%;
+    background-color: #ffffff;
+}
 
 @keyframes animatefadeIn {
     from {
@@ -287,6 +297,10 @@ body {
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
+    #monitoring-body {
+        padding: 2%;
+    }
+
     .size1by1 {
         width: 46%;
         margin: 2%;
@@ -310,6 +324,10 @@ body {
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
+    #monitoring-body {
+        padding: 1.56%;
+    }
+
     .size1by1 {
         width: 30.2%;
         margin: 1.56%;
@@ -326,6 +344,10 @@ body {
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 800px) {
+    #monitoring-body {
+        padding: 1%;
+    }
+
     .size1by1 {
         width: 23%;
         margin: 1%;
@@ -342,6 +364,10 @@ body {
 
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 1200px) {
+    #monitoring-body {
+        padding: 20px;
+    }
+
     .size1by1 {
         width: 260px;
         margin: 20px;
@@ -351,7 +377,7 @@ body {
     .size2by1 {
         width: 560px;
         height: 260px;
-        margin: 18px;
+        margin: 20px;      
     }
 
     #header-container {
