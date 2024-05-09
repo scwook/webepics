@@ -59,13 +59,54 @@
                 </span>
             </label>
         </div> -->
-        <button type="button" onclick="modeChange()">Mode</button>
-        <button id="createButton" type="button" onclick="newMonitor('size1by1')">New</button>
-        <button id="createButton2" type="button" onclick="newMonitor('size2by1')">New2</button>
+        <div id="logo-container">
+            <svg id="raonLogoSVG">
+                <circle class="raonLogo" cx="7.7854" cy="7.7854" r="7.7854" />
+                <path class="raonLogo"
+                    d="M275.5951,237.9206a14.4381,14.4381,0,1,0,14.2967,14.4365A14.3676,14.3676,0,0,0,275.5951,237.9206Zm0,23.2125a8.78,8.78,0,1,1,8.4931-8.776A8.6381,8.6381,0,0,1,275.5951,261.1331Z"
+                    transform="translate(-183.5864 -232.9662)" />
+                <rect class="raonLogo" x="56.9286" y="22.2218" width="14.5315" height="4.8127" />
+                <path class="raonLogo"
+                    d="M248.2542,246.69l-1.1207,2.8376-7.4978,16.9841h-6.2232l12.2847-26.9313a2.8321,2.8321,0,0,1,5.1564,0l12.2848,26.9313h-6.223l-7.498-16.9841-1.1208-2.8376Z"
+                    transform="translate(-183.5864 -232.9662)" />
+                <path class="raonLogo"
+                    d="M298.3774,239.0425a2.8313,2.8313,0,0,0-5.0884,1.7091v25.76h5.6621V252.357l-.0282-4.2446h.0282l3.0654,4.2446,10.2483,13.3162a2.831,2.831,0,0,0,5.0882-1.7089v-25.76h-5.6621V252.357l.0282,4.2465h-.0282l-3.0654-4.2465Z"
+                    transform="translate(-183.5864 -232.9662)" />
+                <path class="raonLogo"
+                    d="M222.4547,252.1667l5.0127,5.4524,7.65,8.8929h-7.5081l-11.1726-13.7666a1.2554,1.2554,0,0,1-.293-.8124,1.2734,1.2734,0,0,1,1.2739-1.2731h7.6439a3.68,3.68,0,1,0,0-7.36H191.3717a2.5479,2.5479,0,0,1,0-5.0957h34.2555a8.8478,8.8478,0,0,1,8.9178,8.7761,8.6837,8.6837,0,0,1-2.8308,6.4122,8.7967,8.7967,0,0,1-6.2992,2.15"
+                    transform="translate(-183.5864 -232.9662)" />
+            </svg>
+        </div>
+        <div id="menu-container">
+            <svg id="newPageSVG" width="24" height="24" onclick="createNewPage()">
+                <path class="newPageSVGObj"
+                    d="M17.1,0H1.2C.54,0,0,.54,0,1.2v15.6c0,.66.54,1.2,1.2,1.2h15.6c.66,0,1.2-.54,1.2-1.2V.9c0-.5-.4-.9-.9-.9ZM13.2,10.12h-3.08v3.08h-2.24v-3.08h-3.08v-2.24h3.08v-3.08h2.24v3.08h3.08v2.24Z" />
+                <path class="newPageSVGObj"
+                    d="M22.67,6h-2.67v1.77h2.23v14.46H7.77v-2.23h-1.77v2.67c0,.73.6,1.33,1.33,1.33h15.34c.73,0,1.33-.6,1.33-1.33V7.33c0-.73-.6-1.33-1.33-1.33Z" />
+            </svg>
 
-        <button id="loadButton" type="button" onclick="readDataFromFile()">Load</button>
-        <button id="saveButton" type="button" onclick="saveMonitoringList()">Save</button>
-        <button id="newPage" type="button" onclick="createNewPage()">Page</button>
+            <svg id="newMonitoringSVG" width="24" height="24" onclick="newMonitor('size1by1')">
+                <rect class="newMonitoringSVGObj" x="5.21" y="5.21" width="8.25" height="8.25" rx="1" ry="1" />
+                <path class="newMonitoringSVGObj"
+                    d="M21.53,24H2.47c-1.36,0-2.47-1.11-2.47-2.47V2.47C0,1.11,1.11,0,2.47,0h19.07c1.36,0,2.47,1.11,2.47,2.47v19.07c0,1.36-1.11,2.47-2.47,2.47ZM2.47,2c-.26,0-.47.21-.47.47v19.07c0,.26.21.47.47.47h19.07c.26,0,.47-.21.47-.47V2.47c0-.26-.21-.47-.47-.47H2.47Z" />
+            </svg>
+
+            <svg id="editPageSVG" width="25" height="25">
+                <path class="editPageSVG_1"
+                    d="M20.93.36h.98c1.26,0,2.28,1.02,2.28,2.28v2.15h-5.55v-2.15c0-1.26,1.02-2.28,2.28-2.28Z"
+                    transform="translate(8.1 -14.39) rotate(45)" />
+                <polygon class="editPageSVG_2" points="17.12 2.96 1.44 18.64 0 24 5.36 22.56 21.04 6.88 17.12 2.96" />
+            </svg>
+        </div>
+        <!-- <button type="button" onclick="modeChange()">Mode</button> -->
+        <!-- <button id="createButton" type="button" onclick="newMonitor('size1by1')">New</button> -->
+        <!-- <button id="createButton2" type="button" onclick="newMonitor('size2by1')">New2</button> -->
+
+        <!-- <button id="loadButton" type="button" onclick="readDataFromFile()">Load</button> -->
+        <!-- <button id="saveButton" type="button" onclick="saveMonitoringList()">Save</button> -->
+        <!-- <button id="newPage" type="button" onclick="createNewPage()">Page</button> -->
+
+
         <!-- <button id="DelPage" type="button" onclick="deletePage()">Del Page</button> -->
         <!-- <button id="DelAllPage" type="button" onclick="deleteAllPage()">Del All Page</button> -->
     </div>
@@ -73,7 +114,8 @@
     <div id="body-box">
         <button id="left-page-button" class="slideButton" onclick="changePage(-1)">&#10094;</button>
 
-        <div id="monitoring-body" ontouchstart="touchStart(event)" ontouchmove="touchMove(event)" ontouchend="touchEnd()">
+        <div id="monitoring-body" ontouchstart="touchStart(event)" ontouchmove="touchMove(event)"
+            ontouchend="touchEnd()">
             <!-- <div class="monitoringContainer"> -->
             <!-- <div class="monitoring-item type1"></div> -->
 

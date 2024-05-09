@@ -43,6 +43,19 @@ body {
     background-color: #212121;
 }
 
+#logo-container {
+    float: left;
+    width: 30%;
+}
+
+#menu-container {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    float: left;
+    width: 70%;
+}
+
 /* #time-stamp {
     position: absolute;
     width: 500px;
@@ -61,9 +74,15 @@ body {
     z-index: 100;
 } */
 
-/* .raonLogo {
-    fill: #fff;
-} */
+#raonLogoSVG {
+    position: absolute;
+    top: 14px;
+    left: 20px;
+}
+
+.raonLogo {
+    fill: #b5b5b5;
+}
 
 /* #accelerator-control {
     position: absolute;
@@ -235,9 +254,6 @@ body {
     height: 960px;
 } */
 
-#createButton {
-    /* visibility: hidden; */
-}
 
 .deleteButton {
     position: absolute;
@@ -260,6 +276,50 @@ body {
     width: 70%;
     height: 10%;
     background-color: #ffffff;
+}
+
+#newPageSVG {
+    margin-right: 40px;
+}
+
+.newPageSVGObj {
+    fill: #b5b6b6;
+    transition: fill 0.3s;
+}
+
+#newPageSVG:hover .newPageSVGObj {
+    fill: #ffffff;
+}
+
+#newMonitoringSVG {
+    margin-right: 40px;
+}
+
+.newMonitoringSVGObj {
+    fill: #b5b6b6;
+    transition: fill 0.3s;
+}
+
+#newMonitoringSVG:hover .newMonitoringSVGObj {
+    fill: #ffffff;
+}
+
+#editPageSVG {
+    margin-right: 40px;
+}
+
+.editPageSVG_1, .editPageSVG_2 {
+    fill: #b5b6b6;
+    stroke-width: 0px;
+    transition: fill 0.3s;
+}
+
+#editPageSVG:hover .editPageSVG_1 {
+    fill: #ffffff;
+}
+
+#editPageSVG:hover .editPageSVG_2 {
+    fill: #ffffff;
 }
 
 @keyframes animatefadeIn {
