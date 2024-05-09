@@ -131,7 +131,7 @@
     }
 
     window.onload = function () {
-        // createNewPage();
+        createNewPage();
     }
 
     function newMonitor(formSize) {
@@ -170,8 +170,8 @@
             subChildContainer2[i].style.visibility = "visible";
         }
 
-        document.getElementById("createButton").style.visibility = "visible";
-        document.getElementById("createButton2").style.visibility = "visible";
+        // document.getElementById("createButton").style.visibility = "visible";
+        // document.getElementById("createButton2").style.visibility = "visible";
 
     }
 
@@ -602,20 +602,20 @@
 
         for (let i = 0; i < x.length; i++) {
             x[i].style.display = "none";
-            dot[i].style.backgroundColor = "rgba(2, 65, 97, 0.5)";
+            dot[i].style.backgroundColor = "#212121";
         }
 
         if (dir < 0) {
             x[pageIndex - 1].style.position = "relative";
             x[pageIndex - 1].style.animation = "animateleft 0.4s";
             x[pageIndex - 1].style.display = "flex";
-            dot[pageIndex - 1].style.backgroundColor = "rgba(2, 65, 97, 1)";
+            dot[pageIndex - 1].style.backgroundColor = "#b5b5b5";
         }
         else {
             x[pageIndex - 1].style.position = "relative";
             x[pageIndex - 1].style.animation = "animateright 0.4s";
             x[pageIndex - 1].style.display = "flex";
-            dot[pageIndex - 1].style.backgroundColor = "rgba(2, 65, 97, 1)";
+            dot[pageIndex - 1].style.backgroundColor = "#b5b5b5";
 
         }
 
