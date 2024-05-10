@@ -23,7 +23,7 @@ body {
 }
 
 body {
-    background-color: darkblue;
+    /* background-color: darkblue; */
     /* background-image: url('images/background5.png'); */
     /* background-repeat: no-repeat; */
     /* background-position: center var(--background-image-top); */
@@ -36,6 +36,7 @@ body {
     position: relative;
     width: 100%;
     height: 5%;
+    min-height: 40px;
     /* border-width: 1px;
     border-color: #e94174;
     border-style: dashed; */
@@ -45,15 +46,27 @@ body {
 
 #logo-container {
     float: left;
-    width: 30%;
+    height: 100%;
+    aspect-ratio: 3/1;
+    /* background-color: #e60012; */
 }
 
 #menu-container {
     display: flex;
+    justify-content: left;
+    align-items: center;
+    /* width: 200px; */
+    min-width: 160px;
+    /* background-color:aqua; */
+
+}
+
+#widget-container {
+    display: flex;
     justify-content: right;
     align-items: center;
-    float: left;
-    width: 70%;
+    width: 100%;
+    /* background-color: #e94174; */
 }
 
 /* #time-stamp {
@@ -76,8 +89,11 @@ body {
 
 #raonLogoSVG {
     position: absolute;
-    top: 14px;
-    left: 20px;
+    height: 60%;
+    top: 20%;
+    left: 1%;
+
+    /* background-color: blue; */
 }
 
 .raonLogo {
@@ -269,7 +285,7 @@ body {
     /* outline: none; */
     border-radius: 50%;
     z-index: 100;
-    background-color: #e60012;
+    background-color: #a0001b;
 }
 
 .deleteButtonText {
@@ -278,7 +294,34 @@ body {
     background-color: #ffffff;
 }
 
+#downloadSVG {
+    margin-left: 40px;
+}
+
+.downloadSVGObj {
+    fill: #b5b5b5;
+    transition: fill 0.3s;
+}
+
+#downloadSVG:hover .downloadSVGObj {
+    fill: #ffffff;
+}
+
+#uploadSVG {
+    margin-left: 40px;
+}
+
+.uploadSVGObj {
+    fill: #b5b5b5;
+    transition: fill 0.3s;
+}
+
+#uploadSVG:hover .uploadSVGObj {
+    fill: #ffffff;
+}
+
 #newPageSVG {
+    margin-left: 20px;
     margin-right: 40px;
 }
 
@@ -358,6 +401,10 @@ body {
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
+    #logo-container {
+        display: none;
+    }
+
     #monitoring-body {
         padding: 2%;
     }
@@ -378,6 +425,10 @@ body {
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
+    #logo-container {
+        display: block;
+    }
+
     #monitoring-body {
         padding: 1.56%;
     }
@@ -399,6 +450,10 @@ body {
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 800px) {
+    #logo-container {
+        display: block;
+    }
+
     #monitoring-body {
         padding: 1%;
     }
@@ -420,6 +475,10 @@ body {
 
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 1200px) {
+    #logo-container {
+        display: block;
+    }
+
     #monitoring-body {
         padding: 20px;
     }
