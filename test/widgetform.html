@@ -1,4 +1,6 @@
 <html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <style>
     body {
         margin: 0px;
@@ -7,37 +9,39 @@
     }
 
     #container {
-        /* display: flex;
+        display: flex;
         justify-content: center;
-        align-items: center; */
+        align-items: center;
         width: 100%;
         height: 100%;
         background-color: #121212;
     }
 
     #widget {
-        /* margin: auto; */
-        max-width: 300px;
-
-        width: 100%;
-        height: 100px;
+        max-width: 500px;
+        width: 80%;
+        height: 90%;
         background-color: #424242;
-        /* border-radius: 10px; */
+        border-radius: 10px;
         /* min-width: 375px; */
         /* max-height: 800px; */
     }
 
     .properties {
+        display: flex;
         width: 90%;
-        height: 5%;
+        /* height: 5%; */
         margin: 5%;
-        background-color: aquamarine;
+        /* background-color: aquamarine; */
     }
 
     .labelTitle {
+        display: flex;
+        align-items: center;
         width: 40%;
         float: left;
         font-size: 2vh;
+        color: #b5b5b5;
     }
 
     #widgetType {
@@ -60,26 +64,47 @@
 <body>
     <div id="container">
         <div id="widget">
-            <!-- <div class="properties">
+            <div class="properties">
                 <div class="labelTitle">Widget</div>
                 <div id="widgetType">
                     <input class="inputSelect" type="radio" name="widget" value="value">
                     <label>Value</label>
                     <input class="inputSelect" type="radio" name="widget" value="chart">
                     <label>Chart</label>
-
                 </div>
-
             </div>
 
             <div class="properties">
                 <div class="labelTitle">PV Name</div>
                 <div id="widgetType">
                     <input class="inputText" type="text">
-                </div> -->
+                </div>
+            </div>
 
+            <div class="properties">
+
+                <div class="labelTitle">Format</div>
+                <div id="widgetType">
+                    <input class="inputSelect" type="radio" name="widget" value="decimal">
+                    <label>Decimal</label><br>
+                    <input class="inputSelect" type="radio" name="widget" value="bit">
+                    <label>Bit</label><br>
+                    <input class="inputSelect" type="radio" name="widget" value="float">
+                    <label>6.19</label><br>
+                    <input class="inputSelect" type="radio" name="widget" value="exp">
+                    <label>6.19<sup>-7</sup></label><br>
+                    <input class="inputSelect" type="radio" name="widget" value="exponetial">
+                    <label>6.19E-7</label><br>
+                </div>
+            </div>
+
+            <div class="properties">
+                <div class="labelTitle">PV Name</div>
+                <div id="widgetType">
+                    <input class="inputText" type="text">
+                </div>
+            </div>
         </div>
-        <div style="width:500px; height:100px; background-color: red;"></div>
     </div>
 
 </body>
