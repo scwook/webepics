@@ -1,12 +1,14 @@
 <html>
 <style>
     #contain {
-        width: 100px;
-        height: 100px;
+        position: absolute;
+        left: 100px;
+        width: 500px;
+        height: 800px;
         background-color: aquamarine;
     }
 
-    #contain::after {
+    /* #contain::after {
         content: "";
         position: absolute;
         left: 100vh;
@@ -14,11 +16,21 @@
         width: 20px;
         height: 20px;
         background-color: rebeccapurple;
+    } */
+
+    #child {
+        position: relative;
+        right: 10px;
+        width: 100px;
+        height: 100px;
+        background-color: coral;
     }
 </style>
 
 <body>
-    <div id="contain"></div>
+    <div id="contain">
+        <div id="child"></div>
+    </div>
 </body>
 
 </html>

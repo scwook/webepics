@@ -2,6 +2,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
+    @font-face {
+        font-family: "Roboto-Light";
+        src: url(../fonts/Roboto-Light.ttf);
+    }
+
+    * {
+        font-family: "Roboto-Light";
+        box-sizing: border-box;
+
+    }
+
     body {
         margin: 0px;
         height: 100%;
@@ -18,11 +29,13 @@
     }
 
     #widget {
+        position: relative;
         max-width: 500px;
         width: 80%;
         height: 90%;
         background-color: #424242;
         border-radius: 10px;
+        padding: 20px;
         /* min-width: 375px; */
         /* max-height: 800px; */
     }
@@ -41,7 +54,7 @@
         width: 40%;
         float: left;
         font-size: 2vh;
-        color: #b5b5b5;
+        color: #ffffff;
     }
 
     #widgetType {
@@ -52,20 +65,46 @@
 
     .inputSelect {
         margin-left: 10px;
-        ;
     }
 
     .inputText {
         width: 100%;
         height: 100%;
+        font-size: 2vh;
+        padding: 3%;
+        border-radius: 5px;
     }
 
-    
+    label {
+        color: #ffffff
+    }
+
+    input[type="radio"] {
+        margin: 10px;
+    }
+
+    #cancle {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        right: -4%;
+        top: attr('width') + '%';
+        width: 8%;
+        aspect-ratio: 1/1;
+        /* background-color: transparent; */
+        border: none;
+        /* outline: none; */
+        border-radius: 50%;
+        background-color: #a0001b;
+    }
 </style>
 
 <body>
     <div id="container">
         <div id="widget">
+            <div id="cancle"></div>
+
             <div class="properties">
                 <div class="labelTitle">Widget</div>
                 <div id="widgetType">
@@ -106,6 +145,7 @@
                     <input class="inputText" type="text">
                 </div>
             </div>
+
         </div>
     </div>
 
