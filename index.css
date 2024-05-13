@@ -51,7 +51,7 @@ body {
     /* background-color: #e60012; */
 }
 
-#menu-container {
+#menu-left {
     display: flex;
     justify-content: left;
     align-items: center;
@@ -260,6 +260,7 @@ body {
 
 .subChildContainer2 {
     position: absolute;
+    visibility: hidden;
     width: 100%;
     height: 100%;
     /* background-color: brown; */
@@ -347,7 +348,7 @@ body {
     fill: #ffffff;
 }
 
-#editPageSVG {
+#edit-page-svg {
     margin-right: 40px;
 }
 
@@ -357,12 +358,40 @@ body {
     transition: fill 0.3s;
 }
 
-#editPageSVG:hover .editPageSVG_1 {
+#edit-page-svg:hover .editPageSVG_1 {
     fill: #ffffff;
 }
 
-#editPageSVG:hover .editPageSVG_2 {
+#edit-page-svg:hover .editPageSVG_2 {
     fill: #ffffff;
+}
+
+#menu-svg {
+    margin-right: 40px;
+}
+
+.menuSVGObj {
+    stroke: #b5b5b5;
+    stroke-linecap: round;
+    stroke-width: 2px;
+    transition: stroke 0.3s;
+}
+
+#menu-svg:hover .menuSVGObj {
+    stroke: #ffffff;
+}
+
+.dropList {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+.show {
+    display: block;
 }
 
 @keyframes animatefadeIn {
@@ -504,3 +533,4 @@ body {
     }
 
 }
+
