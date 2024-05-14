@@ -105,11 +105,11 @@
                     d="M22.67,6h-2.67v1.77h2.23v14.46H7.77v-2.23h-1.77v2.67c0,.73.6,1.33,1.33,1.33h15.34c.73,0,1.33-.6,1.33-1.33V7.33c0-.73-.6-1.33-1.33-1.33Z" />
             </svg> -->
 
-            <!-- <svg id="newMonitoringSVG" width="24" height="24" onclick="newMonitor('size1by1')">
+            <svg id="newMonitoringSVG" width="24" height="24" onclick="newMonitor('size1by1')">
                 <rect class="newMonitoringSVGObj" x="5.21" y="5.21" width="8.25" height="8.25" rx="1" ry="1" />
                 <path class="newMonitoringSVGObj"
                     d="M21.53,24H2.47c-1.36,0-2.47-1.11-2.47-2.47V2.47C0,1.11,1.11,0,2.47,0h19.07c1.36,0,2.47,1.11,2.47,2.47v19.07c0,1.36-1.11,2.47-2.47,2.47ZM2.47,2c-.26,0-.47.21-.47.47v19.07c0,.26.21.47.47.47h19.07c.26,0,.47-.21.47-.47V2.47c0-.26-.21-.47-.47-.47H2.47Z" />
-            </svg> -->
+            </svg>
 
             <svg id="edit-page-svg" width="25" height="25" onclick="modeChange()">
                 <path class="editPageSVG_1"
@@ -119,16 +119,19 @@
             </svg>
 
             <div id="menu-container">
-                <svg id="menu-svg" width="24" height="24" onclick="myFunction()">
+                <svg id="menu-svg" class="ab" width="24" height="24" onclick="myFunction()">
                     <line class="menuSVGObj" x1="1" y1="11" x2="23" y2="11" />
                     <line class="menuSVGObj" x1="1" y1="21" x2="23" y2="21" />
                     <line class="menuSVGObj" x1="1" y1="1" x2="23" y2="1" />
                 </svg>
-                <button onclick="myFunction()">TEST</button>
-                <div id="menu-list" class="dropList">
-                    <a href="#home">Home</a>
-                    <a href="#about">About</a>
-                    <a href="#contact">Contact</a>
+                <div id="menu-list" class="menuList">
+                    <ul class="menuItem">
+                        <li onclick="createNewPage()">New Page</li>
+                        <li>Open</li>
+                        <li>Save</li>
+                        <li>Delete Page</li>
+                        <li>Delete All Page</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -172,6 +175,15 @@
 <script>
     function myFunction() {
         document.getElementById('menu-list').classList.toggle('show');
+    }
+
+    window.onclick = function (event) {
+        if (!event.target.matches('.ab, .menuSVGObj')) {
+            var menuListClass = document.getElementsByClassName("menuList");
+            if (menuListClass[0].classList.contains('show')) {
+                menuListClass[0].classList.remove('show');
+            }
+        }
     }
 
     let isEditMode = false;
@@ -417,6 +429,8 @@
         }
         updateMonitoringData(childContainer, "form", formInfo);
 
+        childContainer.click();
+
         return childContainer;
         // parentNodeID.appendChild(deleteButton);
     }
@@ -515,6 +529,7 @@
         return index;
     }
 
+    // First Version 
     function itemOnClick(id) {
         const childContainer = id.childNodes[1];
         if (childContainer.hasChildNodes()) {
@@ -547,6 +562,34 @@
 
         console.log("onclick");
     }
+
+    // Second Version (Current Used)
+    function itemOnClick(id, widget) {
+
+        const childContainer = id.childNodes[1];
+        if (childContainer.hasChildNodes()) {
+            console.log("has child node");
+            return;
+        }
+
+        let widgetType = widget;
+        switch (widgetType) {
+            case "type1-1":
+                widgetPropertiesType1(id, widgetType);
+                break;
+            case "type2-1":
+                widgetPropertiesType2(id, widgetType);
+                break;
+            case "type3-1":
+                widgetPropertiesType3(id, widgetType);
+                break;
+
+            default:
+        }
+
+        console.log("onclick");
+    }
+
 
     function loadMonitoringList(data) {
         // deleteAllMonitoring();
@@ -625,7 +668,8 @@
     }
 
     function mouseOnClick() {
-        itemOnClick(this);
+        // itemOnClick(this);
+        itemOnClick(this, 'type1-1');
     }
 
     function mouseEnter() {
