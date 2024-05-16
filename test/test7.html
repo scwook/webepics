@@ -1,35 +1,36 @@
 <html>
 <style>
+    * {
+    box-sizing: border-box;
+}
     #contain {
-        position: absolute;
-        left: 100px;
-        width: 500px;
-        height: 800px;
+        width: 260px;
+        height: 260px;
         background-color: aquamarine;
     }
 
-    /* #contain::after {
-        content: "";
-        position: absolute;
-        left: 100vh;
-        top: 1vh;
-        width: 20px;
-        height: 20px;
-        background-color: rebeccapurple;
-    } */
-
     #child {
-        position: relative;
-        right: 10px;
-        width: 100px;
-        height: 100px;
+        width: 100%;
+        height: 100%;
         background-color: coral;
+        padding: 1%;
     }
+
+    #subchild {
+        width: 100%;
+        font-size: 2vw;
+        background-color: blue;
+        font-size: 2vw;
+
+    }
+
 </style>
 
 <body>
     <div id="contain">
-        <div id="child"></div>
+        <div id="child">
+            <div id="subchild">Test Title</div>
+        </div>
     </div>
 </body>
 

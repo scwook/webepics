@@ -105,7 +105,7 @@
                     d="M22.67,6h-2.67v1.77h2.23v14.46H7.77v-2.23h-1.77v2.67c0,.73.6,1.33,1.33,1.33h15.34c.73,0,1.33-.6,1.33-1.33V7.33c0-.73-.6-1.33-1.33-1.33Z" />
             </svg> -->
 
-            <svg id="newMonitoringSVG" width="24" height="24" onclick="newMonitor('size1by1')">
+            <svg id="newMonitoringSVG" width="24" height="24" onclick="openWidgetPropertiesType1_1()">
                 <rect class="newMonitoringSVGObj" x="5.21" y="5.21" width="8.25" height="8.25" rx="1" ry="1" />
                 <path class="newMonitoringSVGObj"
                     d="M21.53,24H2.47c-1.36,0-2.47-1.11-2.47-2.47V2.47C0,1.11,1.11,0,2.47,0h19.07c1.36,0,2.47,1.11,2.47,2.47v19.07c0,1.36-1.11,2.47-2.47,2.47ZM2.47,2c-.26,0-.47.21-.47.47v19.07c0,.26.21.47.47.47h19.07c.26,0,.47-.21.47-.47V2.47c0-.26-.21-.47-.47-.47H2.47Z" />
@@ -162,14 +162,43 @@
         <button id="right-page-button" class="slideButton" onclick="changePage(1)">&#10095;</button>
     </div>
 
-    <div id="widget-properties-container">
-        <form id="widget-properties-form" enctype=multipart/form-data name="widgetProperties"></form>
-    </div>
-
     <div id="page-box">
         <!-- <div class="pageDot"></div> -->
     </div>
 
+    <div id="widget-type1-1-properties-container">
+        <form id="widget-type1-1-properties-form" enctype=multipart/form-data name="widgetProperties">
+            <div class="widgetProperties">
+                <label class="widgetPropertiesLabel">PV Name</label>
+                <input id="widget-type1-1-pvname"class="widgetPropertiesInput"></input>
+            </div>
+            <div class="widgetProperties">
+                <label class="widgetPropertiesLabel">Title</label>
+                <input id="widget-type1-1-title"class="widgetPropertiesInput"></input>
+            </div>
+            <div class="widgetProperties">
+                <label class="widgetPropertiesLabel">Unit</label>
+                <input id="widget-type1-1-unit" class="widgetPropertiesInput"></input>
+            </div>
+            <div class="widgetProperties">
+                <label class="widgetPropertiesLabel">Format</label>
+                <div class="widgetPropertiesRadio">
+                    <input class="widgetRadio" type="radio" name="format" value="decimal">
+                    <label>Decimal</label><br>
+                    <input class="widgetRadio" type="radio" name="format" value="bit">
+                    <label>Bit</label><br>
+                    <input class="widgetRadio" type="radio" name="format" value="float">
+                    <label>6.19</label><br>
+                    <input class="widgetRadio" type="radio" name="format" value="exp">
+                    <label>6.19<sup>-7</sup></label><br>
+                    <input class="widgetRadio" type="radio" name="format" value="exponetial">
+                    <label>6.19E-7</label><br>
+                </div>
+            </div>
+
+            <button class="widgetCreateButton" onclick="createWidgetType1_1()">Create</button>
+        </form>
+    </div>
 </body>
 
 <script>
@@ -226,12 +255,12 @@
         createNewPage();
     }
 
-    function newMonitor(formSize) {
-        let pageIndex = getMonitoringPageIndex();
-        const monitoringContainer = document.getElementsByClassName("monitoringContainer")[pageIndex];
+    // function newMonitor(formSize) {
+    //     let pageIndex = getMonitoringPageIndex();
+    //     const monitoringContainer = document.getElementsByClassName("monitoringContainer")[pageIndex];
 
-        createNewMonitor(monitoringContainer, formSize);
-    }
+    //     createNewMonitor(monitoringContainer, formSize);
+    // }
 
     function modeChange() {
         if (isEditMode) {
@@ -427,9 +456,10 @@
         const formInfo = {
             "size": formSize
         }
+
         updateMonitoringData(childContainer, "form", formInfo);
 
-        childContainer.click();
+        // childContainer.click();
 
         return childContainer;
         // parentNodeID.appendChild(deleteButton);
@@ -744,6 +774,24 @@
         }
 
     }
+
+    function getChildNodeIndex(id) {
+    const childContainerClass = document.getElementsByClassName("childContainer");
+    let index = -1;
+
+    let previousElement = id.previousElementSibling;
+    for (let i = 0; i < childContainerClass.length; i++) {
+        if (!previousElement) {
+            index = i;
+            break;
+        }
+
+        previousElement = previousElement.previousElementSibling;
+    }
+
+    return index;
+}
+
 </script>
 
 </html>
