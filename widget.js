@@ -36,8 +36,6 @@ function createWidgetType1_1() {
 
     const valueNode = document.createElement("div");
     valueNode.classList.add("widgetValue");
-    // valueNode.style.setProperty("--fontSize", "60px");
-    // valueNode.style.top = 90 + "px";
     valueNode.innerText = "6.19";
 
     const childContainer = childContainerID.childNodes[1];

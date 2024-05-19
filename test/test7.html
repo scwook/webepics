@@ -24,22 +24,50 @@
     }
 
     #subchild2 {
+        margin: auto;
         display: grid;
+        grid-template-columns: auto auto;
+        grid-template-rows: auto auto;
+        gap: 5px;
         width: 80%;
         height: 80%;
         font-size: 2vw;
-        background-color: green;
+        background-color: red;
         font-size: 2vw;
-        
+        justify-content: center;
+        align-content: center;
     }
 
+    .item {
+        background-color: green;
+    }
+
+    #item1 {
+        align-self: end;
+        font-size: 48px;
+        grid-row: 1/3;
+    }
+
+    #item2 {
+        font-size: 32px;
+    }
+
+    #item3 {
+        align-self: end;
+        font-size: 40px;
+    }
 </style>
 
 <body>
     <div id="contain">
         <div id="child">
             <div id="subchild1">Test Title</div>
-            <div id="subchild2">Value</div>
+            <div id="subchild2">
+                <div class="item" id="item1">700</div>
+                <div class="item" id="item2">-6</div>
+                <div class="item" id="item3">mm</div>
+
+            </div>
         </div>
     </div>
 </body>

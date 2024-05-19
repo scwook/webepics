@@ -74,25 +74,26 @@
     text-align: center;
     /* line-height: 48px; */
 }
-.widgetValueContainer {
-
-}
 
 .widgetValue {
     /* position: absolute; */
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    margin: auto;
+    display: grid;
     width: 100%;
     height: 60%;
-    /* height: 220px; */
+    justify-content: center;
+    align-content: center;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto;
+    justify-content: center;
+    align-content: center;
+    gap: 5px;
+
     color: #f7f8f8f8;
     font-size: 2em;
     text-align: center;
-    /* line-height: 240px; */
-    /* top: 125px; */
     overflow: hidden;
-    text-overflow: clip; 
+    text-overflow: clip;
 }
 
 /* Extra small devices (phones, 600px and down) */
