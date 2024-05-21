@@ -69,7 +69,7 @@ function createWidgetType1_1() {
 }
 
 function cancelWidgetType1_1(id) {
-    console.log(id.parentNode);
+    let formNode = id.parentNode;
 }
 
 function getDecimalFormat(value) {
