@@ -28,7 +28,6 @@ function createWidgetType1_1() {
         "format": format
     }
 
-    console.log(widgetInfo);
     // createWidget(containerID, widgetType, widgetInfo);
     // monitoringInfo.push(widgetInfo);
 
@@ -69,6 +68,10 @@ function createWidgetType1_1() {
     startMonitoringType1(childContainer, widgetInfo);
 }
 
+function cancelWidgetType1_1(id) {
+    console.log(id.parentNode);
+}
+
 function getDecimalFormat(value) {
     return Math.round(value);
 }
@@ -77,13 +80,13 @@ function getRealFormt(value, precision) {
     return value.toFixed(precision);
 }
 
-function getFloatFormt(value, precision) {
+function getExpFormat(value, precision) {
     let realValue = value;
     let expValue = 0;
     if (Math.abs(value) < 1) {
         while (true) {
-            realValue /= 10;
-            expValue += 1;
+            realValue *= 10;
+            expValue -= 1;
 
             if (Math.abs(realValue >= 1)) break;
         }
@@ -97,32 +100,42 @@ function getFloatFormt(value, precision) {
         }
     }
 
-    return (realValue.toFixed(precision), expValue);
+    return [realValue.toFixed(precision), expValue];
 }
-
-function getExpFormat(value, precision) {
-
-}
-
-
 
 
 // Simulation
 function startMonitoringType1(id, data) {
     // const valueNodeID = id.querySelector("." + widgetValueNodeClass);
+    const valueNodeID = id.querySelector(".widgetValue");
+    const expNodeID = id.querySelector(".widgetValueExp");
+    const unitNodeID = id.querySelector(".widgetValueUnit");
 
     if (isSimulation) {
         setInterval(function () {
-            let value = (Math.random() * 10).toFixed(2);
-            // const valueNodeID = id.querySelector("." + widgetValueNodeClass);
-            const valueNodeID = id.querySelector(".widgetValue");
-            valueNodeID.innerText = value;
+            let value = Math.random() * 0.0001;
+            switch (data.format) {
+                case "decimal":
+                    let decimalValue = getDecimalFormat(value);
+                    valueNodeID.innerText = decimalValue;
+                    break;
 
-            const unitNodeID = id.querySelector(".widgetValueUnit");
+                case "real":
+                    let realValue = getRealFormt(value, 2);
+                    valueNodeID.innerText = realValue;
+                    break;
+
+                case "exp":
+                    let expValue = getExpFormat(value, 2);
+                    valueNodeID.innerText = expValue[0];
+                    expNodeID.innerText = expValue[1];
+                    break;
+
+                default:
+
+            }
+
             unitNodeID.innerText = data.unit;
-
-            // const expNodeID = id.querySelector(".widgetValueExp");
-            // expNodeID.innerText = data.unit;
 
         }, 1000);
     }
