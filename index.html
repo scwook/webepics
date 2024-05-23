@@ -105,7 +105,7 @@
                     d="M22.67,6h-2.67v1.77h2.23v14.46H7.77v-2.23h-1.77v2.67c0,.73.6,1.33,1.33,1.33h15.34c.73,0,1.33-.6,1.33-1.33V7.33c0-.73-.6-1.33-1.33-1.33Z" />
             </svg> -->
 
-            <svg id="newMonitoringSVG" width="24" height="24" onclick="openWidgetPropertiesType1_1()">
+            <svg id="newMonitoringSVG" width="24" height="24" onclick="openWidgetPropertiesType2_1()">
                 <rect class="newMonitoringSVGObj" x="5.21" y="5.21" width="8.25" height="8.25" rx="1" ry="1" />
                 <path class="newMonitoringSVGObj"
                     d="M21.53,24H2.47c-1.36,0-2.47-1.11-2.47-2.47V2.47C0,1.11,1.11,0,2.47,0h19.07c1.36,0,2.47,1.11,2.47,2.47v19.07c0,1.36-1.11,2.47-2.47,2.47ZM2.47,2c-.26,0-.47.21-.47.47v19.07c0,.26.21.47.47.47h19.07c.26,0,.47-.21.47-.47V2.47c0-.26-.21-.47-.47-.47H2.47Z" />
@@ -170,11 +170,11 @@
         <form id="widget-type1-1-properties-form" enctype=multipart/form-data name="widgetProperties">
             <div class="widgetProperties">
                 <label class="widgetPropertiesLabel">PV Name</label>
-                <input id="widget-type1-1-pvname"class="widgetPropertiesInput"></input>
+                <input id="widget-type1-1-pvname" class="widgetPropertiesInput"></input>
             </div>
             <div class="widgetProperties">
                 <label class="widgetPropertiesLabel">Title</label>
-                <input id="widget-type1-1-title"class="widgetPropertiesInput"></input>
+                <input id="widget-type1-1-title" class="widgetPropertiesInput"></input>
             </div>
             <div class="widgetProperties">
                 <label class="widgetPropertiesLabel">Unit</label>
@@ -193,7 +193,31 @@
             </div>
 
             <button type="button" class="widgetCreateButton" onclick="createWidgetType1_1()">Create</button>
-            <button type="button" class="widgetCancelButton" onclick="cancelWidgetType1_1(this)">X</button>
+            <button type="button" class="widgetCancelButton" onclick="cancelWidgetProperties(this)">X</button>
+        </form>
+    </div>
+
+    <div id="widget-type2-1-properties-container">
+        <form id="widget-type2-1-properties-form" enctype=multipart/form-data name="widgetProperties">
+            <div class="widgetProperties">
+                <label class="widgetPropertiesLabel">PV Name</label>
+                <input id="widget-type2-1-pvname" class="widgetPropertiesInput"></input>
+            </div>
+            <div class="widgetProperties">
+                <label class="widgetPropertiesLabel">Title</label>
+                <input id="widget-type2-1-title" class="widgetPropertiesInput"></input>
+            </div>
+            <div class="widgetProperties">
+                <label class="widgetPropertiesLabel">Zero Name</label>
+                <input id="widget-type2-1-zero-name" class="widgetPropertiesInput"></input>
+            </div>
+            <div class="widgetProperties">
+                <label class="widgetPropertiesLabel">One Name</label>
+                <input id="widget-type2-1-one-name" class="widgetPropertiesInput"></input>
+            </div>
+
+            <button type="button" class="widgetCreateButton" onclick="createWidgetType2_1()">Create</button>
+            <button type="button" class="widgetCancelButton" onclick="cancelWidgetProperties(this)">X</button>
         </form>
     </div>
 </body>
@@ -771,21 +795,21 @@
     }
 
     function getChildNodeIndex(id) {
-    const childContainerClass = document.getElementsByClassName("childContainer");
-    let index = -1;
+        const childContainerClass = document.getElementsByClassName("childContainer");
+        let index = -1;
 
-    let previousElement = id.previousElementSibling;
-    for (let i = 0; i < childContainerClass.length; i++) {
-        if (!previousElement) {
-            index = i;
-            break;
+        let previousElement = id.previousElementSibling;
+        for (let i = 0; i < childContainerClass.length; i++) {
+            if (!previousElement) {
+                index = i;
+                break;
+            }
+
+            previousElement = previousElement.previousElementSibling;
         }
 
-        previousElement = previousElement.previousElementSibling;
+        return index;
     }
-
-    return index;
-}
 
 </script>
 
