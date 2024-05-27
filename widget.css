@@ -129,10 +129,11 @@
 
 .widgetType2SVGContainer {
     position: absolute;
+    margin: auto;
     display: flex;
-    width: 84%;
+    width: 100%;
     height: 60%;
-    /* background-color: #a0001b; */
+    background-color: #a0001b;
     justify-content: center;
     align-items: center;
 }
@@ -140,19 +141,18 @@
 .widgetType2ValueContainer {
     position: absolute;
     display: flex;
-    width: 84%;
+    width: 100%;
     height: 60%;
     z-index: 200;
     justify-content: center;
     align-items: center;
+    /* background-color: #04AA6D; */
 }
 
 .widgetType2Value {
     color: white;
     font-size: 2em;
     /* background-color: #04AA6D; */
-
- 
 }
 
 /* Extra small devices (phones, 600px and down) */

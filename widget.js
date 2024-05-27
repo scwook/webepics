@@ -1,6 +1,6 @@
 const isSimulation = true;
 
-const TYPE2_1_SVG = '<svg width="120" height="120"><circle class="widget-type2-1" cx="60" cy="60" r="60" style="fill: #e61a74"/></svg>';
+const TYPE2_1_SVG = '<svg width="100%" height="100%" viewBox="0 0 100 100"><circle class="widget-type2-1" cx="50" cy="50" r="50" style="fill: #e61a74"/></svg>';
 
 
 function openWidgetPropertiesType1_1() {
@@ -105,37 +105,24 @@ function createWidgetType2_1() {
     const svgContainerNode = document.createElement("div");
     svgContainerNode.classList.add("widgetType2SVGContainer");
 
-    let widgetSVG = TYPE2_1_SVG;
-    const svgNode = document.createElement('div');
-    svgNode.innerHTML = widgetSVG;
-    svgContainerNode.appendChild(svgNode);
+    // let widgetSVG = TYPE2_1_SVG;
+    // const svgNode = document.createElement('div');
+    // svgNode.innerHTML = widgetSVG;
+    // svgContainerNode.appendChild(svgNode);
+
+    svgContainerNode.innerHTML = TYPE2_1_SVG;
 
     const valueContainerNode = document.createElement("div");
     valueContainerNode.classList.add("widgetType2ValueContainer");
 
     const valueNode = document.createElement("div");
     valueNode.classList.add("widgetType2Value");
-
     valueContainerNode.appendChild(valueNode);
-
-    // const valueNode = document.createElement("div");
-    // valueNode.classList.add("widgetValue");
-
-    // const valueExpNode = document.createElement("div");
-    // valueExpNode.classList.add("widgetValueExp");
-
-    // const valueUnitNode = document.createElement("div");
-    // valueUnitNode.classList.add("widgetValueUnit");
-
-    // valueContainerNode.appendChild(valueNode);
-    // valueContainerNode.appendChild(valueExpNode);
-    // valueContainerNode.appendChild(valueUnitNode);
 
     const childContainer = childContainerID.childNodes[1];
     childContainer.appendChild(titleNode);
     childContainer.appendChild(svgContainerNode);
     childContainer.appendChild(valueContainerNode);
-    console.log(widgetInfo);
 
     startMonitoringType2(childContainer, widgetInfo);
 }
