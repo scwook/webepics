@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <button type="button" onclick="setPowerOn()">ON</button>
+    <button type="button" onclick="setPowerOff()">OFF</button>
+
+</body>
+<script>
+    window.onload = function () {
+        getStatus();
+    }
+
+    function getStatus() {
+
+    }
+
+    function setPowerOn() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4) {
+                if (this.status == 200) {
+
+                }
+
+                else {
+
+                }
+            }
+
+
+        };
+
+        var serverAddr = 'http://192.168.131.168:8080/on';
+        xhttp.open("GET", serverAddr, true);
+        xhttp.send();
+    }
+
+    function setPowerOff() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4) {
+                if (this.status == 200) {
+
+                }
+
+                else {
+
+                }
+            }
+        };
+
+        var serverAddr = 'http://192.168.131.168:8080/off';
+        xhttp.open("GET", serverAddr, true);
+        xhttp.send();
+    }
+</script>
+
+</html>
