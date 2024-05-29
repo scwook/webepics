@@ -23,10 +23,6 @@ body {
 }
 
 body {
-    /* background-color: darkblue; */
-    /* background-image: url('images/background5.png'); */
-    /* background-repeat: no-repeat; */
-    /* background-position: center var(--background-image-top); */
     font-family: "Roboto-Light";
 }
 
@@ -69,24 +65,6 @@ body {
     /* background-color: #e94174; */
 }
 
-/* #time-stamp {
-    position: absolute;
-    width: 500px;
-    height:40px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -70%);
-    text-align: center;
-} */
-
-/* #raon-box {
-    position: absolute;
-    left: 20px;
-    top: 20px;
-    width: 133px;
-    z-index: 100;
-} */
-
 #raonLogoSVG {
     position: absolute;
     height: 60%;
@@ -99,18 +77,6 @@ body {
 .raonLogo {
     fill: #b5b5b5;
 }
-
-/* #accelerator-control {
-    position: absolute;
-    color: white;
-    width: 150px;
-    left: 160px;
-    top: 40px;
-    font-family: "Roboto-Light";
-    letter-spacing: 2px;
-    z-index: 100;
-} */
-
 
 #widget-menu {
     display: flex;
