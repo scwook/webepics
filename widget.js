@@ -1,6 +1,6 @@
 const isSimulation = true;
 
-const TYPE2_1_SVG = '<svg width="100%" height="100%" viewBox="0 0 100 100"><circle class="widget-type2-1" cx="50" cy="50" r="50" style="fill: #e61a74"/></svg>';
+const TYPE2_1_SVG = '<svg height="100%" viewBox="0 0 100 100"><circle class="widget-type2-1" cx="50" cy="50" r="50" style="fill: #e61a74"/></svg>';
 
 
 function openWidgetPropertiesType1_1() {
@@ -102,27 +102,35 @@ function createWidgetType2_1() {
     titleNode.classList.add("widgetTitle");
     titleNode.innerText = title;
 
-    const svgContainerNode = document.createElement("div");
-    svgContainerNode.classList.add("widgetType2SVGContainer");
+    const widgetContainer = document.createElement("div");
+    widgetContainer.classList.add("widgetType2Container");
+
+    // const svgContainerNode = document.createElement("div");
+    // svgContainerNode.classList.add("widgetType2SVGContainer");
 
     // let widgetSVG = TYPE2_1_SVG;
     // const svgNode = document.createElement('div');
     // svgNode.innerHTML = widgetSVG;
     // svgContainerNode.appendChild(svgNode);
 
-    svgContainerNode.innerHTML = TYPE2_1_SVG;
+    let widgetSVG = TYPE2_1_SVG;
+    widgetContainer.innerHTML = widgetSVG;
 
-    const valueContainerNode = document.createElement("div");
-    valueContainerNode.classList.add("widgetType2ValueContainer");
+    const widgetValueContainer = document.createElement("div");
+    widgetValueContainer.classList.add("widgetType2ValueContainer");
+    widgetValueContainer.innerText = "";
 
-    const valueNode = document.createElement("div");
-    valueNode.classList.add("widgetType2Value");
-    valueContainerNode.appendChild(valueNode);
+    widgetContainer.appendChild(widgetValueContainer);
+
+
+    // const valueNode = document.createElement("div");
+    // valueNode.classList.add("widgetType2Value");
+    // valueContainerNode.appendChild(valueNode);
 
     const childContainer = childContainerID.childNodes[1];
     childContainer.appendChild(titleNode);
-    childContainer.appendChild(svgContainerNode);
-    childContainer.appendChild(valueContainerNode);
+    childContainer.appendChild(widgetContainer);
+    // childContainer.appendChild(valueContainerNode);
 
     startMonitoringType2(childContainer, widgetInfo);
 }
@@ -207,7 +215,7 @@ function startMonitoringType1(id, data) {
 
 function startMonitoringType2(id, data) {
     // const valueNodeID = id.querySelector("." + widgetValueNodeClass);
-    const valueNodeID = id.querySelector(".widgetType2Value");
+    const valueNodeID = id.querySelector(".widgetType2ValueContainer");
 
     if (isSimulation) {
         setInterval(function () {

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <body>
+        <img id="image" src="1.png" style="max-width: 100%; height: auto;">
+    </body>
+
+    <script>
+        setInterval(function () {
+            // document.getElementById('image').src = "1.png";
+            // location.reload();
+            document.getElementById('image').src='1.png?'+new Date().getTime();         
+        
+        }, 2000);
+    </script>
+</html>
