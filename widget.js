@@ -1,6 +1,10 @@
 const isSimulation = true;
 
-const TYPE2_1_SVG = '<svg height="100%" viewBox="0 0 100 100"><circle class="widget-type2-1" cx="50" cy="50" r="50" style="fill: #e61a74"/></svg>';
+const TYPE2_1_SVG = '<svg height="100%" viewBox="0 0 100 100"><circle class="widgetType2_1Circle" cx="50" cy="50" r="50" style="fill: #e61a74"/></svg>';
+const TYPE3_1_SVG = '<svg height="100%" viewBox="0 0 100 100">\
+<circle class="widgetType3_1Background" cx="50" cy="50" r="45" style="fill:none; stroke:#e61a74; stroke-width: 10px"/>\
+<circle class="widgetType3_1Foreground" cx="50" cy="50" r="45" style="fill:none; stroke:#27AAE1; stroke-width: 10px"/>\
+</svg>';
 
 
 function openWidgetPropertiesType1_1() {
@@ -13,6 +17,10 @@ function openWidgetPropertiesType2_1() {
     widgetPropertiesContainer.style.display = "flex";
 }
 
+function openWidgetPropertiesType3_1() {
+    let widgetPropertiesContainer = document.getElementById("widget-type3-1-properties-container");
+    widgetPropertiesContainer.style.display = "flex";
+}
 
 function createWidgetType1_1() {
     let pageIndex = getMonitoringPageIndex();
@@ -135,6 +143,56 @@ function createWidgetType2_1() {
     startMonitoringType2(childContainer, widgetInfo);
 }
 
+function createWidgetType3_1() {
+    let pageIndex = getMonitoringPageIndex();
+    const monitoringContainer = document.getElementsByClassName("monitoringContainer")[pageIndex];
+
+    let formSize = 'size1by1';
+    let childContainerID = createNewMonitor(monitoringContainer, formSize);
+
+    let pvName = document.getElementById("widget-type3-1-pvname").value;
+    let title = document.getElementById("widget-type3-1-title").value;
+    let min = document.getElementById("widget-type3-1-min").value;
+    let max = document.getElementById("widget-type3-1-max").value;
+
+    let widgetInfo = {
+        "type": 'type3-1',
+        "pvname": pvName,
+        "title": title,
+        "min": min,
+        "max": max
+    }
+
+    // createWidget(containerID, widgetType, widgetInfo);
+    // monitoringInfo.push(widgetInfo);
+
+    const propertiesContainer = document.getElementById("widget-type3-1-properties-container");
+    propertiesContainer.style.display = "none";
+
+    const titleNode = document.createElement("div");
+    titleNode.classList.add("widgetTitle");
+    titleNode.innerText = title;
+
+    const widgetContainer = document.createElement("div");
+    widgetContainer.classList.add("widgetType3Container");
+
+    let widgetSVG = TYPE3_1_SVG;
+    widgetContainer.innerHTML = widgetSVG;
+
+    const widgetValueContainer = document.createElement("div");
+    widgetValueContainer.classList.add("widgetType3ValueContainer");
+    widgetValueContainer.innerText = "";
+
+    widgetContainer.appendChild(widgetValueContainer);
+
+    const childContainer = childContainerID.childNodes[1];
+    childContainer.appendChild(titleNode);
+    childContainer.appendChild(widgetContainer);
+console.log(childContainer);
+    // startMonitoringType3(childContainer, widgetInfo);
+}
+
+
 
 function cancelWidgetProperties(id) {
     let formNode = id.parentNode;
@@ -216,6 +274,37 @@ function startMonitoringType1(id, data) {
 function startMonitoringType2(id, data) {
     // const valueNodeID = id.querySelector("." + widgetValueNodeClass);
     const valueNodeID = id.querySelector(".widgetType2ValueContainer");
+
+    if (isSimulation) {
+        setInterval(function () {
+            let value = Math.round(Math.random() * 10);
+            if (value < 5) {
+                if (data.zeroname) {
+                    valueNodeID.innerText = data.zeroname;
+                }
+                else {
+                    valueNodeID.innerText = value;
+                }
+            }
+            else if (value >= 5) {
+                if (data.onename) {
+                    valueNodeID.innerText = data.onename;
+                }
+                else {
+                    valueNodeID.innerText = value;
+                }
+            }
+
+        }, 3000);
+    }
+    else {
+
+    }
+}
+
+function startMonitoringType3(id, data) {
+    // const valueNodeID = id.querySelector("." + widgetValueNodeClass);
+    const valueNodeID = id.querySelector(".widgetType3_1Foreground");
 
     if (isSimulation) {
         setInterval(function () {
