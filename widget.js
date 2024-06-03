@@ -3,7 +3,7 @@ const isSimulation = true;
 const TYPE2_1_SVG = '<svg height="100%" viewBox="0 0 100 100"><circle class="widgetType2_1Circle" cx="50" cy="50" r="50" style="fill: #e61a74"/></svg>';
 const TYPE3_1_SVG = '<svg height="100%" viewBox="0 0 100 100">\
 <circle class="widgetType3_1Background" cx="50" cy="50" r="45" style="fill:none; stroke:#e61a74; stroke-width: 10px"/>\
-<circle class="widgetType3_1Foreground" cx="50" cy="50" r="45" style="fill:none; stroke:#27AAE1; stroke-width: 10px"/>\
+<circle id="test" class="widgetType3_1Foreground" cx="50" cy="50" r="45" style="fill:none; stroke:#27AAE1; stroke-width: 10px"/>\
 </svg>';
 
 
@@ -188,8 +188,8 @@ function createWidgetType3_1() {
     const childContainer = childContainerID.childNodes[1];
     childContainer.appendChild(titleNode);
     childContainer.appendChild(widgetContainer);
-console.log(childContainer);
-    // startMonitoringType3(childContainer, widgetInfo);
+
+    startMonitoringType3(childContainer, widgetInfo);
 }
 
 
@@ -305,30 +305,100 @@ function startMonitoringType2(id, data) {
 function startMonitoringType3(id, data) {
     // const valueNodeID = id.querySelector("." + widgetValueNodeClass);
     const valueNodeID = id.querySelector(".widgetType3_1Foreground");
+    doughnutChartAnimation(valueNodeID, 50);
 
-    if (isSimulation) {
-        setInterval(function () {
-            let value = Math.round(Math.random() * 10);
-            if (value < 5) {
-                if (data.zeroname) {
-                    valueNodeID.innerText = data.zeroname;
-                }
-                else {
-                    valueNodeID.innerText = value;
-                }
-            }
-            else if (value >= 5) {
-                if (data.onename) {
-                    valueNodeID.innerText = data.onename;
-                }
-                else {
-                    valueNodeID.innerText = value;
-                }
-            }
+    // valueNodeID.style.strokeDashoffset = 100;
 
-        }, 3000);
+    // if (isSimulation) {
+    //     setInterval(function () {
+    //         let value = Math.round(Math.random() * 10);
+    //         if (value < 5) {
+    //             if (data.zeroname) {
+    //                 valueNodeID.innerText = data.zeroname;
+    //             }
+    //             else {
+    //                 valueNodeID.innerText = value;
+    //             }
+    //         }
+    //         else if (value >= 5) {
+    //             if (data.onename) {
+    //                 valueNodeID.innerText = data.onename;
+    //             }
+    //             else {
+    //                 valueNodeID.innerText = value;
+    //             }
+    //         }
+
+    //     }, 3000);
+    // }
+    // else {
+
+    // }
+}
+
+const chartMaxLength = Math.ceil(90 * Math.PI);
+
+function doughnutChartAnimation(chartID, chartValue) {
+
+    let maxValue = 100;
+    // let randomValue = Math.random() * maxValue;
+    let value = chartValue;
+    let valueToOffset = Math.floor(chartMaxLength - chartMaxLength / maxValue * value);
+
+    let fgID = document.getElementById("test");
+    let currentDashOffset = parseInt(fgID.style.strokeDashoffset);
+console.log(fgID);
+    let sign = valueToOffset - currentDashOffset;
+
+    let dir = 0;
+    if (sign > 0) {
+        dir = -1; // anitclockwise, increase offset value
+    } else if (sign < 0) {
+        dir = 1; // clockwise, decrease offset value
     }
-    else {
 
+    if (dir == 0) {
+        return;
     }
+
+    let duration = 2000;
+    let interval = 10;
+    let count = 0;
+    let maxCount = Math.floor(duration / interval);
+    let x1 = 0.0;
+    let x2 = 1.0;
+    let dx = Math.abs(x1 - x2) / maxCount;
+    let x = 0.0;
+    let y = 0;
+    let y1 = (dir == 1) ? valueToOffset : currentDashOffset;
+    let y2 = (dir == 1) ? currentDashOffset : valueToOffset;
+    let a = Math.abs(currentDashOffset - valueToOffset);
+    let b = y1;
+
+    let id = setInterval(function () {
+
+        switch (dir) {
+            case 1:
+                y = a * Math.pow(2, -10 * x) + y1;
+                break;
+
+            case -1:
+                y = a * (1 - Math.pow(2, -10 * x)) + y1;
+
+                break;
+
+            default:
+                count = maxCount; // 
+        }
+
+        fgID.style.strokeDashoffset = Math.floor(y);
+
+        x += dx;
+        count += 1;
+
+        if (count == maxCount) {
+            clearInterval(id);
+        }
+
+    }, interval);
 }
