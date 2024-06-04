@@ -3,7 +3,7 @@ const isSimulation = true;
 const TYPE2_1_SVG = '<svg height="100%" viewBox="0 0 100 100"><circle class="widgetType2_1Circle" cx="50" cy="50" r="50" style="fill: #e61a74"/></svg>';
 const TYPE3_1_SVG = '<svg height="100%" viewBox="0 0 100 100">\
 <circle class="widgetType3_1Background" cx="50" cy="50" r="45" style="fill:none; stroke:#e61a74; stroke-width: 10px"/>\
-<circle id="test" class="widgetType3_1Foreground" cx="50" cy="50" r="45" style="fill:none; stroke:#27AAE1; stroke-width: 10px"/>\
+<circle id="test" class="widgetType3_1Foreground" cx="50" cy="50" r="45" style="fill:none; stroke:#27AAE1; stroke-width: 10px;"/>\
 </svg>';
 
 
