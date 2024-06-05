@@ -247,6 +247,19 @@
 </body>
 
 <script>
+    let documentHidden = false;
+
+    document.addEventListener('visibilitychange', function () {
+        if (document.hidden) {
+            documentHidden = true;
+            console.log('hide');
+        } else {
+            documentHidden = false;
+            console.log('view');
+        }
+    });
+
+
     function myFunction() {
         document.getElementById('menu-list').classList.toggle('show');
     }
@@ -299,6 +312,8 @@
     window.onload = function () {
         createNewPage();
     }
+
+
 
     // function newMonitor(formSize) {
     //     let pageIndex = getMonitoringPageIndex();
