@@ -244,6 +244,30 @@
             <button type="button" class="widgetCancelButton" onclick="cancelWidgetProperties(this)">X</button>
         </form>
     </div>
+
+    <div id="widget-type4-1-properties-container">
+        <form id="widget-type4-1-properties-form" enctype=multipart/form-data name="widgetProperties">
+            <div class="widgetProperties">
+                <label class="widgetPropertiesLabel">PV Name</label>
+                <input id="widget-type4-1-pvname" class="widgetPropertiesInput"></input>
+            </div>
+            <div class="widgetProperties">
+                <label class="widgetPropertiesLabel">Title</label>
+                <input id="widget-type4-1-title" class="widgetPropertiesInput"></input>
+            </div>
+            <div class="widgetProperties">
+                <label class="widgetPropertiesLabel">Minimum</label>
+                <input id="widget-type4-1-min" class="widgetPropertiesInput" value="0"></input>
+            </div>
+            <div class="widgetProperties">
+                <label class="widgetPropertiesLabel">Maximum</label>
+                <input id="widget-type4-1-max" class="widgetPropertiesInput" value="100"></input>
+            </div>
+
+            <button type="button" class="widgetCreateButton" onclick="createWidgetType4_1()">Create</button>
+            <button type="button" class="widgetCancelButton" onclick="cancelWidgetProperties(this)">X</button>
+        </form>
+    </div>
 </body>
 
 <script>

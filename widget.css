@@ -1,7 +1,9 @@
 
 #widget-type1-1-properties-container,
 #widget-type2-1-properties-container,
-#widget-type3-1-properties-container
+#widget-type3-1-properties-container,
+#widget-type4-1-properties-container
+
 {
     display: none;
     width: 100%; 
@@ -16,7 +18,8 @@
 
 #widget-type1-1-properties-form,
 #widget-type2-1-properties-form,
-#widget-type3-1-properties-form
+#widget-type3-1-properties-form,
+#widget-type4-1-properties-form
 {
     position: relative;
     max-width: 500px;
@@ -163,7 +166,7 @@
     justify-content: center;
     align-items: center;
     color: white;
-    font-size: 2em;
+    font-size: 1em;
     /* background-color: #04AA6D; */
 }
 

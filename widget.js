@@ -7,6 +7,8 @@ const TYPE3_1_SVG = '<svg height="100%" viewBox="0 0 100 100" style="transform:r
 style="fill:none; stroke:#27AAE1; stroke-width: 10px; stroke-dasharray:283; stroke-dashoffset:283; stroke-linecap:round; "/>\
 </svg>';
 
+const TYEP4_1_SVG = '';
+
 
 function openWidgetPropertiesType1_1() {
     let widgetPropertiesContainer = document.getElementById("widget-type1-1-properties-container");
@@ -20,6 +22,11 @@ function openWidgetPropertiesType2_1() {
 
 function openWidgetPropertiesType3_1() {
     let widgetPropertiesContainer = document.getElementById("widget-type3-1-properties-container");
+    widgetPropertiesContainer.style.display = "flex";
+}
+
+function openWidgetPropertiesType4_1() {
+    let widgetPropertiesContainer = document.getElementById("widget-type4-1-properties-container");
     widgetPropertiesContainer.style.display = "flex";
 }
 
@@ -193,6 +200,54 @@ function createWidgetType3_1() {
     startMonitoringType3(childContainer, widgetInfo);
 }
 
+function createWidgetType4_1() {
+    let pageIndex = getMonitoringPageIndex();
+    const monitoringContainer = document.getElementsByClassName("monitoringContainer")[pageIndex];
+
+    let formSize = 'size1by1';
+    let childContainerID = createNewMonitor(monitoringContainer, formSize);
+
+    let pvName = document.getElementById("widget-type4-1-pvname").value;
+    let title = document.getElementById("widget-type4-1-title").value;
+    let min = document.getElementById("widget-type4-1-min").value;
+    let max = document.getElementById("widget-type4-1-max").value;
+
+    let widgetInfo = {
+        "type": 'type4-1',
+        "pvname": pvName,
+        "title": title,
+        "min": min,
+        "max": max
+    }
+
+    // createWidget(containerID, widgetType, widgetInfo);
+    // monitoringInfo.push(widgetInfo);
+
+    const propertiesContainer = document.getElementById("widget-type4-1-properties-container");
+    propertiesContainer.style.display = "none";
+
+    const titleNode = document.createElement("div");
+    titleNode.classList.add("widgetTitle");
+    titleNode.innerText = title;
+
+    const widgetContainer = document.createElement("div");
+    widgetContainer.classList.add("widgetType4Container");
+
+    let widgetSVG = TYPE4_1_SVG;
+    widgetContainer.innerHTML = widgetSVG;
+
+    const widgetValueContainer = document.createElement("div");
+    widgetValueContainer.classList.add("widgetType4ValueContainer");
+    widgetValueContainer.innerText = "";
+
+    widgetContainer.appendChild(widgetValueContainer);
+
+    const childContainer = childContainerID.childNodes[1];
+    childContainer.appendChild(titleNode);
+    childContainer.appendChild(widgetContainer);
+
+    startMonitoringType4(childContainer, widgetInfo);
+}
 
 
 function cancelWidgetProperties(id) {
@@ -309,12 +364,14 @@ function startMonitoringType3(id, data) {
     if (isSimulation) {
         setInterval(function () {
             let value = Math.round(Math.random() * 100);
-            const valueNodeID = id.querySelector(".widgetType3_1Foreground");
+            const forgroundNodeID = id.querySelector(".widgetType3_1Foreground");
+            const valueNodeID = id.querySelector(".widgetType3ValueContainer");
             if (!documentHidden) {
-                doughnutChartAnimation(valueNodeID, value);
+                valueNodeID.innerText = value;
+                doughnutChartAnimation(forgroundNodeID, value);
             }
 
-        }, 3000);
+        }, 5000);
     }
     else {
 
