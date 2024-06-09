@@ -136,7 +136,9 @@
 }
 
 .widgetType2Container,
-.widgetType3Container
+.widgetType3Container,
+.widgetType4Container
+
 {
     position: relative;
     width: 100%;
@@ -146,14 +148,9 @@
     align-items: center;
 }
 
-/* .widgetType2SVGContainer {
-    position: relative;
-    display: flex;
-    width: 100%;
-    height: 60%;
-    justify-content: center;
-    align-items: center;
-} */
+.widgetType4Container {
+
+}
 
 .widgetType2ValueContainer,
 .widgetType3ValueContainer
@@ -169,6 +166,24 @@
     font-size: 1em;
     /* background-color: #04AA6D; */
 }
+
+.widgetType4ValueContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60%;
+    height: 100%;
+    background-color: #a0001b;
+}
+
+.widgetType4SVGContainer {
+    display: flex;
+    justify-content: right;
+    width: 40%;
+    height: 100%;
+    /* background-color: #04AA6D; */
+}
+
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {

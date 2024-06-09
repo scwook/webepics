@@ -7,7 +7,12 @@ const TYPE3_1_SVG = '<svg height="100%" viewBox="0 0 100 100" style="transform:r
 style="fill:none; stroke:#27AAE1; stroke-width: 10px; stroke-dasharray:283; stroke-dashoffset:283; stroke-linecap:round; "/>\
 </svg>';
 
-const TYEP4_1_SVG = '';
+const TYPE4_1_SVG = '<svg height="100%" viewBox="0 0 20 100">\
+<defs><linearGradient id="linear-gradient" x1="9.89" y1="93.79" x2="10.12" y2="-.06" gradientUnits="userSpaceOnUse">\
+<stop offset="0" stop-color="#29ABE2"><animate id="linear-gradient1" begin="indefinite" dur="1s" attributeName="offset" fill="freeze" from="0" to="0" keySplines=" 0.0 0.4 0.1 1" keyTimes="0;1" calcMode="spline" /></stop>\
+<stop offset="0" stop-color="#29ABE2" stop-opacity="0.1"><animate id="linear-gradient2" begin="indefinite" dur="1s" attributeName="offset" fill="freeze"from="0" to="0" keySplines=" 0.0 0.4 0.1 1" keyTimes="0;1" calcMode="spline" /></stop>\
+</linearGradient></defs>\
+<rect fill="url(#linear-gradient)" class="cls-1" x="1" y="1" width="18" height="98" rx="9" ry="9"style="stroke:none; stroke-width:2px;" /></svg>';
 
 
 function openWidgetPropertiesType1_1() {
@@ -233,20 +238,25 @@ function createWidgetType4_1() {
     const widgetContainer = document.createElement("div");
     widgetContainer.classList.add("widgetType4Container");
 
-    let widgetSVG = TYPE4_1_SVG;
-    widgetContainer.innerHTML = widgetSVG;
-
     const widgetValueContainer = document.createElement("div");
     widgetValueContainer.classList.add("widgetType4ValueContainer");
-    widgetValueContainer.innerText = "";
+    widgetValueContainer.innerText = "Value";
+
+    const widgetSVGContainer = document.createElement("div");
+    widgetSVGContainer.classList.add("widgetType4SVGContainer");
+    // widgetSVGContainer.innerText = "SVG";
+
+    let widgetSVG = TYPE4_1_SVG;
+    widgetSVGContainer.innerHTML = widgetSVG;
 
     widgetContainer.appendChild(widgetValueContainer);
+    widgetContainer.appendChild(widgetSVGContainer);
 
     const childContainer = childContainerID.childNodes[1];
     childContainer.appendChild(titleNode);
     childContainer.appendChild(widgetContainer);
 
-    startMonitoringType4(childContainer, widgetInfo);
+    // startMonitoringType4(childContainer, widgetInfo);
 }
 
 
