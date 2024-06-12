@@ -9,8 +9,8 @@ style="fill:none; stroke:#27AAE1; stroke-width: 10px; stroke-dasharray:283; stro
 
 const TYPE4_1_SVG = '<svg height="100%" viewBox="0 0 20 100">\
 <defs><linearGradient id="linear-gradient" x1="9.89" y1="93.79" x2="10.12" y2="-.06" gradientUnits="userSpaceOnUse">\
-<stop offset="0" stop-color="#29ABE2"><animate id="linear-gradient1" begin="indefinite" dur="1s" attributeName="offset" fill="freeze" from="0" to="0" keySplines=" 0.0 0.4 0.1 1" keyTimes="0;1" calcMode="spline" /></stop>\
-<stop offset="0" stop-color="#29ABE2" stop-opacity="0.1"><animate id="linear-gradient2" begin="indefinite" dur="1s" attributeName="offset" fill="freeze"from="0" to="0" keySplines=" 0.0 0.4 0.1 1" keyTimes="0;1" calcMode="spline" /></stop>\
+<stop offset="0" stop-color="#29ABE2"><animate class="linearGradientPoint1" begin="indefinite" dur="1s" attributeName="offset" fill="freeze" from="0" to="0" keySplines=" 0.0 0.4 0.1 1" keyTimes="0;1" calcMode="spline" /></stop>\
+<stop offset="0" stop-color="#29ABE2" stop-opacity="0.1"><animate class="linearGradientPoint2" begin="indefinite" dur="1s" attributeName="offset" fill="freeze"from="0" to="0" keySplines=" 0.0 0.4 0.1 1" keyTimes="0;1" calcMode="spline" /></stop>\
 </linearGradient></defs>\
 <rect fill="url(#linear-gradient)" class="cls-1" x="1" y="1" width="18" height="98" rx="9" ry="9"style="stroke:none; stroke-width:2px;" /></svg>';
 
@@ -32,6 +32,11 @@ function openWidgetPropertiesType3_1() {
 
 function openWidgetPropertiesType4_1() {
     let widgetPropertiesContainer = document.getElementById("widget-type4-1-properties-container");
+    widgetPropertiesContainer.style.display = "flex";
+}
+
+function openWidgetPropertiesType5_1() {
+    let widgetPropertiesContainer = document.getElementById("widget-type5-1-properties-container");
     widgetPropertiesContainer.style.display = "flex";
 }
 
@@ -256,7 +261,61 @@ function createWidgetType4_1() {
     childContainer.appendChild(titleNode);
     childContainer.appendChild(widgetContainer);
 
-    // startMonitoringType4(childContainer, widgetInfo);
+    startMonitoringType4(childContainer, widgetInfo);
+}
+
+function createWidgetType5_1() {
+    let pageIndex = getMonitoringPageIndex();
+    const monitoringContainer = document.getElementsByClassName("monitoringContainer")[pageIndex];
+
+    let formSize = 'size1by1';
+    let childContainerID = createNewMonitor(monitoringContainer, formSize);
+
+    let pvName = document.getElementById("widget-type5-1-pvname").value;
+    let title = document.getElementById("widget-type5-1-title").value;
+    let min = document.getElementById("widget-type5-1-min").value;
+    let max = document.getElementById("widget-type5-1-max").value;
+
+    let widgetInfo = {
+        "type": 'type5-1',
+        "pvname": pvName,
+        "title": title,
+        "min": min,
+        "max": max
+    }
+
+    // createWidget(containerID, widgetType, widgetInfo);
+    // monitoringInfo.push(widgetInfo);
+
+    const propertiesContainer = document.getElementById("widget-type5-1-properties-container");
+    propertiesContainer.style.display = "none";
+
+    const titleNode = document.createElement("div");
+    titleNode.classList.add("widgetTitle");
+    titleNode.innerText = title;
+
+    const widgetContainer = document.createElement("div");
+    widgetContainer.classList.add("widgetType5Container");
+
+    const widgetValueContainer = document.createElement("div");
+    widgetValueContainer.classList.add("widgetType5ValueContainer");
+    widgetValueContainer.innerText = "Value";
+
+    const widgetSVGContainer = document.createElement("div");
+    widgetSVGContainer.classList.add("widgetType5SVGContainer");
+    // widgetSVGContainer.innerText = "SVG";
+
+    let widgetSVG = TYPE5_1_SVG;
+    widgetSVGContainer.innerHTML = widgetSVG;
+
+    widgetContainer.appendChild(widgetValueContainer);
+    widgetContainer.appendChild(widgetSVGContainer);
+
+    const childContainer = childContainerID.childNodes[1];
+    childContainer.appendChild(titleNode);
+    childContainer.appendChild(widgetContainer);
+
+    // startMonitoringType5(childContainer, widgetInfo);
 }
 
 
@@ -379,6 +438,42 @@ function startMonitoringType3(id, data) {
             if (!documentHidden) {
                 valueNodeID.innerText = value;
                 doughnutChartAnimation(forgroundNodeID, value);
+            }
+
+        }, 5000);
+    }
+    else {
+
+    }
+}
+
+let currentPointValue = 0.0;
+function startMonitoringType4(id, data) {
+    // const valueNodeID = id.querySelector("." + widgetValueNodeClass);
+
+    if (isSimulation) {
+        setInterval(function () {
+            let value = Math.random().toFixed(1);
+            const point1NodeID = id.querySelector(".linearGradientPoint1");
+            const point2NodeID = id.querySelector(".linearGradientPoint2");
+
+            point1NodeID.setAttribute('from', currentPointValue);
+            point1NodeID.setAttribute('to', value)
+
+            point2NodeID.setAttribute('from', currentPointValue);
+            point2NodeID.setAttribute('to', value);
+
+            point1NodeID.beginElement();
+            point2NodeID.beginElement();
+
+            currentPointValue = value;
+
+            const valueNodeID = id.querySelector(".widgetType4ValueContainer");
+            valueNodeID.innerText = value;
+
+            if (!documentHidden) {
+                // valueNodeID.innerText = value;
+                // doughnutChartAnimation(forgroundNodeID, value);
             }
 
         }, 5000);
