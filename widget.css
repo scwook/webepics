@@ -182,6 +182,27 @@
     /* background-color: #04AA6D; */
 }
 
+.moveAnimation {
+    animation: moveAnimationKeyframe 2s linear forwards;
+}
+
+@keyframes moveAnimationKeyframe {
+    from {
+        top: var(--startPosition);
+    }
+    to {
+        top: var(--endPostion);
+    }
+}
+
+@keyframes rotationAnimationKeyframe {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {

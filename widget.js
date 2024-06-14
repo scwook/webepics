@@ -483,6 +483,24 @@ function startMonitoringType4(id, data) {
     }
 }
 
+function startMonitoringType4(id, data) {
+    // const valueNodeID = id.querySelector("." + widgetValueNodeClass);
+
+    if (isSimulation) {
+        setInterval(function () {
+
+            if (!documentHidden) {
+                // valueNodeID.innerText = value;
+                // doughnutChartAnimation(forgroundNodeID, value);
+            }
+
+        }, 5000);
+    }
+    else {
+
+    }
+}
+
 const chartMaxLength = Math.ceil(90 * Math.PI);
 
 function doughnutChartAnimation(chartID, chartValue) {
