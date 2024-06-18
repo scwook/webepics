@@ -2,8 +2,8 @@
 #widget-type1-1-properties-container,
 #widget-type2-1-properties-container,
 #widget-type3-1-properties-container,
-#widget-type4-1-properties-container
-
+#widget-type4-1-properties-container,
+#widget-type5-1-properties-container
 {
     display: none;
     width: 100%; 
@@ -19,7 +19,9 @@
 #widget-type1-1-properties-form,
 #widget-type2-1-properties-form,
 #widget-type3-1-properties-form,
-#widget-type4-1-properties-form
+#widget-type4-1-properties-form,
+#widget-type5-1-properties-form
+
 {
     position: relative;
     max-width: 500px;
@@ -137,8 +139,8 @@
 
 .widgetType2Container,
 .widgetType3Container,
-.widgetType4Container
-
+.widgetType4Container,
+.widgetType5Container
 {
     position: relative;
     width: 100%;
@@ -150,7 +152,8 @@
 
 
 .widgetType2ValueContainer,
-.widgetType3ValueContainer
+.widgetType3ValueContainer,
+.widgetType5ValueContainer
 {
     position: absolute;
     display: flex;
@@ -182,20 +185,49 @@
     /* background-color: #04AA6D; */
 }
 
-.moveAnimation {
-    animation: moveAnimationKeyframe 2s linear forwards;
+.widgetType5BoxContainer {
+    position: relative;
+    height: 100%;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    border-style: solid;
+    border-color: #04AA6D;
+    /* overflow: hidden; */
 }
 
-@keyframes moveAnimationKeyframe {
+.widgetType5SubBoxContainer {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    top: 100%;
+}
+
+.widgetType5SubSubBoxContainer {
+    width: 200%;
+    height: 200%;
+    position: relative;
+    /* animation: rotation 5s linear infinite; */
+    background-color: #04AA6D;
+    border-radius: 45%;
+    left: -50%;
+}
+
+.moveAnimation {
+    animation: moveTop 2s linear forwards;
+}
+
+@keyframes moveTop {
     from {
+        /* top: 100px; */
         top: var(--startPosition);
     }
     to {
+        /* top: 125px; */
         top: var(--endPostion);
     }
 }
 
-@keyframes rotationAnimationKeyframe {
+@keyframes rotation {
     from {
         transform: rotate(0deg);
     }

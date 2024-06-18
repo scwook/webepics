@@ -297,19 +297,33 @@ function createWidgetType5_1() {
     const widgetContainer = document.createElement("div");
     widgetContainer.classList.add("widgetType5Container");
 
+    const widgetBoxContainer = document.createElement("div");
+    widgetBoxContainer.classList.add("widgetType5BoxContainer");
+
+    widgetBoxContainer.style.setProperty('--startPosition', '0px');
+    widgetBoxContainer.style.setProperty('--endPosition', '100px');
+
+    widgetBoxContainer.classList.remove('moveAnimation');
+
+    void widgetBoxContainer.offsetHeight;
+
+    widgetBoxContainer.classList.add('moveAnimation');
+
+    const widgetSubBoxContainer = document.createElement("div");
+    widgetSubBoxContainer.classList.add("widgetType5SubBoxContainer");
+
+    const widgetSubSubBoxContainer = document.createElement("div");
+    widgetSubSubBoxContainer.classList.add("widgetType5SubSubBoxContainer");
+
+    widgetSubBoxContainer.appendChild(widgetSubSubBoxContainer);
+    widgetBoxContainer.appendChild(widgetSubBoxContainer);
+
     const widgetValueContainer = document.createElement("div");
     widgetValueContainer.classList.add("widgetType5ValueContainer");
     widgetValueContainer.innerText = "Value";
 
-    const widgetSVGContainer = document.createElement("div");
-    widgetSVGContainer.classList.add("widgetType5SVGContainer");
-    // widgetSVGContainer.innerText = "SVG";
-
-    let widgetSVG = TYPE5_1_SVG;
-    widgetSVGContainer.innerHTML = widgetSVG;
-
     widgetContainer.appendChild(widgetValueContainer);
-    widgetContainer.appendChild(widgetSVGContainer);
+    widgetContainer.appendChild(widgetBoxContainer);
 
     const childContainer = childContainerID.childNodes[1];
     childContainer.appendChild(titleNode);
@@ -483,18 +497,31 @@ function startMonitoringType4(id, data) {
     }
 }
 
-function startMonitoringType4(id, data) {
-    // const valueNodeID = id.querySelector("." + widgetValueNodeClass);
+function aniTest(id) {
+    var moveContainerID = id.querySelector(".widgetType5SubBoxContainer");
+    const rotationContainerID = id.querySelector(".widgetType5SubSubBoxContainer");
+    const valueNodeID = id.querySelector(".widgetType5ValueContainer");
+
+    let moveValue = Math.floor(Math.random() * 100);
+    let sPos = moveContainerID.offsetTop + 'px';
+    let ePos = moveValue + 'px';
+
+    moveContainerID.style.setProperty('--startPosition', sPos);
+    moveContainerID.style.setProperty('--endPosition', ePos);
+
+    moveContainerID.classList.remove('moveAnimation');
+    void moveContainerID.offsetHeight;
+    moveContainerID.classList.add('moveAnimation');
+
+}
+
+function startMonitoringType5(id, data) {
+
+
+
 
     if (isSimulation) {
-        setInterval(function () {
-
-            if (!documentHidden) {
-                // valueNodeID.innerText = value;
-                // doughnutChartAnimation(forgroundNodeID, value);
-            }
-
-        }, 5000);
+        setInterval(aniTest, 3000, id);
     }
     else {
 
