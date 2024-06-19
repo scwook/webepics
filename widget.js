@@ -329,7 +329,7 @@ function createWidgetType5_1() {
     childContainer.appendChild(titleNode);
     childContainer.appendChild(widgetContainer);
 
-    // startMonitoringType5(childContainer, widgetInfo);
+    startMonitoringType5(childContainer, widgetInfo);
 }
 
 
@@ -497,35 +497,73 @@ function startMonitoringType4(id, data) {
     }
 }
 
-function aniTest(id) {
+const rotationKeyframe = [
+    { transform: "rotate(0)" },
+    { transform: "rotate(360deg)" }
+
+];
+
+const rotationOption =
+{
+    duration: 5000,
+    iterations: Infinity,
+};
+
+// const moveKeyframe = [
+//     { transform: "translateY(0%)" },
+//     { transform: "translateY(100%)" },
+// ];
+
+const moveKeyframe = [
+    { top: "0px;" },
+    { top: "100px;" },
+];
+
+const moveOption =
+{
+    duration: 2000,
+    iterations: 1,
+    fill: "forwards"
+};
+
+
+function startMonitoringType5(id, data) {
     var moveContainerID = id.querySelector(".widgetType5SubBoxContainer");
     const rotationContainerID = id.querySelector(".widgetType5SubSubBoxContainer");
     const valueNodeID = id.querySelector(".widgetType5ValueContainer");
 
-    let moveValue = Math.floor(Math.random() * 100);
-    let sPos = moveContainerID.offsetTop + 'px';
-    let ePos = moveValue + 'px';
 
-    moveContainerID.style.setProperty('--startPosition', sPos);
-    moveContainerID.style.setProperty('--endPosition', ePos);
+    let rotationAnimationID = rotationContainerID.animate(rotationKeyframe, rotationOption);
+    let moveAnimationID = moveContainerID.animate(moveKeyframe, moveOption);
 
-    moveContainerID.classList.remove('moveAnimation');
-    void moveContainerID.offsetHeight;
-    moveContainerID.classList.add('moveAnimation');
-
-}
-
-function startMonitoringType5(id, data) {
-
-
-
+    rotationAnimationID.pause();
+    moveAnimationID.pause();
 
     if (isSimulation) {
-        setInterval(aniTest, 3000, id);
+        setInterval(function () {
+            let moveValue = Math.floor(Math.random() * 100);
+            let sPos = moveContainerID.offsetPar;
+            let ePos = moveValue;
+
+            // moveKeyframe[0].transform = "translateY(" + sPos + "px)";
+            // moveKeyframe[1].transform = "translateY(" + ePos + "px)";
+
+            moveKeyframe[0].top = sPos + "px)";
+            moveKeyframe[1].top = ePos + "px)";
+
+            moveAnimationID.cancel()
+            moveAnimationID = moveContainerID.animate(moveKeyframe, moveOption);
+            console.log(sPos, ePos);
+
+        }, 3000, id);
     }
     else {
 
     }
+
+    setInterval(function () {
+        console.log(moveContainerID.offsetTop);
+    }, 50);
 }
 
 const chartMaxLength = Math.ceil(90 * Math.PI);

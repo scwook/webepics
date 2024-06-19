@@ -332,7 +332,7 @@
 
     const rotationconfig = [
         { transform: "rotate(0)" },
-        { transform: "rotate(360deg)" },
+        { transform: "rotate(360deg)" }
 
     ];
 
@@ -363,7 +363,15 @@
     let moveboxid = document.getElementById('subbox');
     let moveaniid = moveboxid.animate(moveconfig, movetiming);
 
+    setTimeout(() => {
+        moveaniid.cancel();
+        moveconfig[0].transform = "translateY(100%)";
+        moveconfig[1].transform = "translateY(0%)";
 
+        
+        moveaniid = moveboxid.animate(moveconfig, movetiming);
+
+    }, 3000);
 </script>
 
 </html>
