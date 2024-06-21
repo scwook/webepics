@@ -40,6 +40,11 @@ function openWidgetPropertiesType5_1() {
     widgetPropertiesContainer.style.display = "flex";
 }
 
+function openWidgetPropertiesType6_1() {
+    let widgetPropertiesContainer = document.getElementById("widget-type6-1-properties-container");
+    widgetPropertiesContainer.style.display = "flex";
+}
+
 function createWidgetType1_1() {
     let pageIndex = getMonitoringPageIndex();
     const monitoringContainer = document.getElementsByClassName("monitoringContainer")[pageIndex];
@@ -332,6 +337,55 @@ function createWidgetType5_1() {
     startMonitoringType5(childContainer, widgetInfo);
 }
 
+function createWidgetType6_1() {
+    let pageIndex = getMonitoringPageIndex();
+    const monitoringContainer = document.getElementsByClassName("monitoringContainer")[pageIndex];
+
+    let formSize = 'size1by1';
+    let childContainerID = createNewMonitor(monitoringContainer, formSize);
+
+    let pvName = document.getElementById("widget-type6-1-pvname").value;
+    let title = document.getElementById("widget-type6-1-title").value;
+    let min = document.getElementById("widget-type6-1-min").value;
+    let max = document.getElementById("widget-type6-1-max").value;
+
+    let widgetInfo = {
+        "type": 'type6-1',
+        "pvname": pvName,
+        "title": title,
+        "min": min,
+        "max": max
+    }
+
+    // createWidget(containerID, widgetType, widgetInfo);
+    // monitoringInfo.push(widgetInfo);
+
+    const propertiesContainer = document.getElementById("widget-type6-1-properties-container");
+    propertiesContainer.style.display = "none";
+
+    const titleNode = document.createElement("div");
+    titleNode.classList.add("widgetTitle");
+    titleNode.innerText = title;
+
+    const widgetContainer = document.createElement("div");
+    widgetContainer.classList.add("widgetType6Container");
+
+    let widgetSVG = TYPE3_1_SVG;
+    widgetContainer.innerHTML = widgetSVG;
+
+    const widgetValueContainer = document.createElement("div");
+    widgetValueContainer.classList.add("widgetType6ValueContainer");
+    widgetValueContainer.innerText = "";
+
+    widgetContainer.appendChild(widgetValueContainer);
+
+    const childContainer = childContainerID.childNodes[1];
+    childContainer.appendChild(titleNode);
+    childContainer.appendChild(widgetContainer);
+
+    // startMonitoringType6(childContainer, widgetInfo);
+}
+
 
 function cancelWidgetProperties(id) {
     let formNode = id.parentNode;
@@ -509,15 +563,11 @@ const rotationOption =
     iterations: Infinity,
 };
 
-// const moveKeyframe = [
-//     { transform: "translateY(0%)" },
-//     { transform: "translateY(100%)" },
-// ];
-
 const moveKeyframe = [
-    { top: "0px;" },
-    { top: "100px;" },
+    { transform: "translateY(0%)" },
+    { transform: "translateY(100%)" },
 ];
+
 
 const moveOption =
 {
@@ -527,43 +577,55 @@ const moveOption =
 };
 
 
+function widgetType5Move(moveContainerID, valueContainerID, animationID, pos) {
+    let value = Math.floor(Math.random() * 100);
+
+    valueContainerID.innerText = value;
+
+    let sPos = pos;
+    let ePos = value;
+
+    moveKeyframe[0].transform = "translateY(" + sPos + "%)";
+    moveKeyframe[1].transform = "translateY(" + ePos + "%)";
+
+    animationID.cancel()
+    animationID = moveContainerID.animate(moveKeyframe, moveOption);
+
+    setTimeout(widgetType5Move, 5000, moveContainerID, valueContainerID, animationID, ePos);
+}
+
+function widgetType5Rotation(containerID, animationID) {
+    let rotationValue = Math.random() < 0.2;
+
+    if(rotationValue) {
+        animationID.pause();
+    }
+    else {
+        animationID.play();
+    }
+
+    setTimeout(widgetType5Rotation, 5000, containerID, animationID);
+}
+
 function startMonitoringType5(id, data) {
-    var moveContainerID = id.querySelector(".widgetType5SubBoxContainer");
-    const rotationContainerID = id.querySelector(".widgetType5SubSubBoxContainer");
-    const valueNodeID = id.querySelector(".widgetType5ValueContainer");
-
-
-    let rotationAnimationID = rotationContainerID.animate(rotationKeyframe, rotationOption);
-    let moveAnimationID = moveContainerID.animate(moveKeyframe, moveOption);
-
-    rotationAnimationID.pause();
-    moveAnimationID.pause();
 
     if (isSimulation) {
-        setInterval(function () {
-            let moveValue = Math.floor(Math.random() * 100);
-            let sPos = moveContainerID.offsetPar;
-            let ePos = moveValue;
+        const moveContainerID = id.querySelector(".widgetType5SubBoxContainer");
+        const rotationContainerID = id.querySelector(".widgetType5SubSubBoxContainer");
+        const valueNodeID = id.querySelector(".widgetType5ValueContainer");
 
-            // moveKeyframe[0].transform = "translateY(" + sPos + "px)";
-            // moveKeyframe[1].transform = "translateY(" + ePos + "px)";
+        let rotationAnimationID = rotationContainerID.animate(rotationKeyframe, rotationOption);
+        let moveAnimationID = moveContainerID.animate(moveKeyframe, moveOption);
 
-            moveKeyframe[0].top = sPos + "px)";
-            moveKeyframe[1].top = ePos + "px)";
+        rotationAnimationID.pause();
+        moveAnimationID.pause();
 
-            moveAnimationID.cancel()
-            moveAnimationID = moveContainerID.animate(moveKeyframe, moveOption);
-            console.log(sPos, ePos);
-
-        }, 3000, id);
+        setTimeout(widgetType5Move, 5000, moveContainerID, valueNodeID, moveAnimationID, 100);
+        setTimeout(widgetType5Rotation, 5000, rotationContainerID, rotationAnimationID);
     }
     else {
 
     }
-
-    setInterval(function () {
-        console.log(moveContainerID.offsetTop);
-    }, 50);
 }
 
 const chartMaxLength = Math.ceil(90 * Math.PI);

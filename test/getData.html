@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+<button type="button">Get Data</button>
+</body>
+<script>
+    function getPvData(id, pvname) {
+
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4) {
+                if (this.status == 200) {
+                    var jsonValue = JSON.parse(this.responseText);
+                    if (jsonValue.Connection == 'True') {
+                        document.getElementById(id).innerText = jsonValue.value;
+                    }
+                    else {
+                        document.getElementById(id).innerText = "Disconnected";
+                    }
+
+                    setTimeout(getPvData, 1000, id, pvname);
+                    // recordData = jsonValue;
+                }
+
+                else {
+                    // alert('Status Error : ' + this.status);
+                    document.getElementById(id).innerText = "No Response";
+                    setTimeout(getPvData, 1000, id, pvname);
+                    console.log(this.readyState);
+                    // setTimeout(getPvData, 1000, id, pvname);
+                }
+            }
+
+
+        };
+
+        var serverAddr = 'http://192.168.131.23:17668/retrieval/data/getData.json?pv=KOBRA-VAC%3AF1VC-VG01%3AGaugeRB&from2024-05-01T09%3A00%3A00.000Z&to=2024-05-10T10%3A00%3A00.000Z';
+        xhttp.open("GET", requestData, true);
+        xhttp.send();
+    }
+</script>
+
+</html>

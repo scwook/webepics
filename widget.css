@@ -3,7 +3,8 @@
 #widget-type2-1-properties-container,
 #widget-type3-1-properties-container,
 #widget-type4-1-properties-container,
-#widget-type5-1-properties-container
+#widget-type5-1-properties-container,
+#widget-type6-1-properties-container
 {
     display: none;
     width: 100%; 
@@ -20,8 +21,8 @@
 #widget-type2-1-properties-form,
 #widget-type3-1-properties-form,
 #widget-type4-1-properties-form,
-#widget-type5-1-properties-form
-
+#widget-type5-1-properties-form,
+#widget-type6-1-properties-form
 {
     position: relative;
     max-width: 500px;
@@ -192,15 +193,13 @@
     border-radius: 50%;
     border-style: solid;
     border-color: #04AA6D;
-    /* overflow: hidden; */
+    overflow: hidden;
 }
 
 .widgetType5SubBoxContainer {
     width: 100%;
     height: 100%;
-    position: relative;
-    /* top: 10px; */
-    background-color: #a0001b;
+    position: absolute;
 }
 
 .widgetType5SubSubBoxContainer {
