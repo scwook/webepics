@@ -3,45 +3,65 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-    .container {
-        position: relative;
-        float: left;
-        width:260px;
-        height:260px;
-        background-color: #212121;
+  .container {
+    position: relative;
+    float: left;
+    width: 500px;
+    height: 500px;
+    background-color: #212121;
+  }
+
+  .widgetType7Container {
+    position: relative;
+    width: 100%;
+    height: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #outter {
+    animation: clockwise 10s linear infinite ;
+  }
+
+  #inner {
+    animation: countclockwise 10s linear infinite ;
+
+  }
+
+  @keyframes clockwise {
+    from {
+      transform: rotate(0deg);
     }
 
-    .widgetType7Container {
-        position: relative;
-        width: 100%;
-        height: 60%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+
+  @keyframes countclockwise {
+    from {
+      transform: rotate(0deg);
     }
 
-    .outter {
-        animation: clockwise ;
+    to {
+      transform: rotate(-360deg);
     }
-
-    @keyframes clockwise {
-        from {
-            transform: rotate(0deg);
-        }
-
-        to {
-            transform: rotate(360deg);
-        }
-    }
-
-
+  }
 </style>
 
 <body>
-    <div class="container"></div>
+  <div id="test" style="width: 200px; height:200px; background-color: green; animation:countclockwise 10s linear infinite"></div>
+
+  <div class="container"></div>
+  <button type="button" onclick="start()">Start</button>
+  <button type="button" onclick="stop()">Stop</button>
+
+
 </body>
 <script>
-    const TYPE7_1_SVG = '<svg  height="100%" viewBox="0 0 100 100">\
+  const TYPE7_1_SVG = '<svg  height="100%" viewBox="0 0 100 100">\
   <defs><style>\
     .widgetType7_1FillColor1 {\
         fill: #e61a74;\
@@ -53,7 +73,7 @@
       }\
     </style></defs>\
   <circle class="cls-1" cx="50" cy="50" r="37.5" style="fill:none; stroke:#d41c5c; stroke-width:2px"/>\
-  <g class="outter">\
+  <g id="outter" style="transform-origin: 50% 50%;">\
     <polygon class="widgetType7_1FillColor1" points="48.8 .08 54.81 .08 51.2 3.69 45.19 3.69 48.8 .08"/>\
     <polygon class="widgetType7_1FillColor2" points="57.48 .63 63.41 1.67 59.23 4.6 53.3 3.55 57.48 .63"/>\
     <polygon class="widgetType7_1FillColor1" points="65.94 2.68 71.6 4.73 66.97 6.89 61.32 4.83 65.94 2.68"/>\
@@ -91,7 +111,7 @@
     <polygon class="widgetType7_1FillColor1" points="31.79 3.5 37.45 1.44 35.29 6.07 29.64 8.12 31.79 3.5"/>\
     <polygon class="widgetType7_1FillColor2" points="40.15 1.04 46.07 0 43.14 4.18 37.22 5.23 40.15 1.04"/>\
   </g>\
-  <g>\
+  <g id="inner" style="transform-origin: 50% 50%;">\
     <polygon class="widgetType7_1FillColor1" points="51.06 6.07 45.77 6.07 48.94 9.24 54.23 9.24 51.06 6.07"/>\
     <polygon class="widgetType7_1FillColor2" points="43.41 6.55 38.2 7.47 41.88 10.05 47.09 9.13 43.41 6.55"/>\
     <polygon class="widgetType7_1FillColor1" points="35.97 8.36 31 10.17 35.07 12.06 40.04 10.25 35.97 8.36"/>\
@@ -131,22 +151,25 @@
   </g>\
   </svg>';
 
-    const widgetContainer = document.createElement("div");
-    widgetContainer.classList.add("widgetType7Container");
+  const widgetContainer = document.createElement("div");
+  widgetContainer.classList.add("widgetType7Container");
 
-    let widgetSVG = TYPE7_1_SVG;
-    widgetContainer.innerHTML = widgetSVG;
+  let widgetSVG = TYPE7_1_SVG;
+  widgetContainer.innerHTML = widgetSVG;
 
-    container = document.getElementsByClassName("container")
-    container[0].appendChild(widgetContainer);
+  container = document.getElementsByClassName("container")
+  container[0].appendChild(widgetContainer);
 
-    function start() {
+  function start() {
+    id = document.getElementById("inner");
+    id.style.animationPlayState = "running";
+  }
 
-    }
+  function stop() {
+    id = document.getElementById("inner");
+    id.style.animationPlayState = "paused";
+  }
 
-    function stop() {
-
-    }
 </script>
 
 </html>
