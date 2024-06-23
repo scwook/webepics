@@ -4,7 +4,8 @@
 #widget-type3-1-properties-container,
 #widget-type4-1-properties-container,
 #widget-type5-1-properties-container,
-#widget-type6-1-properties-container
+#widget-type6-1-properties-container,
+#widget-type7-1-properties-container
 {
     display: none;
     width: 100%; 
@@ -22,7 +23,8 @@
 #widget-type3-1-properties-form,
 #widget-type4-1-properties-form,
 #widget-type5-1-properties-form,
-#widget-type6-1-properties-form
+#widget-type6-1-properties-form,
+#widget-type7-1-properties-form
 {
     position: relative;
     max-width: 500px;
@@ -141,7 +143,9 @@
 .widgetType2Container,
 .widgetType3Container,
 .widgetType4Container,
-.widgetType5Container
+.widgetType5Container,
+.widgetType6Container,
+.widgetType7Container
 {
     position: relative;
     width: 100%;
@@ -154,7 +158,8 @@
 
 .widgetType2ValueContainer,
 .widgetType3ValueContainer,
-.widgetType5ValueContainer
+.widgetType5ValueContainer,
+.widgetType7ValueContainer
 {
     position: absolute;
     display: flex;

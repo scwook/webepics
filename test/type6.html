@@ -6,24 +6,23 @@
         height: 20px;
         background-color: brown;
         border-radius: 10px;
-        animation: upDown 3s linear forwards infinite;
+        animation: leftRight 1s linear forwards infinite, upDown 1s linear infinite;
         position: relative;
     }
 
     @keyframes upDown {
         0% {
             transform: translateY(0%);
-            transform: translateX(0%);
 
         }
 
         50% {
             transform: translateY(50%);
+
         }
 
         100% {
             transform: translateY(0%);
-            transform: translateX(100%);
 
             
         }
