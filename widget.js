@@ -20,13 +20,29 @@ const TYPE7_1_SVG = '<svg  height="100%" viewBox="0 0 100 100">\
         fill: #e61a74;\
         stroke-width: 0px;\
       }\
-      .widgetType7_1FillColor2 {\
+    .widgetType7_1FillColor2 {\
         fill: #f498ba;\
         stroke-width: 0px;\
       }\
+    @keyframes clockwise {\
+        from {\
+          transform: rotate(0deg);\
+        }\
+        to {\
+          transform: rotate(360deg);\
+        }\
+      }\
+    @keyframes counterclockwise {\
+        from {\
+          transform: rotate(0deg);\
+        }\
+        to {\
+          transform: rotate(-360deg);\
+        }\
+      }\
     </style></defs>\
-  <circle class="cls-1" cx="50" cy="50" r="37.5" style="fill:none; stroke:#d41c5c; stroke-width:2px"/>\
-  <g>\
+  <circle class="widgetType7_Circle" cx="50" cy="50" r="37.5" style="fill:none; stroke:#d41c5c; stroke-width:2px"/>\
+  <g class="widgetType7_1Outer" style="transform-origin: 50% 50%; animation: clockwise 10s linear infinite;animation-play-state:paused">\
     <polygon class="widgetType7_1FillColor1" points="48.8 .08 54.81 .08 51.2 3.69 45.19 3.69 48.8 .08"/>\
     <polygon class="widgetType7_1FillColor2" points="57.48 .63 63.41 1.67 59.23 4.6 53.3 3.55 57.48 .63"/>\
     <polygon class="widgetType7_1FillColor1" points="65.94 2.68 71.6 4.73 66.97 6.89 61.32 4.83 65.94 2.68"/>\
@@ -64,7 +80,7 @@ const TYPE7_1_SVG = '<svg  height="100%" viewBox="0 0 100 100">\
     <polygon class="widgetType7_1FillColor1" points="31.79 3.5 37.45 1.44 35.29 6.07 29.64 8.12 31.79 3.5"/>\
     <polygon class="widgetType7_1FillColor2" points="40.15 1.04 46.07 0 43.14 4.18 37.22 5.23 40.15 1.04"/>\
   </g>\
-  <g>\
+  <g class="widgetType7_1Inner" style="transform-origin: 50% 50%; animation: counterclockwise 10s linear infinite; animation-play-state:paused">\
     <polygon class="widgetType7_1FillColor1" points="51.06 6.07 45.77 6.07 48.94 9.24 54.23 9.24 51.06 6.07"/>\
     <polygon class="widgetType7_1FillColor2" points="43.41 6.55 38.2 7.47 41.88 10.05 47.09 9.13 43.41 6.55"/>\
     <polygon class="widgetType7_1FillColor1" points="35.97 8.36 31 10.17 35.07 12.06 40.04 10.25 35.97 8.36"/>\
@@ -527,7 +543,7 @@ function createWidgetType7_1() {
     childContainer.appendChild(titleNode);
     childContainer.appendChild(widgetContainer);
 
-    // startMonitoringType7(childContainer, widgetInfo);
+    startMonitoringType7(childContainer, widgetInfo);
 }
 
 function cancelWidgetProperties(id) {
@@ -740,7 +756,7 @@ function widgetType5Move(moveContainerID, valueContainerID, animationID, pos) {
 function widgetType5Rotation(containerID, animationID) {
     let rotationValue = Math.random() < 0.2;
 
-    if(rotationValue) {
+    if (rotationValue) {
         animationID.pause();
     }
     else {
@@ -765,6 +781,35 @@ function startMonitoringType5(id, data) {
 
         setTimeout(widgetType5Move, 5000, moveContainerID, valueNodeID, moveAnimationID, 100);
         setTimeout(widgetType5Rotation, 5000, rotationContainerID, rotationAnimationID);
+    }
+    else {
+
+    }
+}
+
+function startMonitoringType7(id, data) {
+
+    const innerNodeID = id.querySelector(".widgetType7_1Inner");
+    const outerNodeID = id.querySelector(".widgetType7_1Outer");
+    const circleNodeID = id.querySelector(".widgetType7_1Circle");
+    const valueNodeID = id.querySelector(".widgetType7ValueContainer");
+
+    if (isSimulation) {
+        setInterval(function () {
+            let status = Math.random() < 0.5;
+            if (status) {
+                innerNodeID.style.animationPlayState = "paused";
+                outerNodeID.style.animationPlayState = "paused";
+            }
+            else {
+                let value = Math.floor(Math.random() * 100);
+                valueNodeID.innerText = value;
+                innerNodeID.style.animationPlayState = "running";
+                outerNodeID.style.animationPlayState = "running";
+            }
+
+        }, 5000);
+
     }
     else {
 

@@ -216,6 +216,27 @@
     left: -50%;
 }
 
+@keyframes clockwise {
+    from {
+      transform: rotate(0deg);
+    }
+
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+
+  @keyframes counterclockwise {
+    from {
+      transform: rotate(0deg);
+    }
+
+    to {
+      transform: rotate(-360deg);
+    }
+  }
+
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
     .widgetTitle {
